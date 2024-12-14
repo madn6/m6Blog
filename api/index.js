@@ -1,12 +1,11 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import userRoutes from './routes/user.route.js';
 
 const app = express();
 
-
 dotenv.config();
-
 
 async function connnectToDatabase() {
 	try {
@@ -28,3 +27,5 @@ async function startServer() {
 }
 
 startServer();
+
+app.use('/api/user', userRoutes);
