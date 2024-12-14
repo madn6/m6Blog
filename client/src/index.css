@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+	user-select: none;
+	@apply font-interDisplay;
+}
+
+input[type='text']:focus {
+	outline: none;
+	box-shadow: none;
+    border-color:gray;
+}
+
+/* Define Inter Display Font Faces */
+
+@font-face {
+	font-family: 'Inter Display';
+	src: url('/fonts/InterDisplay-Thin.woff2') format('woff2');
+	font-weight: 100; /* Thin */
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Inter Display';
+	src: url('/fonts/InterDisplay-Light.woff2') format('woff2');
+	font-weight: 300; /* Light */
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter Display';
+	src: url('/fonts/InterDisplay-Regular.woff2') format('woff2');
+	font-weight: 400; /* Regular */
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter Display';
+	src: url('/fonts/InterDisplay-Medium.woff2') format('woff2');
+	font-weight: 500; /* Medium */
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter Display';
+	src: url('/fonts/InterDisplay-SemiBold.woff2') format('woff2');
+	font-weight: 600; /* Semibold */
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter Display';
+	src: url('/fonts/InterDisplay-Bold.woff2') format('woff2');
+	font-weight: 700; /* Bold */
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Taruno Wide';
+	src: url('/fonts/tarunowide-bold.woff2') format('woff2');
+	font-weight: 700; /* Bold */
+	font-style: normal;
+}
