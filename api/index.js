@@ -6,7 +6,7 @@ import authRoutes from './routes/auth.route.js';
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
 dotenv.config();
 
@@ -33,3 +33,14 @@ startServer();
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+
+app.use((err, req, res, next) => {
+	const statuscode = err.statusCode || 500;
+	const message = err.message || 'Internel server error';
+
+	res.status(statuscode).json({
+		success: false,
+		statuscode,
+		message
+	});
+});
