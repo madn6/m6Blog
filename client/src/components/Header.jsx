@@ -26,7 +26,7 @@ export default function Header() {
 					<AiFillMoon />
 				</Button>
 				<Link to="/sign-in">
-					<Button className="px-0 py-0">
+					<Button className="px-0 py-0 focus:ring-0">
 						Sign In
 					</Button>
 				</Link>
