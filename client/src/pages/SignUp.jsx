@@ -44,56 +44,62 @@ export default function SignUp() {
 
 	return (
 		<>
-			<div className="max-w-xs mx-auto h-full mt-32">
-				<Link to="/" className=" mb-4 flex items-center justify-center">
-					<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl">Blog</span>
-				</Link>
-				<form onSubmit={handleSubmit} className="flex flex-col gap-2">
-					<div>
-						<Label value="Username" />
-						<TextInput
-							type="text"
-							placeholder="Enter your username"
-							id="username"
-							onChange={handleChange}
-						/>
-					</div>
-					<div>
-						<Label value="Email" />
-						<TextInput
-							type="email"
-							placeholder="example@gmail.com"
-							id="email"
-							onChange={handleChange}
-						/>
-					</div>
-					<div>
-						<Label value="Password" />
-						<TextInput
-							type="password"
-							placeholder="Enter your password"
-							id="password"
-							onChange={handleChange}
-						/>
-					</div>
-					<Button type="submit" className="focus:ring-0" disabled={loading}>
-						{loading ? (
-							<>
-								<Spinner size="sm" />
-								<span className="pl-3">Loading...</span>
-							</>
-						) : (
-							'Sign Up'
-						)}
-					</Button>
-					<div className=" flex items-center justify-center gap-1 text-sm">
-						<span>Have an account?</span>
-						<Link to="/sign-in" className="text-blue-700 hover:underline">
-							Sign In
+			<div className=" h-screen  ">
+				<div className=" h-full max-w-xs mx-auto px-4  flex flex-col items-center justify-center">
+					<div className="w-full ">
+						<Link to="/" className=" mb-4 flex items-center justify-center">
+							<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl">
+								Sign up
+							</span>
 						</Link>
+						<form onSubmit={handleSubmit} className="flex flex-col gap-2">
+							<div>
+								<Label value="Username" />
+								<TextInput
+									type="text"
+									placeholder="Enter your username"
+									id="username"
+									onChange={handleChange}
+								/>
+							</div>
+							<div>
+								<Label value="Email" />
+								<TextInput
+									type="email"
+									placeholder="example@gmail.com"
+									id="email"
+									onChange={handleChange}
+								/>
+							</div>
+							<div>
+								<Label value="Password" />
+								<TextInput
+									type="password"
+									placeholder="Enter your password"
+									id="password"
+									onChange={handleChange}
+								/>
+							</div>
+							<Button type="submit" className="focus:ring-0" disabled={loading}>
+								{loading ? (
+									<>
+										<Spinner size="sm" />
+										<span className="pl-3">Loading...</span>
+									</>
+								) : (
+									'Sign Up'
+								)}
+							</Button>
+							<div className=" flex items-center justify-center gap-1 text-sm">
+								<span>Have an account?</span>
+								<Link to="/sign-in" className="text-blue-700 hover:underline">
+									Sign In
+								</Link>
+							</div>
+							{errorMessage && <Alert color="failure">{errorMessage}</Alert>}
+						</form>
 					</div>
-					{errorMessage && <Alert color="failure">{errorMessage}</Alert>}
-				</form>
+				</div>
 			</div>
 		</>
 	);

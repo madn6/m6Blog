@@ -8,7 +8,7 @@ export default function Header() {
 	return (
 		<Navbar className="border-b-2">
 			<Link to="/">
-				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl">Blog</span>
+				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl">Blogx</span>
 			</Link>
 			<form>
 				<TextInput
