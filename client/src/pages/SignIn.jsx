@@ -66,7 +66,8 @@ export default function SignIn() {
 							<div>
 								<Label value="Password" />
 								<TextInput
-									type="password"
+                  type="password"
+                  autoComplete="true"
 									placeholder="Enter your password"
 									id="password"
 									onChange={handleChange}
