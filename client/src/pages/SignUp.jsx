@@ -1,6 +1,7 @@
 import { Label, TextInput, Button, Alert, Spinner } from 'flowbite-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { OAuth } from '../components';
 
 export default function SignUp() {
 	const [formData, setFormData] = useState({});
@@ -65,6 +66,7 @@ export default function SignUp() {
 							<div>
 								<Label value="Email" />
 								<TextInput
+									autoComplete="true"
 									type="email"
 									placeholder="example@gmail.com"
 									id="email"
@@ -74,6 +76,7 @@ export default function SignUp() {
 							<div>
 								<Label value="Password" />
 								<TextInput
+									autoComplete="true"
 									type="password"
 									placeholder="Enter your password"
 									id="password"
@@ -90,6 +93,7 @@ export default function SignUp() {
 									'Sign Up'
 								)}
 							</Button>
+							<OAuth/>
 							<div className=" flex items-center justify-center gap-1 text-sm">
 								<span>Have an account?</span>
 								<Link to="/sign-in" className="text-blue-700 hover:underline">
