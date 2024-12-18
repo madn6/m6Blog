@@ -9,7 +9,6 @@ export default function Header() {
 	const dispatch = useDispatch();
 	const { currentUser } = useSelector((state) => state.user);
 	const { theme } = useSelector((state) => state.theme);
-	console.log('this is current user', currentUser);
 	return (
 		<Navbar className="border-b-2">
 			<Link to="/">
@@ -52,11 +51,9 @@ export default function Header() {
 						<Dropdown.Item>Sign out</Dropdown.Item>
 					</Dropdown>
 				) : (
-					<Avatar
-						alt="Avatar"
-						img={`/proxy?url=${encodeURIComponent(currentUser.profilePicture)}`}
-						rounded
-					/>
+					<Link to="/sign-in">
+						<Button>Sign In</Button>
+					</Link>
 				)}
 				<Navbar.Toggle className="" />
 			</div>

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, About, Dashboard, Projects, SignIn, SignUp } from './pages/index.js';
-import { Header,FooterComponent } from './components/index.js';
+import { Header, FooterComponent, PrivateRoute } from './components/index.js';
 
 export default function App() {
 	return (
@@ -11,10 +11,15 @@ export default function App() {
 				<Route path="/about" element={<About />} />
 				<Route path="/sign-in" element={<SignIn />} />
 				<Route path="/sign-up" element={<SignUp />} />
-				<Route path="/dashboard" element={<Dashboard />} />
+
+				{/* this is private route */}
+				<Route element={<PrivateRoute />}>
+					<Route path="/dashboard" element={<Dashboard />} />
+				</Route>
+
 				<Route path="/projects" element={<Projects />} />
 			</Routes>
-			<FooterComponent/>
+			<FooterComponent />
 		</BrowserRouter>
 	);
 }

@@ -7,7 +7,7 @@ import ThemeProvider from './components/ThemeProvider.jsx';
 import App from './App.jsx';
 
 createRoot(document.getElementById('root')).render(
-	<PersistGate persistor={persistor}>
+	<PersistGate  persistor={persistor}>
 		<Provider store={store}>
 			<ThemeProvider>
 				<App />
