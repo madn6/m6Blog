@@ -1,11 +1,14 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react';
 import { Link, useLocation } from 'react-router-dom';
-import { AiOutlineSearch, AiFillMoon } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { AiOutlineSearch, AiFillMoon, AiFillSun } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme } from '../redux/theme/themeSlice';
 
 export default function Header() {
 	const path = useLocation().pathname;
+	const dispatch = useDispatch();
 	const { currentUser } = useSelector((state) => state.user);
+	const { theme } = useSelector((state) => state.theme);
 	console.log('this is current user', currentUser);
 	return (
 		<Navbar className="border-b-2">
@@ -24,8 +27,13 @@ export default function Header() {
 				<AiOutlineSearch className="" />
 			</Button>
 			<div className="flex items-center gap-2 md:order-2">
-				<Button className=" p-0 hidden sm:inline " color="gray" pill>
-					<AiFillMoon />
+				<Button
+					className=" p-0 hidden sm:inline "
+					color="gray"
+					pill
+					onClick={() => dispatch(toggleTheme())}
+				>
+					{theme === 'light' ? <AiFillMoon /> : <AiFillSun />}
 				</Button>
 				{currentUser ? (
 					<Dropdown
@@ -49,11 +57,7 @@ export default function Header() {
 						img={`/proxy?url=${encodeURIComponent(currentUser.profilePicture)}`}
 						rounded
 					/>
-					// <Link to="/sign-in">
-					// 	<Button className="px-0 py-0 focus:ring-0">Sign In</Button>
-					// </Link>
 				)}
-				{/* <img src={currentUser.profilePicture} alt="avatar" /> */}
 				<Navbar.Toggle className="" />
 			</div>
 			{/* nav links */}

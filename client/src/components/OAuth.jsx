@@ -3,7 +3,7 @@ import { AiFillGoogleCircle } from 'react-icons/ai';
 import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
-import { signInsuccess } from '../users/userSlice';
+import { signInsuccess } from '../redux/users/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export default function OAuth() {
@@ -32,7 +32,7 @@ export default function OAuth() {
 				naviagate('/');
 			}
 		} catch (err) {
-            console.error('Error during Google sign-in:', err);
+			console.error('Error during Google sign-in:', err);
 		}
 	};
 	return (

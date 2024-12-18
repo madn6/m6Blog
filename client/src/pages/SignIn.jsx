@@ -2,15 +2,15 @@ import { Label, TextInput, Button, Alert, Spinner } from 'flowbite-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { signInStart, signInsuccess, signInFailure } from '../users/userSlice';
+import { signInStart, signInsuccess, signInFailure } from '../redux/users/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { OAuth } from '../components';
 
 export default function SignIn() {
 	const [formData, setFormData] = useState({});
-  const {loading , error: errorMessage}= useSelector(state => state.user)
+	const { loading, error: errorMessage } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
-  
+
 	const navigate = useNavigate();
 
 	const handleChange = (e) => {
@@ -67,8 +67,8 @@ export default function SignIn() {
 							<div>
 								<Label value="Password" />
 								<TextInput
-                  type="password"
-                  autoComplete="true"
+									type="password"
+									autoComplete="true"
 									placeholder="Enter your password"
 									id="password"
 									onChange={handleChange}
@@ -83,8 +83,8 @@ export default function SignIn() {
 								) : (
 									'Sign In'
 								)}
-              </Button>
-              <OAuth/>
+							</Button>
+							<OAuth />
 							<div className=" flex items-center justify-center gap-1 text-sm">
 								<span>Have an account?</span>
 								<Link to="/sign-up" className="text-blue-700 hover:underline">
