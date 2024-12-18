@@ -9,7 +9,7 @@ import { OAuth } from '../components';
 export default function SignIn() {
 	const [formData, setFormData] = useState({});
   const {loading , error: errorMessage}= useSelector(state => state.user)
-	const dispathch = useDispatch();
+	const dispatch = useDispatch();
   
 	const navigate = useNavigate();
 
@@ -20,10 +20,10 @@ export default function SignIn() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (!formData.email || !formData.password) {
-			dispathch(signInFailure('Please fill out all fields'));
+			dispatch(signInFailure('Please fill out all fields'));
 		}
 		try {
-			dispathch(signInStart());
+			dispatch(signInStart());
 			const res = await fetch('/api/auth/signin', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -32,14 +32,14 @@ export default function SignIn() {
 			const data = await res.json();
 
 			if (data.success === false) {
-				dispathch(signInFailure(data.message));
+				dispatch(signInFailure(data.message));
 			}
 			if (res.ok) {
-				dispathch(signInsuccess(data));
+				dispatch(signInsuccess(data));
 				navigate('/');
 			}
 		} catch (error) {
-			dispathch(error.message);
+			dispatch(error.message);
 		}
 	};
 

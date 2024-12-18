@@ -10,6 +10,7 @@ app.use(express.json());
 
 dotenv.config();
 
+
 async function connnectToDatabase() {
 	try {
 		const mongoURI = process.env.MONGO_URI;
@@ -44,3 +45,4 @@ app.use((err, req, res, next) => {
 		message
 	});
 });
+

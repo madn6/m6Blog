@@ -1,10 +1,12 @@
-import { Button, Navbar, TextInput } from 'flowbite-react';
+import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineSearch, AiFillMoon } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
 	const path = useLocation().pathname;
-
+	const { currentUser } = useSelector((state) => state.user);
+	console.log('this is current user', currentUser);
 	return (
 		<Navbar className="border-b-2">
 			<Link to="/">
@@ -25,11 +27,33 @@ export default function Header() {
 				<Button className=" p-0 hidden sm:inline " color="gray" pill>
 					<AiFillMoon />
 				</Button>
-				<Link to="/sign-in">
-					<Button className="px-0 py-0 focus:ring-0">
-						Sign In
-					</Button>
-				</Link>
+				{currentUser ? (
+					<Dropdown
+						arrowIcon={false}
+						inline
+						label={<Avatar alt="Avatar" img={currentUser.profilePicture} rounded />}
+					>
+						<Dropdown.Header>
+							<span className="block text-sm">{currentUser.username}</span>
+							<span className="block text-sm font-medium truncate">{currentUser.email}</span>
+						</Dropdown.Header>
+						<Link to="/dashboard?tab=profile">
+							<Dropdown.Item>Profile</Dropdown.Item>
+						</Link>
+						<Dropdown.Divider />
+						<Dropdown.Item>Sign out</Dropdown.Item>
+					</Dropdown>
+				) : (
+					<Avatar
+						alt="Avatar"
+						img={`/proxy?url=${encodeURIComponent(currentUser.profilePicture)}`}
+						rounded
+					/>
+					// <Link to="/sign-in">
+					// 	<Button className="px-0 py-0 focus:ring-0">Sign In</Button>
+					// </Link>
+				)}
+				{/* <img src={currentUser.profilePicture} alt="avatar" /> */}
 				<Navbar.Toggle className="" />
 			</div>
 			{/* nav links */}

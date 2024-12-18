@@ -26,12 +26,13 @@ export default function OAuth() {
 				})
 			});
 			const data = await res.json();
-			if (data.ok) {
+			console.log('data', data);
+			if (res.ok) {
 				dispatch(signInsuccess(data));
 				naviagate('/');
 			}
 		} catch (err) {
-			console.log(err);
+            console.error('Error during Google sign-in:', err);
 		}
 	};
 	return (
