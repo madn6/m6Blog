@@ -55,7 +55,8 @@ export default function DashProfile() {
 			const data = await response.json();
 			if (data.secure_url) {
 				console.log('Image uploaded:', data.secure_url);
-				updateProfilePicture(data.secure_url); // Update Firebase profile picture
+				updateProfilePicture(data.secure_url);
+				setFormData({ ...formData, profilePicture: data.secure_url });
 			} else {
 				console.error('Image upload failed:', data);
 			}
@@ -79,6 +80,11 @@ export default function DashProfile() {
 		} else {
 			console.error('No user is currently signed in.');
 		}
+	};
+
+	const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+    console.log(formData)
 	};
 
 	return (
