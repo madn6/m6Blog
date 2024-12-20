@@ -2,13 +2,18 @@ import { TextInput, Button } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getAuth, updateProfile } from 'firebase/auth';
-import {  onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { updateStart, updateSuccess, updateFailure } from '../redux/users/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function DashProfile() {
 	const { currentUser } = useSelector((state) => state.user);
+	console.log('this is dashprofile current user ', currentUser);
 
 	const auth = getAuth();
 	console.log(auth.currentUser);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -20,10 +25,11 @@ export default function DashProfile() {
 		});
 		// Cleanup subscription on component unmount
 		return () => unsubscribe();
-	}, []);
+	}, [auth]);
 
 	const [imageFile, setImageFile] = useState(null);
 	const [imageFileUrl, setImageFileUrl] = useState(null);
+	const [formData, setFormData] = useState({});
 
 	const filePickerRef = useRef();
 
@@ -35,10 +41,13 @@ export default function DashProfile() {
 		}
 	};
 
+	console.log(imageFile)
+
 	useEffect(() => {
 		if (imageFile) {
 			uploadImage();
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [imageFile]);
 
 	const uploadImage = async () => {
@@ -68,6 +77,7 @@ export default function DashProfile() {
 	const updateProfilePicture = async (imageUrl) => {
 		const auth = getAuth();
 		const user = auth.currentUser;
+		console.log('this is auth current user ', user);
 		if (user) {
 			try {
 				await updateProfile(user, {
@@ -83,14 +93,43 @@ export default function DashProfile() {
 	};
 
 	const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-    console.log(formData)
+		setFormData({ ...formData, [e.target.id]: e.target.value });
+	};
+	console.log('this is form data', formData);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (Object.keys(formData).length === 0) {
+			return;
+		}
+		try {
+			dispatch(updateStart());
+			// Optimistic update
+			const optimisticUser = { ...currentUser, ...formData };
+			dispatch(updateSuccess(optimisticUser));
+			const res = await fetch(`/api/user/update/${currentUser._id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				dispatch(updateFailure(errorData.message));
+				return; // Revert optimistic update in the reducer (optional)
+			}
+			const data = await res.json();
+			dispatch(updateSuccess(data)); // Final update with backend response
+		} catch (err) {
+			dispatch(updateFailure(err.message)); // Revert optimistic update (optional)
+		}
 	};
 
 	return (
 		<div className="max-w-sm mx-auto p-3 w-full">
 			<h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
-			<form className="flex flex-col gap-4">
+			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<input
 					className="hidden"
 					ref={filePickerRef}
@@ -113,10 +152,17 @@ export default function DashProfile() {
 					id="username"
 					placeholder="username"
 					defaultValue={currentUser.username}
+					onChange={handleChange}
 				/>
-				<TextInput type="email" id="email" placeholder="email" defaultValue={currentUser.email} />
-				<TextInput type="password" id="password" placeholder="password" />
-				<Button>Update</Button>
+				<TextInput
+					type="email"
+					id="email"
+					placeholder="email"
+					defaultValue={currentUser.email}
+					onChange={handleChange}
+				/>
+				<TextInput type="password" id="password" placeholder="password" onChange={handleChange} />
+				<Button type="submit">Update</Button>
 			</form>
 			<div className="text-red-500 cursor-pointer flex justify-between mt-5">
 				<span>Delete Account</span>

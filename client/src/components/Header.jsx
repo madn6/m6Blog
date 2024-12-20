@@ -8,6 +8,8 @@ export default function Header() {
 	const path = useLocation().pathname;
 	const dispatch = useDispatch();
 	const { currentUser } = useSelector((state) => state.user);
+	console.log('this is from header current user',currentUser);
+	
 	const { theme } = useSelector((state) => state.theme);
 	return (
 		<Navbar className="border-b-2">
@@ -38,7 +40,13 @@ export default function Header() {
 					<Dropdown
 						arrowIcon={false}
 						inline
-						label={<Avatar alt="Avatar" img={currentUser.profilePicture} rounded />}
+						label={
+							<Avatar
+								alt="Avatar"
+								img={currentUser.profilePicture}
+								rounded
+							/>
+						}
 					>
 						<Dropdown.Header>
 							<span className="block text-sm">{currentUser.username}</span>
