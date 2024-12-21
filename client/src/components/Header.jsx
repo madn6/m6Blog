@@ -33,7 +33,7 @@ export default function Header() {
 	return (
 		<Navbar className="border-b-2">
 			<Link to="/">
-				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl">Blogx</span>
+				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl dark:text-white">Blogx</span>
 			</Link>
 			<form>
 				<TextInput

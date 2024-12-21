@@ -2,21 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
 	user-select: none;
 	height: 100vh;
 	@apply font-interDisplay;
 }
 
-.ql-editor{
+.ql-editor {
 	font-size: 1rem;
+}
+
+.ql-editor::before {
+	color: gray red !important; /* Light placeholder color */
+}
+
+/* Dark mode */
+.dark .ql-editor::before {
+	color: gray !important; /* Dark placeholder color */
 }
 
 input[type='text']:focus {
 	outline: none;
 	box-shadow: none;
-    border-color:gray;
+	border-color: gray;
 }
 
 /* Define Inter Display Font Faces */

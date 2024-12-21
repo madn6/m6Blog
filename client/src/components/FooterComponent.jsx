@@ -9,7 +9,7 @@ export default function FooterComponent() {
 			<Footer className=" border-t-2 shadow-none">
 				<div className="w-full max-w-4xl mx-auto p-8">
 					<Link to="/">
-						<span className="font-taruno flex items-center justify-center font-bold lg:text-3xl md:text-2xl text-xl">
+						<span className="font-taruno dark:text-white flex items-center justify-center font-bold lg:text-3xl md:text-2xl text-xl">
 							blogx
 						</span>
 					</Link>

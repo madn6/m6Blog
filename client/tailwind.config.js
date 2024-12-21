@@ -1,6 +1,7 @@
 import flowbite from 'flowbite-react/tailwind';
 
 export default {
+	darkMode: 'class',
 	content: [
 		'./src/**/*.{js,jsx,ts,tsx}', // Adjust to include all your files
 		flowbite.content(), // Spread to include Flowbite's content paths
