@@ -14,9 +14,10 @@ import {
 } from '../redux/users/userSlice';
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle, HiX } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 export default function DashProfile() {
-	const { currentUser, error } = useSelector((state) => state.user);
+	const { currentUser, error, loading } = useSelector((state) => state.user);
 	console.log('this is dashprofile current user ', currentUser);
 
 	const auth = getAuth();
@@ -136,8 +137,8 @@ export default function DashProfile() {
 		try {
 			dispatch(updateStart());
 			// Optimistic update
-			const optimisticUser = { ...currentUser, ...formData };
-			dispatch(updateSuccess(optimisticUser));
+			// const optimisticUser = { ...currentUser, ...formData };
+			// dispatch(updateSuccess(optimisticUser));
 			const res = await fetch(`/api/user/update/${currentUser._id}`, {
 				method: 'PUT',
 				headers: {
@@ -253,7 +254,20 @@ export default function DashProfile() {
 					onChange={handleChange}
 				/>
 				<TextInput type="password" id="password" placeholder="password" onChange={handleChange} />
-				<Button type="submit">Update</Button>
+				<Button
+					type="submit"
+					disabled={loading} // Disable button only during form submission
+					className={`mt-4 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+				>
+					{loading ? 'Submitting...' : 'Update'} {/* Dynamic button text */}
+				</Button>
+				{currentUser.isAdmin && (
+					<Link to={'create-post'}>
+						<Button type="button" className="w-full">
+							Create a Post
+						</Button>
+					</Link>
+				)}
 			</form>
 			<div className="text-red-500 text-sm font-regular cursor-pointer flex justify-between mt-5">
 				<span onClick={() => setShowModal(true)}>Delete Account</span>
