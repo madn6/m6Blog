@@ -262,7 +262,7 @@ export default function DashProfile() {
 					{loading ? 'Submitting...' : 'Update'} {/* Dynamic button text */}
 				</Button>
 				{currentUser.isAdmin && (
-					<Link to={'create-post'}>
+					<Link to={'/create-post'}>
 						<Button type="button" className="w-full">
 							Create a Post
 						</Button>

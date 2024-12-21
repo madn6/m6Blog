@@ -5,7 +5,12 @@
 
 body {
 	user-select: none;
+	height: 100vh;
 	@apply font-interDisplay;
+}
+
+.ql-editor{
+	font-size: 1rem;
 }
 
 input[type='text']:focus {
