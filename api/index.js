@@ -3,32 +3,31 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
-import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
 dotenv.config();
 
-
-async function connnectToDatabase() {
+async function connectToDatabase() {
 	try {
 		const mongoURI = process.env.MONGO_URI;
 		await mongoose.connect(mongoURI);
-		console.log('connected to mongodb');
+		console.log('Connected to MongoDB');
 	} catch (err) {
-		console.error('failed to connect to mongo db', err);
+		console.error('Failed to connect to MongoDB', err);
 		process.exit(1);
 	}
 }
 
 async function startServer() {
-	await connnectToDatabase();
+	await connectToDatabase(); // Corrected function name here
 	const port = process.env.PORT || 3000;
 	app.listen(port, () => {
-		console.log('server is listenning on 3000');
+		console.log(`Server is listening on ${port}`)
 	});
 }
 
@@ -47,4 +46,3 @@ app.use((err, req, res, next) => {
 		message
 	});
 });
-

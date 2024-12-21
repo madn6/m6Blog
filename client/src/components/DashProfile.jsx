@@ -1,13 +1,21 @@
-import { TextInput, Button } from 'flowbite-react';
+import { TextInput, Button, Modal, Alert } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
-import { updateStart, updateSuccess, updateFailure } from '../redux/users/userSlice';
+import {
+	updateStart,
+	updateSuccess,
+	updateFailure,
+	deleteStart,
+	deleteSuccess,
+	deleteFailure
+} from '../redux/users/userSlice';
 import { useDispatch } from 'react-redux';
+import { HiOutlineExclamationCircle, HiX } from 'react-icons/hi';
 
 export default function DashProfile() {
-	const { currentUser } = useSelector((state) => state.user);
+	const { currentUser, error } = useSelector((state) => state.user);
 	console.log('this is dashprofile current user ', currentUser);
 
 	const auth = getAuth();
@@ -30,6 +38,7 @@ export default function DashProfile() {
 	const [imageFile, setImageFile] = useState(null);
 	const [imageFileUrl, setImageFileUrl] = useState(null);
 	const [formData, setFormData] = useState({});
+	const [showModal, setShowModal] = useState(false);
 
 	const filePickerRef = useRef();
 
@@ -41,13 +50,13 @@ export default function DashProfile() {
 		}
 	};
 
-	console.log(imageFile)
+	console.log(imageFile);
 
 	useEffect(() => {
 		if (imageFile) {
 			uploadImage();
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [imageFile]);
 
 	const uploadImage = async () => {
@@ -126,6 +135,35 @@ export default function DashProfile() {
 		}
 	};
 
+	const handleDeleteUser = async () => {
+		setShowModal(false);
+		try {
+			dispatch(deleteStart());
+
+			const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json' // Ensure proper headers
+				}
+			});
+
+			const data = await res.json();
+
+			if (!res.ok) {
+				// Handle error response from backend
+				dispatch(deleteFailure(data.message || 'Failed to delete user'));
+			} else {
+				// Handle success case
+				console.log(data.message); // Logs: "User has been deleted"
+				dispatch(deleteSuccess(data));
+			}
+		} catch (err) {
+			// Handle fetch errors (e.g., network issues)
+			console.error('Error deleting user:', err.message);
+			dispatch(deleteFailure(err.message));
+		}
+	};
+
 	return (
 		<div className="max-w-sm mx-auto p-3 w-full">
 			<h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
@@ -165,9 +203,38 @@ export default function DashProfile() {
 				<Button type="submit">Update</Button>
 			</form>
 			<div className="text-red-500 cursor-pointer flex justify-between mt-5">
-				<span>Delete Account</span>
+				<span onClick={() => setShowModal(true)}>Delete Account</span>
 				<span>Sign Out</span>
 			</div>
+			{error && (
+				<Alert color="failure" className="mt-5">
+					{error}
+				</Alert>
+			)}
+			<Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+				<span
+					onClick={() => setShowModal(false)}
+					className="flex  items-center justify-end p-2 cursor-pointer"
+				>
+					<HiX className="hover:scale-110 h-5 w-5 transition-all duration-150" />
+				</span>
+				<Modal.Body>
+					<div className="text-center">
+						<HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+						<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+							Are you sure you want to delete your account?
+						</h3>
+						<div className="flex justify-center gap-4">
+							<Button color="failure" onClick={handleDeleteUser}>
+								{"Yes, I'm sure"}
+							</Button>
+							<Button color="gray" onClick={() => setShowModal(false)}>
+								No, cancel
+							</Button>
+						</div>
+					</div>
+				</Modal.Body>
+			</Modal>
 		</div>
 	);
 }

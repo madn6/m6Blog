@@ -23,7 +23,7 @@ export const updateUser = async (req, res, next) => {
 		if (req.body.username.includes(' ')) {
 			return next(errorHandler(400, 'username cannot contain spaces'));
 		}
-	
+
 		if (req.body.username !== req.body.username.toLowerCase()) {
 			return next(errorHandler(400, 'username must be lowercase'));
 		}
@@ -47,6 +47,39 @@ export const updateUser = async (req, res, next) => {
 		);
 		const { password, ...rest } = updatedUser._doc;
 		res.status(200).json(rest);
+	} catch (err) {
+		next(err);
+	}
+};
+
+import axios from 'axios';
+
+const revokeGoogleToken = async (token) => {
+	try {
+		const response = await axios.post(`https://oauth2.googleapis.com/revoke?token=${token}`, null, {
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		});
+		console.log('Google OAuth token revoked:', response.data);
+	} catch (err) {
+		console.error('Failed to revoke Google OAuth token:', err.message);
+	}
+};
+
+export const deleteUser = async (req, res, next) => {
+	if (req.user.id !== req.params.userId) {
+		return next(errorHandler(403, 'You are not allowed to delete this user'));
+	}
+
+	try {
+		// Revoke the OAuth token
+		if (req.user.token) {
+			await revokeGoogleToken(req.user.token);
+		}
+
+		// Delete user from the database
+		await User.findByIdAndDelete(req.params.userId);
+
+		res.status(200).json({ message: 'User has been deleted and token revoked' });
 	} catch (err) {
 		next(err);
 	}
