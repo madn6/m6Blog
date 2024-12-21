@@ -1,7 +1,7 @@
 import { TextInput, Button, Modal, Alert } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getAuth, updateProfile } from 'firebase/auth';
+import { getAuth, updateProfile, deleteUser } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
 	updateStart,
@@ -9,7 +9,8 @@ import {
 	updateFailure,
 	deleteStart,
 	deleteSuccess,
-	deleteFailure
+	deleteFailure,
+	signoutSuccess
 } from '../redux/users/userSlice';
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle, HiX } from 'react-icons/hi';
@@ -86,13 +87,34 @@ export default function DashProfile() {
 	const updateProfilePicture = async (imageUrl) => {
 		const auth = getAuth();
 		const user = auth.currentUser;
-		console.log('this is auth current user ', user);
+		console.log('This is auth current user:', user);
 		if (user) {
 			try {
-				await updateProfile(user, {
-					photoURL: imageUrl
-				});
-				console.log('Profile picture updated successfully');
+				if (imageUrl) {
+					// If imageUrl is provided, update the profile picture with the new image
+					await updateProfile(user, { photoURL: imageUrl });
+					console.log('Profile picture updated successfully');
+				} else {
+					// If imageUrl is null, reset to the default Gmail profile picture
+					await updateProfile(user, { photoURL: null });
+					console.log('Profile picture reset to default Gmail profile picture');
+				}
+				// Wait for the user profile to be reloaded
+				await user.reload();
+				// After reloading, fetch the updated user profile and log the photoURL
+				const updatedUser = auth.currentUser;
+				console.log('Updated user photoURL:', updatedUser.photoURL);
+				// If the photoURL is still not null, force log out and log back in to reset
+				if (updatedUser.photoURL) {
+					console.log('Photo URL still set, forcing log out...');
+					await auth.signOut(); // Sign out the user
+					console.log('User logged out');
+					// After logging out, clear localStorage and sessionStorage
+					localStorage.clear();
+					sessionStorage.clear();
+					// Redirect or ask the user to log in again
+					// window.location.reload(); // Uncomment if you want to reload the page
+				}
 			} catch (error) {
 				console.error('Error updating profile picture:', error);
 			}
@@ -137,30 +159,61 @@ export default function DashProfile() {
 
 	const handleDeleteUser = async () => {
 		setShowModal(false);
+		const auth = getAuth();
+		const user = auth.currentUser;
+
 		try {
 			dispatch(deleteStart());
 
+			// Delete user from your database
 			const res = await fetch(`/api/user/delete/${currentUser._id}`, {
 				method: 'DELETE',
 				headers: {
-					'Content-Type': 'application/json' // Ensure proper headers
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${currentUser.token}`
 				}
 			});
 
 			const data = await res.json();
 
 			if (!res.ok) {
-				// Handle error response from backend
 				dispatch(deleteFailure(data.message || 'Failed to delete user'));
 			} else {
-				// Handle success case
-				console.log(data.message); // Logs: "User has been deleted"
-				dispatch(deleteSuccess(data));
+				console.log(data.message);
+
+				// Step 1: Delete the user from Firebase Authentication
+				if (user) {
+					await deleteUser(user); // Deletes user from Firebase Authentication
+					console.log('User deleted from Firebase Authentication');
+				} else {
+					console.error('No user is signed in');
+				}
+
+				// Step 2: Clear local and session storage
+				dispatch(deleteSuccess());
+				localStorage.clear();
+				sessionStorage.clear();
+				window.location.reload();
 			}
 		} catch (err) {
-			// Handle fetch errors (e.g., network issues)
 			console.error('Error deleting user:', err.message);
 			dispatch(deleteFailure(err.message));
+		}
+	};
+
+	const handleSignOut = async () => {
+		try {
+			const res = await fetch('/api/user/signout', {
+				method: 'POST'
+			});
+			const data = res.json();
+			if (!res.ok) {
+				console.log(data.message);
+			} else {
+				dispatch(signoutSuccess());
+			}
+		} catch (err) {
+			console.log(err.message);
 		}
 	};
 
@@ -202,9 +255,9 @@ export default function DashProfile() {
 				<TextInput type="password" id="password" placeholder="password" onChange={handleChange} />
 				<Button type="submit">Update</Button>
 			</form>
-			<div className="text-red-500 cursor-pointer flex justify-between mt-5">
+			<div className="text-red-500 text-sm font-regular cursor-pointer flex justify-between mt-5">
 				<span onClick={() => setShowModal(true)}>Delete Account</span>
-				<span>Sign Out</span>
+				<span onClick={handleSignOut}>Sign Out</span>
 			</div>
 			{error && (
 				<Alert color="failure" className="mt-5">
@@ -224,7 +277,7 @@ export default function DashProfile() {
 						<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
 							Are you sure you want to delete your account?
 						</h3>
-						<div className="flex justify-center gap-4">
+						<div className="flex justify-center  gap-4">
 							<Button color="failure" onClick={handleDeleteUser}>
 								{"Yes, I'm sure"}
 							</Button>
