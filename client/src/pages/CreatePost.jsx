@@ -6,8 +6,10 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function CreatePost() {
-	const [editorContent, setEditorContent] = useState('');
 	const [file, setFile] = useState(null);
+	const [formData, setFormData] = useState({});
+	const [publishError, setPublishError] = useState(null);
+	console.log(formData);
 
 	const [imageUploadProgress, setImageUploadProgress] = useState(null);
 	const [imageUploadError, setImageUploadError] = useState(null);
@@ -63,7 +65,7 @@ export default function CreatePost() {
 
 					// Reset progress after upload
 					setImageUploadProgress(null); // Hide the progress bar after the upload
-					setFile(null)
+					setFile(null);
 					fileInputRef.current.value = null;
 				} else {
 					console.error('Image upload failed:', data);
@@ -85,22 +87,59 @@ export default function CreatePost() {
 		}
 	};
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		try {
+			const res = await fetch('/api/post/create', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			});
+			const data = await res.json();
+			if (!res.ok) {
+				setPublishError(data.message);
+				return;
+			}
+			if (res.ok) {
+				setPublishError(null);
+			}
+		} catch (err) {
+			console.log(err);
+			setPublishError('something went wrong!');
+		}
+	};
+
 	return (
 		<div className="min-h-screen p-3 max-w-3xl mx-auto">
 			<h1 className="text-center text-3xl my-7 font-semibold dark:text-white">Create Post</h1>
-			<form className="flex flex-col gap-4">
+			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<div className="flex flex-col gap-4 sm:flex-row justify-between">
-					<TextInput className="flex-1" type="text" placeholder="Title" required id="title" />
-					<Select>
+					<TextInput
+						onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+						className="flex-1"
+						type="text"
+						placeholder="Title"
+						required
+						id="title"
+					/>
+					<Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
 						<option value="uncatogorized">Select a category</option>
-						<option value="ai">Ai dominations in future</option>
-						<option value="dogs">Why dogs are people bestfriend</option>
-						<option value="mobile">New mobile invention</option>
-						<option value="gpu">How Nvidea become trillion doller company? </option>
+						<option value="ai">AI</option>
+						<option value="dogs">Dogs</option>
+						<option value="mobile">Mobile</option>
+						<option value="gpu">Gpu</option>
 					</Select>
 				</div>
 				<div className="flex gap-4 items-center justify-between border-4 border-dotted p-3">
-					<FileInput ref={fileInputRef} accept="image/*" onChange={(e) => setFile(e.target.files[0])} typeof="file" />
+					<FileInput
+						ref={fileInputRef}
+						accept="image/*"
+						onChange={(e) => setFile(e.target.files[0])}
+						typeof="file"
+					/>
 					<Button
 						onClick={handleUploadImage}
 						type="button"
@@ -123,13 +162,14 @@ export default function CreatePost() {
 				</div>
 				<ReactQuill
 					theme="snow"
+					required
 					placeholder="write something comes in your mind..."
 					className="h-72 mb-12 dark:text-white"
-					value={editorContent}
-					onChange={setEditorContent}
+					onChange={(value) => setFormData({ ...formData, content: value })}
 					ref={quillRef}
 				/>
 				<Button type="submit">Publish</Button>
+				{publishError && <Alert color="failure"> {publishError}</Alert>}
 			</form>
 		</div>
 	);

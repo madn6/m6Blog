@@ -28,9 +28,8 @@ input[type='text']:focus {
 }
 
 .quill-editor img {
-	width: 50px; /* Set desired width */
-	height: auto; /* Maintain aspect ratio */
-	margin: auto;
+	width: 100%;
+	height: auto;
 }
 
 /* Define Inter Display Font Faces */
