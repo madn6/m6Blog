@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import {useNavigate}from 'react-router-dom'
 
 export default function CreatePost() {
 	const [file, setFile] = useState(null);
@@ -16,6 +17,7 @@ export default function CreatePost() {
 
 	const quillRef = useRef(null);
 	const fileInputRef = useRef(null);
+	const navigate = useNavigate()
 
 	// Handle file upload to Cloudinary
 	const handleUploadImage = async () => {
@@ -105,6 +107,7 @@ export default function CreatePost() {
 			}
 			if (res.ok) {
 				setPublishError(null);
+				navigate(`/post/${data.slug}`)
 			}
 		} catch (err) {
 			console.log(err);
