@@ -27,6 +27,12 @@ input[type='text']:focus {
 	border-color: gray;
 }
 
+.quill-editor img {
+	width: 50px; /* Set desired width */
+	height: auto; /* Maintain aspect ratio */
+	margin: auto;
+}
+
 /* Define Inter Display Font Faces */
 
 @font-face {
