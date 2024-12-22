@@ -9,9 +9,7 @@ export default function Header() {
 	const path = useLocation().pathname;
 	const dispatch = useDispatch();
 	const { currentUser } = useSelector((state) => state.user);
-	console.log('this is from header current user', currentUser);
 	
-
 		const handleSignOut = async () => {
 			try {
 				const res = await fetch('/api/user/signout', {

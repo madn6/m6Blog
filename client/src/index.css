@@ -16,6 +16,10 @@ body {
 	color: gray red !important; /* Light placeholder color */
 }
 
+[data-testid="flowbite-sidebar-label"] span {
+	@apply dark:text-white
+}
+
 /* Dark mode */
 .dark .ql-editor::before {
 	color: gray !important; /* Dark placeholder color */

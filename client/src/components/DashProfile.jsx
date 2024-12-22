@@ -18,17 +18,15 @@ import { Link } from 'react-router-dom';
 
 export default function DashProfile() {
 	const { currentUser, error, loading } = useSelector((state) => state.user);
-	console.log('this is dashprofile current user ', currentUser);
 
 	const auth = getAuth();
-	console.log(auth.currentUser);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			if (user) {
-				console.log('User is signed in:', user);
+				console.log('User is signed in');
 			} else {
 				console.log('No user is signed in.');
 			}
@@ -51,8 +49,6 @@ export default function DashProfile() {
 			setImageFileUrl(URL.createObjectURL(file));
 		}
 	};
-
-	console.log(imageFile);
 
 	useEffect(() => {
 		if (imageFile) {
@@ -127,7 +123,6 @@ export default function DashProfile() {
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.id]: e.target.value });
 	};
-	console.log('this is form data', formData);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -220,7 +215,7 @@ export default function DashProfile() {
 
 	return (
 		<div className="max-w-sm mx-auto p-3 w-full">
-			<h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
+			<h1 className="my-7 text-center font-semibold text-3xl  dark:text-white">Profile</h1>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<input
 					className="hidden"
@@ -253,7 +248,13 @@ export default function DashProfile() {
 					defaultValue={currentUser.email}
 					onChange={handleChange}
 				/>
-				<TextInput type="password" id="password" placeholder="password" onChange={handleChange} />
+				<TextInput
+					type="password"
+					id="password"
+					placeholder="password"
+					autoComplete="false"
+					onChange={handleChange}
+				/>
 				<Button
 					type="submit"
 					disabled={loading} // Disable button only during form submission
