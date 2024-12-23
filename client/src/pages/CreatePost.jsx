@@ -129,7 +129,7 @@ export default function CreatePost() {
 						id="title"
 					/>
 					<Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
-						<option value="uncatogorized">Select a category</option>
+						<option value="uncategorized">Select a category</option>
 						<option value="ai">AI</option>
 						<option value="dogs">Dogs</option>
 						<option value="mobile">Mobile</option>

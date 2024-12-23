@@ -40,7 +40,7 @@ app.use('/api/post',postRoutes)
 
 app.use((err, req, res, next) => {
 	const statuscode = err.statusCode || 500;
-	const message = err.message || 'Internel server error';
+	const message = err.message || 'Internal server error';
 
 	res.status(statuscode).json({
 		success: false,
