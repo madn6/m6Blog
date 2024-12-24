@@ -1,14 +1,17 @@
-import { Table } from 'flowbite-react';
+import { Modal, Table, Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import { HiX, HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function DashPost() {
 	const { currentUser } = useSelector((state) => state.user);
 
 	const [userPosts, setUserPosts] = useState([]);
 	const [showMore, setShowMore] = useState(true);
+	const [showModal, setShowModal] = useState(false);
+	const [postIdToDelete, setPostIdToDelete] = useState('');
 
 	useEffect(() => {
 		if (currentUser?.isAdmin) {
@@ -52,6 +55,23 @@ export default function DashPost() {
 		}
 	};
 
+	const handleDeletePost = async () => {
+		setShowModal(false);
+		try {
+			const res = await fetch(`/api/post/deletepost/${postIdToDelete}/${currentUser._id}`, {
+				method: 'DELETE'
+			});
+			const data = await res.json();
+			if (!res.ok) {
+				console.log(data.message);
+			} else {
+				setUserPosts((prev) => prev.filter((post) => post._id !== postIdToDelete));
+			}
+		} catch (err) {
+			console.log(err.message);
+		}
+	};
+
 	return (
 		<div className="table-auto lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
 			{currentUser.isAdmin && userPosts.length > 0 ? (
@@ -88,7 +108,13 @@ export default function DashPost() {
 									<Table.Cell className="text-center">{post.category}</Table.Cell>
 									<Table.Cell>
 										<span className="flex items-center justify-center">
-											<AiFillDelete className="text-red-500   hover:scale-110 cursor-pointer w-4 h-4" />
+											<AiFillDelete
+												onClick={() => {
+													setShowModal(true);
+													setPostIdToDelete(post._id);
+												}}
+												className="text-red-600   hover:scale-110 cursor-pointer w-4 h-4"
+											/>
 										</span>
 									</Table.Cell>
 									<Table.Cell>
@@ -115,6 +141,30 @@ export default function DashPost() {
 			) : (
 				<p>You have not post yet!</p>
 			)}
+			<Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+				<span
+					onClick={() => setShowModal(false)}
+					className="flex  items-center justify-end p-2 cursor-pointer"
+				>
+					<HiX className="hover:scale-110 h-5 w-5 transition-all duration-150" />
+				</span>
+				<Modal.Body>
+					<div className="text-center">
+						<HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+						<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+							Are you sure you want to delete this post?
+						</h3>
+						<div className="flex justify-center  gap-4">
+							<Button color="failure" onClick={handleDeletePost}>
+								{"Yes, I'm sure"}
+							</Button>
+							<Button color="gray" onClick={() => setShowModal(false)}>
+								No, cancel
+							</Button>
+						</div>
+					</div>
+				</Modal.Body>
+			</Modal>
 		</div>
 	);
 }
