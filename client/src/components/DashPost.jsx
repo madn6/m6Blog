@@ -38,7 +38,7 @@ export default function DashPost() {
 		const startIndex = userPosts.length;
 		try {
 			const res = await fetch(
-				`/api/post/getposts?userId=${currentUser._id}&statIndex=${startIndex}`
+				`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
 			);
 			const data = await res.json();
 			if (res.ok) {
@@ -56,8 +56,8 @@ export default function DashPost() {
 		<div className="table-auto lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
 			{currentUser.isAdmin && userPosts.length > 0 ? (
 				<>
-					<Table hoverable className="shadow-md">
-						<Table.Head>
+					<Table hoverable className="shadow-md ">
+						<Table.Head className="dark:text-white">
 							<Table.HeadCell>Date updated</Table.HeadCell>
 							<Table.HeadCell>Post image</Table.HeadCell>
 							<Table.HeadCell>Post Title</Table.HeadCell>
@@ -68,31 +68,35 @@ export default function DashPost() {
 							</Table.HeadCell>
 						</Table.Head>
 						{userPosts.map((post, i) => (
-							<Table.Body key={i} className="divide-y">
-								<Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-									<Table.Cell>{new Date(post.updatedAt).toLocaleDateString('en-GB')}</Table.Cell>
+							<Table.Body key={i} className="divide-y ">
+								<Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800   ">
+									<Table.Cell className="text-center">
+										{new Date(post.updatedAt).toLocaleDateString('en-GB')}
+									</Table.Cell>
 									<Table.Cell>
-										<Link to={`/post/${post.slug}`}>
+										<Link to={`/post/${post.slug}`} className="flex items-center justify-center ">
 											<img
 												src={post.image}
 												alt={post.title}
-												className="w-20 h-10 bg-gray-500 object-cover  rounded-lg"
+												className="w-20 h-10 bg-gray-500 object-cover rounded-lg"
 											/>
 										</Link>
 									</Table.Cell>
-									<Table.Cell>
+									<Table.Cell className="text-center">
 										<Link to={`/post/${post.slug}`}>{post.title}</Link>
 									</Table.Cell>
-									<Table.Cell>{post.category}</Table.Cell>
+									<Table.Cell className="text-center">{post.category}</Table.Cell>
 									<Table.Cell>
-										{/* <span className='text-red-600 hover:underline cursor-pointer'>Delete</span> */}
-										<AiFillDelete className="text-red-500 hover:scale-110 cursor-pointer w-4 h-4" />
+										<span className="flex items-center justify-center">
+											<AiFillDelete className="text-red-500   hover:scale-110 cursor-pointer w-4 h-4" />
+										</span>
 									</Table.Cell>
 									<Table.Cell>
-										<Link className="text-teal-400 " to={`/update/-post/${post._id}`}>
-											<span className=" cursor-pointer w-4 h-4">
-												<AiFillEdit className="hover:scale-110" />
-											</span>
+										<Link
+											className="text-teal-400 flex items-center justify-center "
+											to={`/update-post/${post._id}`}
+										>
+											<AiFillEdit className="hover:scale-110 cursor-pointer w-4 h-4" />
 										</Link>
 									</Table.Cell>
 								</Table.Row>

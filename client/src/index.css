@@ -19,6 +19,10 @@ body {
 [data-testid="flowbite-sidebar-label"] span {
 	@apply dark:text-white
 }
+[data-testid="table-row-element"] td {
+	@apply p-4
+}
+
 
 /* Dark mode */
 .dark .ql-editor::before {
