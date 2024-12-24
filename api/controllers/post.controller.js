@@ -48,7 +48,6 @@ export const getposts = async (req, res, next) => {
 			];
 		}
 
-
 		// Fetch posts with dynamic query
 		const posts = await Post.find(query)
 			.sort({ updatedAt: sortDirection })
@@ -73,14 +72,40 @@ export const getposts = async (req, res, next) => {
 	}
 };
 
-export const deletepost = async (req,res,next) => {
+export const deletepost = async (req, res, next) => {
 	if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-		return next(400,'you are not allowed to delete the post')
+		return next(400, 'you are not allowed to delete the post');
 	}
 	try {
 		await Post.findByIdAndDelete(req.params.postId);
-		res.status(200).json('the post has been deleted')
+		res.status(200).json('the post has been deleted');
 	} catch (err) {
-		next(err)
+		next(err);
 	}
-}
+};
+
+export const updatepost = async (req, res, next) => {
+	if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+		return next(400, 'you are not allowed to update the post');
+	}
+	try {
+		const updatePost = await Post.findByIdAndUpdate(
+			req.params.postId,
+			{
+				$set: {
+					title: req.body.title,
+					content: req.body.content,
+					category: req.body.category,
+					image: req.body.image
+				}
+			},
+			{ new: true }
+		);
+		if (!updatePost) {
+			return res.status(404).json({ message: 'Post not found' });
+		}
+		res.status(200).json(updatePost);
+	} catch (err) {
+		next(err);
+	}
+};

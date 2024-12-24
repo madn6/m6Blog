@@ -96,6 +96,7 @@ export default function DashPost() {
 									<Table.Cell>
 										<Link to={`/post/${post.slug}`} className="flex items-center justify-center ">
 											<img
+												
 												src={post.image}
 												alt={post.title}
 												className="w-20 h-10 bg-gray-500 object-cover rounded-lg"
