@@ -35,9 +35,9 @@ input[type='text']:focus {
 	border-color: gray;
 }
 
-.quill-editor img {
-	width: 100%;
-	height: auto;
+.ql-container p img {
+	width: 650px;
+	margin: auto;
 }
 
 /* Define Inter Display Font Faces */

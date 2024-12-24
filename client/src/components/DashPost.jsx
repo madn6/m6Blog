@@ -18,11 +18,16 @@ export default function DashPost() {
 			const fetchPosts = async () => {
 				try {
 					const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
-					console.log('Response:', res); // Log the entire response object
 					if (res.ok) {
 						const data = await res.json();
-						console.log('Posts received:', data.posts); // Log the posts data
-						setUserPosts(data.posts);
+						// Process posts to extract the image URL from content
+						const processedPosts = data.posts.map((post) => {
+							const imgTagMatch = post.content.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
+							const contentImage = imgTagMatch ? imgTagMatch[1] : post.image; // Use extracted image or fallback to post.image
+							return { ...post, contentImage };
+						});
+						setUserPosts(processedPosts);
+						console.log(processedPosts);
 						if (data.posts.length < 9) {
 							setShowMore(false);
 						}
@@ -45,7 +50,14 @@ export default function DashPost() {
 			);
 			const data = await res.json();
 			if (res.ok) {
-				setUserPosts((prev) => [...prev, ...data.posts]);
+				// Process posts to extract the image URL from content
+				const processedPosts = data.posts.map((post) => {
+					const imgTagMatch = post.content.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
+					const contentImage = imgTagMatch ? imgTagMatch[1] : post.image; // Use extracted image or fallback
+					return { ...post, contentImage }; // Add contentImage to post object
+				});
+				// Append new processed posts to the existing userPosts
+				setUserPosts((prev) => [...prev, ...processedPosts]);
 				if (data.posts.length < 9) {
 					setShowMore(false);
 				}
@@ -71,6 +83,7 @@ export default function DashPost() {
 			console.log(err.message);
 		}
 	};
+	// Extract image URL from content
 
 	return (
 		<div className="table-auto lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
@@ -96,10 +109,9 @@ export default function DashPost() {
 									<Table.Cell>
 										<Link to={`/post/${post.slug}`} className="flex items-center justify-center ">
 											<img
-												
-												src={post.image}
+												src={post.contentImage}
 												alt={post.title}
-												className="w-20 h-10 bg-gray-500 object-cover rounded-lg"
+												className="w-20 h-10 bg-gray-500 object-cover  rounded-lg"
 											/>
 										</Link>
 									</Table.Cell>

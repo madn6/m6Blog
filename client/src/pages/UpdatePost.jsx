@@ -163,7 +163,7 @@ export default function UpdatePost() {
 				</div>
 				<div className="flex gap-4 items-center justify-between border-4 border-dotted p-3">
 					<FileInput
-						ref={fileInputRef}
+                  ref={fileInputRef}
 						accept="image/*"
 						onChange={(e) => setFile(e.target.files[0])}
                   typeof="file"
