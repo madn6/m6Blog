@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AiFillDelete } from 'react-icons/ai';
 import { HiX, HiOutlineExclamationCircle } from 'react-icons/hi';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
 export default function DashUsers() {
 	const { currentUser } = useSelector((state) => state.user);
@@ -33,10 +34,8 @@ export default function DashUsers() {
 			};
 			fetchUsers();
 		}
-  }, [currentUser]);
-  
-  console.log(users);
-  
+	}, [currentUser]);
+
 	const handleShowMore = async () => {
 		const startIndex = users.length;
 		try {
@@ -62,10 +61,11 @@ export default function DashUsers() {
 			{currentUser.isAdmin && users.length > 0 ? (
 				<>
 					<Table hoverable className="shadow-md ">
-						<Table.Head className="dark:text-white">
+						<Table.Head className="dark:text-white text-center ">
 							<Table.HeadCell>Date created</Table.HeadCell>
 							<Table.HeadCell>User image</Table.HeadCell>
 							<Table.HeadCell>Username</Table.HeadCell>
+							<Table.HeadCell>Email</Table.HeadCell>
 							<Table.HeadCell>Admin</Table.HeadCell>
 							<Table.HeadCell>Delete</Table.HeadCell>
 						</Table.Head>
@@ -76,15 +76,25 @@ export default function DashUsers() {
 										{new Date(user.createdAt).toLocaleDateString('en-GB')}
 									</Table.Cell>
 									<Table.Cell>
-										<img
-											src={user.profilePicture}
-											alt={user.username}
-											className="w-10 h-10 bg-gray-500 object-cover   rounded-full"
-										/>
+										<div className="flex items-center justify-center">
+											<img
+												src={user.profilePicture}
+												alt={user.username}
+												className="w-10 h-10 bg-gray-500 object-cover rounded-full"
+											/>
+										</div>
 									</Table.Cell>
-									<Table.Cell className="text-center">{user.username}</Table.Cell>
-									<Table.Cell className="text-center">{user.email}</Table.Cell>
-									<Table.Cell className="text-center">{user.isAdmin}</Table.Cell>
+									<Table.Cell className="text-center ">{user.username}</Table.Cell>
+									<Table.Cell className="text-center ">{user.email}</Table.Cell>
+									<Table.Cell className="text-center">
+										<div className="flex items-center justify-center">
+											{user.isAdmin ? (
+												<FaCheck className="text-green-500 " />
+											) : (
+												<FaTimes className="text-red-500 " />
+											)}
+										</div>
+									</Table.Cell>
 									<Table.Cell>
 										<span className="flex items-center justify-center">
 											<AiFillDelete

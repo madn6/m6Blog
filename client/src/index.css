@@ -24,6 +24,7 @@ body {
 }
 
 
+
 /* Dark mode */
 .dark .ql-editor::before {
 	color: gray !important; /* Dark placeholder color */

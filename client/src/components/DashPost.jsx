@@ -89,7 +89,7 @@ export default function DashPost() {
 			{currentUser.isAdmin && userPosts.length > 0 ? (
 				<>
 					<Table hoverable className="shadow-md ">
-						<Table.Head className="dark:text-white">
+						<Table.Head className="dark:text-white text-center">
 							<Table.HeadCell>Date updated</Table.HeadCell>
 							<Table.HeadCell>Post image</Table.HeadCell>
 							<Table.HeadCell>Post Title</Table.HeadCell>
