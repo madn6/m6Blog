@@ -202,7 +202,7 @@ export default function DashProfile() {
 			const res = await fetch('/api/user/signout', {
 				method: 'POST'
 			});
-			const data = res.json();
+			const data = await res.json();
 			if (!res.ok) {
 				console.log(data.message);
 			} else {
