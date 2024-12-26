@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home, About, Dashboard, Projects, SignIn, SignUp,CreatePost, UpdatePost } from './pages/index.js';
+import { Home, About, Dashboard, Projects, SignIn, SignUp,CreatePost, UpdatePost, Postpage } from './pages/index.js';
 import { Header, FooterComponent, PrivateRoute, AdminPrivateRoute, } from './components/index.js';
 
 export default function App() {
@@ -21,6 +21,7 @@ export default function App() {
 					<Route path="/update-post/:postId" element={<UpdatePost />} />
 				</Route>
 				<Route path="/projects" element={<Projects />} />
+				<Route path="/post/:postSlug" element={<Postpage />} />
 			</Routes>
 			<FooterComponent />
 		</BrowserRouter>

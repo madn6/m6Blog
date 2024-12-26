@@ -1,7 +1,7 @@
 import { Modal, Table, Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { AiFillDelete } from 'react-icons/ai';
+import { TiUserDelete } from "react-icons/ti";
 import { HiX, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
@@ -102,22 +102,22 @@ export default function DashUsers() {
 									<Table.Cell className="text-center ">{user.username}</Table.Cell>
 									<Table.Cell className="text-center ">{user.email}</Table.Cell>
 									<Table.Cell className="text-center">
-										<div className="flex items-center justify-center">
+										<div className="flex items-center justify-center ">
 											{user.isAdmin ? (
-												<FaCheck className="text-green-500 " />
+												<FaCheck className="text-green-500 w-4 h-4" />
 											) : (
-												<FaTimes className="text-red-500 " />
+												<FaTimes className="text-red-500 w-4 h-4" />
 											)}
 										</div>
 									</Table.Cell>
 									<Table.Cell>
 										<span className="flex items-center justify-center">
-											<AiFillDelete
+											<TiUserDelete
 												onClick={() => {
 													setShowModal(true);
 													setUserToDelete(user._id);
 												}}
-												className="text-red-600   hover:scale-110 cursor-pointer w-4 h-4"
+												className="text-red-600   hover:scale-110 cursor-pointer w-5 h-5"
 											/>
 										</span>
 									</Table.Cell>

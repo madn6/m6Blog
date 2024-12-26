@@ -2,7 +2,9 @@ import { Modal, Table, Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import {  AiFillEdit } from 'react-icons/ai';
+import { RiDeleteBin6Fill } from "react-icons/ri";
+
 import { HiX, HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function DashPost() {
@@ -27,7 +29,6 @@ export default function DashPost() {
 							return { ...post, contentImage };
 						});
 						setUserPosts(processedPosts);
-						console.log(processedPosts);
 						if (data.posts.length < 9) {
 							setShowMore(false);
 						}
@@ -120,7 +121,7 @@ export default function DashPost() {
 									<Table.Cell className="text-center">{post.category}</Table.Cell>
 									<Table.Cell>
 										<span className="flex items-center justify-center">
-											<AiFillDelete
+											<RiDeleteBin6Fill
 												onClick={() => {
 													setShowModal(true);
 													setPostIdToDelete(post._id);
@@ -131,7 +132,7 @@ export default function DashPost() {
 									</Table.Cell>
 									<Table.Cell>
 										<Link
-											className="text-teal-400 flex items-center justify-center "
+											className="text-blue-600 flex items-center justify-center "
 											to={`/update-post/${post._id}`}
 										>
 											<AiFillEdit className="hover:scale-110 cursor-pointer w-4 h-4" />

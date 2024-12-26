@@ -23,7 +23,13 @@ body {
 	@apply p-4
 }
 
+.post__content a{
+	@apply text-blue-600
+}
 
+.post__content img{
+	@apply rounded-lg overflow-hidden shadow-lg   border border-gray-100
+}
 
 /* Dark mode */
 .dark .ql-editor::before {

@@ -1,5 +1,7 @@
 import flowbite from 'flowbite-react/tailwind';
 import tailwindScrollbar from 'tailwind-scrollbar'; 
+import typography from '@tailwindcss/typography';
+
 export default {
 	darkMode: 'class',
 	content: [
@@ -33,5 +35,5 @@ export default {
 			}
 		}
 	},
-	plugins: [flowbite.plugin(), tailwindScrollbar]
+	plugins: [flowbite.plugin(), tailwindScrollbar,typography]
 };
