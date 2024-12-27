@@ -1,10 +1,27 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home, About, Dashboard, Projects, SignIn, SignUp,CreatePost, UpdatePost, Postpage } from './pages/index.js';
-import { Header, FooterComponent, PrivateRoute, AdminPrivateRoute, } from './components/index.js';
+import {
+	Home,
+	About,
+	Dashboard,
+	Projects,
+	SignIn,
+	SignUp,
+	CreatePost,
+	UpdatePost,
+	Postpage
+} from './pages/index.js';
+import {
+	Header,
+	FooterComponent,
+	PrivateRoute,
+	AdminPrivateRoute,
+	ScrollToTop
+} from './components/index.js';
 
 export default function App() {
 	return (
 		<BrowserRouter>
+			<ScrollToTop />
 			<Header />
 			<Routes>
 				<Route path="/" element={<Home />} />
