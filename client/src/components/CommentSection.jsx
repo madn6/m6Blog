@@ -1,13 +1,15 @@
 import { Alert, Button, Textarea } from 'flowbite-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Comments from './Comments';
 
 // eslint-disable-next-line react/prop-types
 export default function CommentSection({ postId }) {
 	const [comment, setComment] = useState('');
 	const [commentError, setCommentError] = useState(null);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
+	const [postComment, setPostComment] = useState([]);
 
 	const { currentUser } = useSelector((state) => state.user);
 
@@ -31,14 +33,31 @@ export default function CommentSection({ postId }) {
 				body: JSON.stringify({ content: comment, postId, userId: currentUser._id })
 			});
 			const data = await res.json();
-			if (data.success) {
+			if (res.ok) {
 				setComment('');
 				setCommentError(null);
+				setComment([data, ...comment]);
 			}
 		} catch (error) {
 			setCommentError(error.message);
 		}
 	};
+
+
+	useEffect(() => {
+		const getComments = async () => {
+			try {
+				const res = await fetch(`/api/comment/getPostComments/${postId}`);
+				if (res.ok) {
+					const data = await res.json();
+					setPostComment(data);
+				}
+			} catch (err) {
+				console.log(err.message);
+			}
+		};
+		getComments();
+	}, [postId]);
 
 	return (
 		<div>
@@ -49,7 +68,7 @@ export default function CommentSection({ postId }) {
 						<img
 							className="h-6 w-6 object-cover rounded-full"
 							src={currentUser.profilePicture}
-							alt="profile"
+							alt={currentUser.username}
 						/>
 						<Link className=" text-cyan-600 hover:underline" to={'/dashboard?tab=profile'}>
 							@{currentUser.username}
@@ -88,6 +107,21 @@ export default function CommentSection({ postId }) {
 							</Alert>
 						)}
 					</form>
+				)}
+				{postComment.length === 0 ? (
+					<p className="text-sm my-5">No Comments yet!</p>
+				) : (
+					<>
+						<div className="text-sm dark:text-gray-400 my-5 flex items-center gap-1">
+							<p className="">{postComment.length > 1 ? 'Comments' : 'Comment'}</p>
+							<div className=" dark:text-white bg-gray-500 px-2  rounded-sm">
+								<p>{postComment.length}</p>
+							</div>
+						</div>
+						{postComment.map((comment) => (
+							<Comments key={comment._id} comment={comment} />
+						))}
+					</>
 				)}
 			</div>
 		</div>
