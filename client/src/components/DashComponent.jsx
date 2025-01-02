@@ -162,7 +162,7 @@ export default function DashComponent() {
 					<Table>
 						<Table.Head className="">
 							<Table.HeadCell className="!rounded-none">User image</Table.HeadCell>
-							<Table.HeadCell className="!rounded-none">Username</Table.HeadCell>
+							<Table.HeadCell className="!rounded-none ">Username</Table.HeadCell>
 						</Table.Head>
 						{users &&
 							users.map((user) => (
@@ -175,7 +175,7 @@ export default function DashComponent() {
 												className="w-10 h-10 object-cover rounded-full bg-gray-500"
 											/>
 										</Table.Cell>
-										<Table.Cell>{user.username}</Table.Cell>
+										<Table.Cell className='text-start'>{user.username}</Table.Cell>
 									</Table.Row>
 								</Table.Body>
 							))}
@@ -218,7 +218,7 @@ export default function DashComponent() {
 					<Table>
 						<Table.Head className="">
 							<Table.HeadCell className="!rounded-none">Post image</Table.HeadCell>
-							<Table.HeadCell className="!rounded-none">Post Title</Table.HeadCell>
+							<Table.HeadCell className="!rounded-none text-center">Post Title</Table.HeadCell>
 							<Table.HeadCell className="!rounded-none">Category</Table.HeadCell>
 						</Table.Head>
 						{posts &&
