@@ -70,7 +70,7 @@ export default function DashComments() {
 		}
    };
    
-   console.log(comments);
+   console.log('comments:',comments);
    
 
 	return (
