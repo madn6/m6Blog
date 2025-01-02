@@ -1,13 +1,14 @@
 import { Spinner, Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { CommentSection } from '../components';
+import { CommentSection, PostCard } from '../components';
 
 export default function Postpage() {
 	const { postSlug } = useParams();
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [post, setPost] = useState(null);
+	const [recentPosts, setRecentPosts] = useState(null);
 
 	useEffect(() => {
 		const fetchPost = async () => {
@@ -38,6 +39,33 @@ export default function Postpage() {
 		fetchPost();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [postSlug]);
+
+	useEffect(() => {
+		const fetchRecentPosts = async () => {
+			try {
+				setLoading(true);
+				const res = await fetch(`/api/post/getposts?limit=3`);
+				if (!res.ok) {
+					throw new Error(`Error: ${res.status} ${res.statusText}`);
+				}
+				const data = await res.json();
+				// Process posts to extract content images or use default image
+				const processedPosts = data.posts.map((post) => {
+					const imgTagMatch = post.content.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
+					const contentImage = imgTagMatch ? imgTagMatch[1] : post.image;
+					return { ...post, contentImage };
+				});
+				setRecentPosts(processedPosts);
+				setLoading(false);
+			} catch (error) {
+				console.error('Failed to fetch recent posts:', error.message);
+				setError(true);
+				setLoading(false);
+			}
+		};
+		fetchRecentPosts();
+	}, []);
+
 
 	if (loading) {
 		return (
@@ -117,6 +145,12 @@ export default function Postpage() {
 				</div>
 			</div>
 			<CommentSection postId={post._id} />
+			<div className="flex flex-col justify-center items-center mb-5">
+				<h1 className="text-xl mt-5 dark:text-white font-semibold"> Recent articles</h1>
+				<div className="md:flex flex-wrap items-center justify-center gap-4  mx-4 my-4">
+					{recentPosts && recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
+				</div>
+			</div>
 		</div>
 	);
 }

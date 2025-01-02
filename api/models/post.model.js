@@ -17,7 +17,7 @@ const postSchema = new mongoose.Schema(
 		},
 		image: {
 			type: String,
-			default: 'https://pbwebdev.co.uk/wp-content/uploads/2018/12/blogs.jpg'
+			default: '/client/public/images/blog-img.webp'
 		},
 		category: {
 			type: String,
