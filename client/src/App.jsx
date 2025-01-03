@@ -8,7 +8,8 @@ import {
 	SignUp,
 	CreatePost,
 	UpdatePost,
-	Postpage
+	Postpage,
+	Search
 } from './pages/index.js';
 import {
 	Header,
@@ -28,6 +29,7 @@ export default function App() {
 				<Route path="/about" element={<About />} />
 				<Route path="/sign-in" element={<SignIn />} />
 				<Route path="/sign-up" element={<SignUp />} />
+				<Route path="/search" element={<Search />} />
 				{/* this is private route */}
 				<Route element={<PrivateRoute />}>
 					<Route path="/dashboard" element={<Dashboard />} />

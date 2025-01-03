@@ -1,44 +1,68 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch, AiFillMoon, AiFillSun } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/users/userSlice';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
+	const { theme } = useSelector((state) => state.theme);
 	const path = useLocation().pathname;
+	const location = useLocation();
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { currentUser } = useSelector((state) => state.user);
-	
-		const handleSignOut = async () => {
-			try {
-				const res = await fetch('/api/user/signout', {
-					method: 'POST'
-				});
-				const data = res.json();
-				if (!res.ok) {
-					console.log(data.message);
-				} else {
-					dispatch(signoutSuccess());
-				}
-			} catch (err) {
-				console.log(err.message);
-			}
-	};
-	
 
-	const { theme } = useSelector((state) => state.theme);
+	const [searchTerm, setSearchTerm] = useState('');
+
+	useEffect(() => {
+		const urlParams = new URLSearchParams(location.search);
+		const searchTermFromUrl = urlParams.get('searchTerm');
+		if (searchTermFromUrl) {
+			setSearchTerm(searchTermFromUrl);
+		}
+	}, [location.search]);
+
+	const handleSignOut = async () => {
+		try {
+			const res = await fetch('/api/user/signout', {
+				method: 'POST'
+			});
+			const data = res.json();
+			if (!res.ok) {
+				console.log(data.message);
+			} else {
+				dispatch(signoutSuccess());
+			}
+		} catch (err) {
+			console.log(err.message);
+		}
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const urlParams = new URLSearchParams(location.search);
+		urlParams.set('searchTerm', searchTerm);
+		const searchQuery = urlParams.toString();
+		navigate(`/search?${searchQuery}`);
+	};
+
 	return (
 		<Navbar className="border-b-2">
 			<Link to="/">
-				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl dark:text-white">Blogx</span>
+				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl dark:text-white">
+					Blogx
+				</span>
 			</Link>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<TextInput
 					type="text"
+					value={searchTerm}
 					placeholder="Search..."
 					rightIcon={AiOutlineSearch}
 					className="hidden lg:inline "
+					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 			</form>
 			<Button className=" p-0  lg:hidden items-center" color="gray" pill>
@@ -57,13 +81,7 @@ export default function Header() {
 					<Dropdown
 						arrowIcon={false}
 						inline
-						label={
-							<Avatar
-								alt="Avatar"
-								img={currentUser.profilePicture}
-								rounded
-							/>
-						}
+						label={<Avatar alt="Avatar" img={currentUser.profilePicture} rounded />}
 					>
 						<Dropdown.Header>
 							<span className="block text-sm">{currentUser.username}</span>
