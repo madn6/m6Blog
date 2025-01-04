@@ -1,18 +1,18 @@
 import { Footer, FooterDivider } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
-import { BsFacebook, BsInstagram,  BsLinkedin, BsGithub, BsDribbble } from 'react-icons/bs';
+import { BsFacebook, BsInstagram, BsLinkedin, BsGithub, BsDribbble } from 'react-icons/bs';
 
 export default function FooterComponent() {
 	return (
 		<div>
 			<Footer className=" border-t-2 shadow-none">
 				<div className="w-full max-w-4xl mx-auto p-8">
-					<Link to="/">
-						<span className="font-taruno dark:text-white flex items-center justify-center font-bold lg:text-3xl md:text-2xl text-xl">
+					<div className="font-taruno dark:text-white flex items-center justify-center font-bold lg:text-3xl md:text-2xl text-xl">
+						<Link className="" to="/">
 							blogx
-						</span>
-					</Link>
+						</Link>
+					</div>
 					<div className="grid grid-cols-2 mt-4 md:place-items-center lg:place-items-center place-items-start gap-4 md:grid-cols-3 lg:grid-cols-3">
 						<div className="">
 							<Footer.Title title=" About" className="mb-2 text-black font-semibold" />
@@ -56,7 +56,7 @@ export default function FooterComponent() {
 							</Footer.LinkGroup>
 						</div>
 					</div>
-					<FooterDivider className='opacity-10' />
+					<FooterDivider className="opacity-10" />
 					<div className=" flex items-center gap-3 justify-center">
 						<Footer.Copyright
 							href="https://mathan.pages.dev"
