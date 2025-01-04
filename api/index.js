@@ -3,9 +3,11 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
-import postRoutes from './routes/post.route.js'
-import CommentRoutes from './routes/comment.route.js'
+import postRoutes from './routes/post.route.js';
+import CommentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
+
+
 
 const app = express();
 
@@ -29,7 +31,7 @@ async function startServer() {
 	await connectToDatabase(); // Corrected function name here
 	const port = process.env.PORT || 3000;
 	app.listen(port, () => {
-		console.log(`Server is listening on ${port}`)
+		console.log(`Server is listening on ${port}`);
 	});
 }
 
@@ -37,8 +39,8 @@ startServer();
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/post',postRoutes)
-app.use('/api/comment',CommentRoutes)
+app.use('/api/post', postRoutes);
+app.use('/api/comment', CommentRoutes);
 
 app.use((err, req, res, next) => {
 	const statuscode = err.statusCode || 500;

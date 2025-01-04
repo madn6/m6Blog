@@ -100,7 +100,7 @@ export default function CreatePost() {
 				},
 				body: JSON.stringify(formData)
 			});
-			const data = await res.json();			
+			const data = await res.json();
 			if (!res.ok) {
 				setPublishError(data.message);
 				return;
@@ -122,14 +122,14 @@ export default function CreatePost() {
 				<div className="flex flex-col gap-4 sm:flex-row justify-between">
 					<TextInput
 						onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-						className="flex-1 "
+						className="flex-1"
 						type="text"
 						placeholder="Title"
 						required
 						id="title"
 					/>
 					<Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
-						<option value="uncategorized">Select a category</option>
+						<option value="uncatogorized">Select a category</option>
 						<option value="ai">AI</option>
 						<option value="dogs">Dogs</option>
 						<option value="mobile">Mobile</option>
@@ -167,7 +167,7 @@ export default function CreatePost() {
 					theme="snow"
 					required
 					placeholder="write something comes in your mind..."
-					className="h-72 mb-12 dark:text-white text__editor"
+					className="h-72 mb-12 dark:text-white"
 					onChange={(value) => setFormData({ ...formData, content: value })}
 					ref={quillRef}
 				/>

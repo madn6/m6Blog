@@ -4,6 +4,9 @@ import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 export default function PostCard({ post }) {
+
+	console.log(post);
+	
 	return (
 		<div className="overflow-hidden shadow-lg rounded-lg w-[350px] md:mb-0 lg:mb-0 mb-4  bg-gray-100">
 			{/* Image Container */}
