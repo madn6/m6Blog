@@ -116,6 +116,8 @@ export default function Postpage() {
 	};
 
 	const readingTime = post ? getReadingTime(post.content) : 0;
+	console.log('xxxxx',post);
+	
 
 	return (
 		<div>
@@ -144,7 +146,7 @@ export default function Postpage() {
 					<div className="post__content" dangerouslySetInnerHTML={{ __html: cleanedContent }}></div>
 				</div>
 			</div>
-			<CommentSection postId={post._id} />
+			{post && <CommentSection postId={post._id} />}
 			<div className="flex flex-col justify-center items-center mb-5">
 				<h1 className="text-xl mt-5 dark:text-white font-semibold"> Recent articles</h1>
 				<div className="md:flex flex-wrap items-center justify-center gap-4  mx-4 my-4">

@@ -40,9 +40,6 @@ export default function Home() {
 					connected as we journey through topics that spark curiosity and ignite conversations.
 					Ready to discover your next favorite read? Let&apos;s get started!
 				</p>
-				<Link to="/search" className="text-sm  text-teal-500 font-semibold hover:underline">
-					View all posts
-				</Link>
 			</div>
 			<div className="max-w-6xl mx-auto p-3 flex flex-col">
 				{posts && posts.length > 0 && (

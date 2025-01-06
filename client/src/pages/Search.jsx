@@ -18,13 +18,13 @@ export default function Search() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		// Extract query parameters from the URL
 		const urlParams = new URLSearchParams(location.search);
 		const searchTermFromUrl = urlParams.get('searchTerm') || '';
 		const sortFromUrl = urlParams.get('sort') || 'desc';
 		const categoryFromUrl = urlParams.get('category') || 'uncategorized';
 
-		// Update the sidebarData state
+		console.log('Category from URL:', categoryFromUrl); // Log the category from URL
+
 		setSidebarData((prevData) => ({
 			...prevData,
 			SearchTerm: searchTermFromUrl,
@@ -35,51 +35,39 @@ export default function Search() {
 		// Fetch posts from the backend
 		const fetchPosts = async () => {
 			try {
-				setLoading(true); // Start loading indicator
+				setLoading(true);
 
-				// Construct the query string from the updated state
 				const query = new URLSearchParams({
 					searchTerm: searchTermFromUrl,
 					sort: sortFromUrl,
 					category: categoryFromUrl
 				}).toString();
+				console.log('Fetch query:', query); // Log the query string
 				const res = await fetch(`/api/post/getposts?${query}`);
-				if (!res.ok) {
-					console.error('Failed to fetch posts:', res.statusText);
-					throw new Error(`HTTP error! status: ${res.status}`);
-				}
-				if (res.ok) {
-					const data = await res.json();
-					// Process posts
-					const processedPosts = data.posts.map((post) => {
-						const imgTagMatch = post.content.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
-						const contentImage = imgTagMatch ? imgTagMatch[1] : post.image; // Use extracted image or fallback
-						return { ...post, contentImage };
-					});
-					setPosts(processedPosts);
-					console.log('processedPosts:', processedPosts);
-					setLoading(false);
-					if (processedPosts.length === 9) {
-						setShowMore(true);
-					} else {
-						setShowMore(false);
-					}
-				}
+				if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+				const data = await res.json();
+				const processedPosts = data.posts.map((post) => {
+					const imgTagMatch = post.content.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
+					const contentImage = imgTagMatch ? imgTagMatch[1] : post.image;
+					return { ...post, contentImage };
+				});
+
+				setPosts(processedPosts);
+				setShowMore(processedPosts.length === 9);
 			} catch (error) {
 				console.error('Error fetching posts:', error.message);
 			} finally {
-				setLoading(false); // Stop loading indicator
+				setLoading(false);
 			}
 		};
 
 		fetchPosts();
 	}, [location.search]);
 
-	console.log('posts:', posts);
-
 	const handleChange = (e) => {
 		if (e.target.id === 'searchTerm') {
-			setSidebarData({ ...sidebarData, SearchTerm: e.target.value });
+			setSidebarData({ ...sidebarData, SearchTerm: e.target.value }); // Update SearchTerm
 		}
 		if (e.target.id === 'sort') {
 			const order = e.target.value || 'desc';
@@ -95,54 +83,40 @@ export default function Search() {
 		e.preventDefault();
 
 		const urlParams = new URLSearchParams();
-		urlParams.set('searchTerm', sidebarData.SearchTerm || ''); // Default to empty if no search term
-		urlParams.set('sort', sidebarData.sort || 'desc'); // Default to 'desc' if no sort is set
-		urlParams.set('category', sidebarData.category || 'uncategorized'); // Default to 'uncategorized' if no category is selected
+		urlParams.set('searchTerm', sidebarData.SearchTerm || '');
+		urlParams.set('sort', sidebarData.sort || 'desc');
+		urlParams.set('category', sidebarData.category || 'uncategorized');
 
-		const searchQuery = urlParams.toString(); // Create the query string
-		navigate(`/search?${searchQuery}`); // Navigate with the search query
+		navigate(`/search?${urlParams.toString()}`);
 	};
-
-	console.log(posts);
 
 	const handleShowMore = async () => {
 		try {
-			const numberOfPosts = posts.length;
-			const startIndex = numberOfPosts;
+			setLoading(true); // Start loading indicator
 
-			// Construct the query string
+			const startIndex = posts.length; // Determine the index from where to fetch
+
 			const urlParams = new URLSearchParams(location.search);
 			urlParams.set('startIndex', startIndex);
-			const query = urlParams.toString();
 
-			// Fetch posts from the API
-			const res = await fetch(`/api/post/getposts?${query}`);
-			if (!res.ok) {
-				console.error('Failed to fetch posts:', res.statusText);
-				throw new Error(`HTTP error! status: ${res.status}`);
-			}
+			// Fetch additional posts
+			const res = await fetch(`/api/post/getposts?${urlParams.toString()}`);
+			if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
 			const data = await res.json();
-			// Process posts to extract content images
 			const processedPosts = data.posts.map((post) => {
 				const imgTagMatch = post.content.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
-				const contentImage = imgTagMatch ? imgTagMatch[1] : post.image; // Use extracted image or fallback
+				const contentImage = imgTagMatch ? imgTagMatch[1] : post.image;
 				return { ...post, contentImage };
 			});
 
-			// Append new posts to the existing ones
+			// Append new posts to the existing posts
 			setPosts((prevPosts) => [...prevPosts, ...processedPosts]);
 
 			// Determine if "Show More" should be displayed
-			if (processedPosts.length === 9) {
-				setShowMore(true); // Show "Show More" if more posts can be loaded
-			} else {
-				setShowMore(false); // Hide "Show More" if fewer posts were fetched
-			}
-
-			console.log('processedPosts:', processedPosts);
+			setShowMore(processedPosts.length === 9);
 		} catch (error) {
-			console.error('Error fetching posts:', error.message);
+			console.error('Error fetching more posts:', error.message);
 		} finally {
 			setLoading(false); // Stop loading indicator
 		}
@@ -156,7 +130,7 @@ export default function Search() {
 						<label className="dark:text-white whitespace-nowrap font-semibold">Search Term</label>
 						<TextInput
 							onChange={handleChange}
-							value={sidebarData.SearchTerm || ''}
+							value={sidebarData.SearchTerm || ''} // Make sure value is bound correctly
 							placeholder="Search..."
 							id="searchTerm"
 							type="text"
@@ -187,13 +161,13 @@ export default function Search() {
 					Posts results
 				</h1>
 				<div className="p-7 flex flex-wrap justify-center gap-4">
+					{loading && <p className="text-xl text-gray-500">Loading...</p>}
 					{!loading && posts.length === 0 && (
-						<p className="text-xl text-gray-500 ">No posts found.</p>
+						<p className="text-xl text-gray-500">No posts found.</p>
 					)}
-					{loading && <p className="text-xl text-gray-500 ">Loading...</p>}
-					{!loading && posts && posts.map((post) => <PostCard key={post._id} post={post} />)}
+					{!loading && posts.map((post) => <PostCard key={post._id} post={post} />)}
 					{showMore && (
-						<button onClick={handleShowMore} className=" text-teal-500 hover:underline p-7 w-full">
+						<button onClick={handleShowMore} className="text-teal-500 hover:underline p-7 w-full">
 							Show More
 						</button>
 					)}
