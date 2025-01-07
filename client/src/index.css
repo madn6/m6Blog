@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/meldina');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,28 +10,52 @@ body {
 	@apply font-interDisplay;
 }
 
+:root {
+	--flowbite-input-bg: #232323;
+	--flowbite-input-color: #a4a4a4;
+	--flowbite-input-placeholder: #a4a4a4;
+}
+
 .ql-editor {
 	font-size: 1rem;
 	border: 1px solid;
+}
+
+
+.custom-navbar {
+	border-bottom: 1px solid #232323 !important ;
 }
 
 .ql-editor::before {
 	color: gray red !important; /* Light placeholder color */
 }
 
-[data-testid="flowbite-sidebar-label"] span {
-	@apply dark:text-white
-}
-[data-testid="table-row-element"] td {
-	@apply p-4
+[data-testid='flowbite-sidebar-label'] span {
+	@apply dark:text-white;
 }
 
-.post__content a{
-	@apply text-blue-600
+[data-testid='flowbite-dropdown'] ul{
+	@apply border border-gray-300 rounded-sm;
 }
 
-.post__content img{
-	@apply rounded-lg overflow-hidden shadow-lg   border border-gray-100
+[data-testid='flowbite-dropdown'] span{
+	@apply text-light-100;
+}
+[data-testid='flowbite-dropdown'] div{
+	@apply first:border-none border border-gray-300;
+}
+
+
+[data-testid='table-row-element'] td {
+	@apply p-4;
+}
+
+.post__content a {
+	@apply text-blue-600;
+}
+
+.post__content img {
+	@apply rounded-lg overflow-hidden shadow-lg   border border-gray-100;
 }
 
 /* Dark mode */

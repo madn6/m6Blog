@@ -1,6 +1,6 @@
-import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react';
+import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AiOutlineSearch, AiFillMoon, AiFillSun } from 'react-icons/ai';
+import { AiOutlineSearch, AiFillMoon, AiFillSun, AiOutlineMenu } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/users/userSlice';
@@ -15,6 +15,11 @@ export default function Header() {
 	const { currentUser } = useSelector((state) => state.user);
 
 	const [searchTerm, setSearchTerm] = useState('');
+	const [open, setOpen] = useState(false);
+
+	const toggleMenu = () => {
+		setOpen(!open);
+	};
 
 	useEffect(() => {
 		const urlParams = new URLSearchParams(location.search);
@@ -49,69 +54,140 @@ export default function Header() {
 	};
 
 	return (
-		<Navbar className="border-b-2">
+		<Navbar className="custom-navbar  dark:!bg-dark-100">
 			<Link to="/">
-				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl dark:text-white">
+				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl dark:text-light-100 text-dark-100">
 					Blogx
 				</span>
 			</Link>
 			<form onSubmit={handleSubmit}>
-				<TextInput
-					type="text"
-					value={searchTerm}
-					placeholder="Search..."
-					rightIcon={AiOutlineSearch}
-					className="hidden lg:inline "
-					onChange={(e) => setSearchTerm(e.target.value)}
-				/>
+				<div className="relative flex  items-center">
+					<input
+						type="text"
+						value={searchTerm}
+						placeholder="Search..."
+						className=" w-full p-2 hidden md:inline bg-gray-200   text-[#a4a4a4] placeholder-[#a4a4a4] rounded-md border-none focus:ring-0 focus:outline-none"
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+					<AiOutlineSearch className="absolute  hidden md:inline right-3 text-[#a4a4a4]" />
+				</div>
 			</form>
-			<Button className=" p-0  lg:hidden items-center" color="gray" pill>
-				<AiOutlineSearch className="" />
-			</Button>
-			<div className="flex items-center gap-2 md:order-2">
-				<Button
-					className=" p-0 hidden sm:inline "
-					color="gray"
-					pill
+			<div className="flex items-center gap-2 md:order-2 ">
+				<button
+					className="  px-2 py-2 text-xl border-gray-300 border rounded-sm bg-gray-200 text-light-100  border-opacity-50"
 					onClick={() => dispatch(toggleTheme())}
 				>
 					{theme === 'light' ? <AiFillMoon /> : <AiFillSun />}
-				</Button>
+				</button>
 				{currentUser ? (
 					<Dropdown
+						className="dark:!bg-dark-300 "
 						arrowIcon={false}
 						inline
-						label={<Avatar alt="Avatar" img={currentUser.profilePicture} rounded />}
+						label={<Avatar alt="Avatar" className="" img={currentUser.profilePicture} rounded />}
 					>
-						<Dropdown.Header>
+						<Dropdown.Header className="">
 							<span className="block text-sm">{currentUser.username}</span>
 							<span className="block text-sm font-medium truncate">{currentUser.email}</span>
 						</Dropdown.Header>
-						<Link to="/dashboard?tab=profile">
-							<Dropdown.Item>Profile</Dropdown.Item>
+						<Link to="/dashboard?tab=profile" className="hover:!bg-gray-200">
+							<Dropdown.Item className="hover:!bg-gray-200  rounded-sm">
+								<span className="">Profile</span>
+							</Dropdown.Item>
 						</Link>
 						<Dropdown.Divider />
-						<Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
+						<Dropdown.Item onClick={handleSignOut} className="hover:!bg-gray-200  rounded-sm">
+							<span className="">Sign out</span>
+						</Dropdown.Item>
 					</Dropdown>
 				) : (
-					<Link to="/sign-in">
-						<Button>Sign In</Button>
+					<Link to="/sign-in" className="">
+						<button className="bg-gray-200 text-sm border-gray-300 border text-light-100 border-opacity-50  px-2 py-2  rounded-sm">
+							Sign In
+						</button>
 					</Link>
 				)}
-				<Navbar.Toggle className="" />
+				<div className="bg-gray-200 md:hidden lg:hidden  border-gray-300 border !text-light-100 border-opacity-50   px-2 py-2 rounded-sm">
+					<AiOutlineMenu onClick={toggleMenu} className="text-xl cursor-pointer" />
+				</div>
 			</div>
 			{/* nav links */}
-			<Navbar.Collapse>
-				<Navbar.Link active={path === '/'} as={'div'}>
-					<Link to="/">Home</Link>
-				</Navbar.Link>
-				<Navbar.Link active={path === '/about'} as={'div'}>
-					<Link to="/about">About</Link>
-				</Navbar.Link>
-				<Navbar.Link active={path === '/projects'} as={'div'}>
-					<Link to="/projects">Projects</Link>
-				</Navbar.Link>
-			</Navbar.Collapse>
+			<div
+				className={`fixed inset-0 z-50 bg-dark-100 transition-transform duration-500 ease-in-out 
+            ${open ? 'translate-y-0' : ' -translate-y-full'} 
+            sm:block md:hidden`} // Only applies to small screens (sm)
+			>
+				<div className="flex flex-col h-full items-center justify-center text-5xl space-y-10 text-center">
+					<div
+						className={`block py-2 !p-4 pl-3 rounded-sm pr-4 md:p-0 ${
+							path === '/'
+								? 'text-[#f6f6f6] bg-gray-200 !border-gray-300 !border'
+								: 'text-[#a4a4a4]'
+						} hover:text-[#f6f6f6] hover:bg-gray-200`}
+					>
+						<Link to="/" onClick={() => setOpen(false)}>
+							Home
+						</Link>
+					</div>
+					<div
+						className={`block py-2 pl-3 rounded-sm pr-4 md:p-0 ${
+							path === '/about'
+								? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border'
+								: 'text-[#a4a4a4]'
+						} hover:text-[#f6f6f6] hover:bg-gray-200`}
+					>
+						<Link to="/about" onClick={() => setOpen(false)}>
+							About
+						</Link>
+					</div>
+					<div
+						className={`block py-2 pl-3 rounded-sm pr-4 md:p-0 ${
+							path === '/projects'
+								? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border'
+								: 'text-[#a4a4a4]'
+						} hover:text-[#f6f6f6] hover:bg-gray-200`}
+					>
+						<Link to="/projects" onClick={() => setOpen(false)}>
+							Projects
+						</Link>
+					</div>
+				</div>
+			</div>
+
+			{/* For medium and large screens */}
+			<div className="hidden md:flex md:flex-row md:space-x-1 md:text-sm md:font-medium lg:flex lg:space-x-2 lg:text-sm lg:font-medium">
+				<div
+					className={`block py-2 pl-3 rounded-sm pr-4  ${
+						path === '/' ? 'text-[#f6f6f6] bg-gray-200  border-gray-300 border' : 'text-[#a4a4a4]'
+					} hover:text-[#f6f6f6] hover:bg-gray-200`}
+				>
+					<Link to="/" onClick={() => setOpen(false)}>
+						Home
+					</Link>
+				</div>
+				<div
+					className={`block py-2 pl-3 rounded-sm pr-4 ${
+						path === '/about'
+							? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border'
+							: 'text-[#a4a4a4]'
+					} hover:text-[#f6f6f6] hover:bg-gray-200`}
+				>
+					<Link to="/about" onClick={() => setOpen(false)}>
+						About
+					</Link>
+				</div>
+				<div
+					className={`block py-2 pl-3 rounded-sm pr-4 ${
+						path === '/projects'
+							? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border'
+							: 'text-[#a4a4a4]'
+					} hover:text-[#f6f6f6] hover:bg-gray-200`}
+				>
+					<Link to="/projects" onClick={() => setOpen(false)}>
+						Projects
+					</Link>
+				</div>
+			</div>
 		</Navbar>
 	);
 }

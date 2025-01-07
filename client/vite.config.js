@@ -8,8 +8,10 @@ export default defineConfig({
 			'/api': {
 				target: 'http://localhost:3000',
 				secure: false
-			},
-		}
+			}
+		},
+		host: true, // This allows access from your network
+		port: 5173 // Optional: Specify a custom port
 	},
 	plugins: [react()]
 });

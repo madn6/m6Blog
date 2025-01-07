@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PostCard from '../components/PostCard';
+import Lottie from 'lottie-react';
+import animationData from '../../public/lottie/Animation - 1736242442811.json';
 
 export default function Home() {
 	const [posts, setPosts] = useState([]);
@@ -31,29 +33,37 @@ export default function Home() {
 
 	return (
 		<div>
-			<div className="dark:text-white flex flex-col gap-6 p-28 px-4 lg:px-6 md:px-8 max-w-6xl mx-auto">
-				<h1 className="text-3xl font-bold lg:text-6xl">Welcome to my Blog</h1>
-				<p className="text-gray-500 text-xl ">
-					Dive into a world of ideas, stories, and insights where every post is crafted with passion
-					and purpose. Whether you&apos;re here to explore tech tutorials, personal reflections, or
-					the latest trends, there&apos;s something for everyone. Stay updated, inspired, and
-					connected as we journey through topics that spark curiosity and ignite conversations.
-					Ready to discover your next favorite read? Let&apos;s get started!
-				</p>
+			<div className="dark:text-white  flex flex-col gap-6 mt-14 mb-4 lg:mb-14 md:mb-14   lg:px-6 md:px-8 max-w-6xl mx-auto">
+				<h1 className="  font-Meldina font-regular text-center lg:text-6xl md:text-3xl text-2xl">
+					Welcome to my Blog
+				</h1>
+				<div className="flex gap-4 items-end ">
+					<p className="md:w-3/5 lg:w-3/4 p-4 w-full lg:text-xl md:text-xl text-lg">
+						Welcome to a space where ideas come to life! Dive into engaging tech tutorials,
+						heartfelt personal reflections, and the latest trends designed to inspire and connect.
+						Each post is crafted with care, aiming to spark curiosity and fuel meaningful
+						conversations.
+					</p>
+					<div className="w-2/5 items-start hidden md:inline">
+						<Lottie animationData={animationData} loop={true} play />
+					</div>
+				</div>
 			</div>
 			<div className="max-w-6xl mx-auto p-3 flex flex-col">
 				{posts && posts.length > 0 && (
 					<>
-						<div className="flex flex-wrap gap-4">
-							<h2 className="text-2xl font-semibold text-center dark:text-white">Recent Posts</h2>
-							<div className="flex my-4 justify-center  flex-wrap items-center gap-4">
+						<div className="">
+							<h2 className="  text-2xl font-semibold  !text-center  ">
+								Recent Posts
+							</h2>
+							<div className=" flex flex-wrap  my-4 justify-center items-center gap-4">
 								{posts.map((post) => (
 									<PostCard key={post._id} post={post} />
 								))}
 							</div>
 						</div>
-						<Link to={'/search'} className="text-lg text-teal-500 hover:underline  text-center">
-							View All Posts
+						<Link to={'/search'} className="text-lg text-gray-100-100 hover:underline  text-center">
+							View All Posts...
 						</Link>
 					</>
 				)}

@@ -1,5 +1,5 @@
 import flowbite from 'flowbite-react/tailwind';
-import tailwindScrollbar from 'tailwind-scrollbar'; 
+import tailwindScrollbar from 'tailwind-scrollbar';
 import typography from '@tailwindcss/typography';
 
 export default {
@@ -23,7 +23,8 @@ export default {
 			},
 			fontFamily: {
 				interDisplay: ['Inter Display', 'sans-serif'],
-				taruno: ['Taruno Wide']
+				taruno: ['Taruno Wide'],
+				Meldina: ['Meldina']
 			},
 			fontWeight: {
 				thin: 100,
@@ -35,5 +36,5 @@ export default {
 			}
 		}
 	},
-	plugins: [flowbite.plugin(), tailwindScrollbar,typography]
+	plugins: [flowbite.plugin(), tailwindScrollbar, typography]
 };
