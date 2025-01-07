@@ -33,12 +33,12 @@ export default function Home() {
 
 	return (
 		<div>
-			<div className="dark:text-white  flex flex-col gap-6 mt-14 mb-4 lg:mb-14 md:mb-14   lg:px-6 md:px-8 max-w-6xl mx-auto">
-				<h1 className="  font-Meldina font-regular text-center lg:text-6xl md:text-3xl text-2xl">
-					Welcome to my Blog
+			<div className="flex flex-col gap-6 mt-14 mb-4 lg:mb-14 md:mb-14   lg:px-6 md:px-8 max-w-6xl mx-auto">
+				<h1 className=" dark:text-light-100 text-gray-200  font-Meldina font-regular text-center lg:text-6xl md:text-3xl text-2xl">
+					Welcome to my Blog...
 				</h1>
 				<div className="flex gap-4 items-end ">
-					<p className="md:w-3/5 lg:w-3/4 p-4 w-full lg:text-xl md:text-xl text-lg">
+					<p className="md:w-3/5 lg:w-3/4 p-4  w-full lg:text-xl md:text-xl text-lg">
 						Welcome to a space where ideas come to life! Dive into engaging tech tutorials,
 						heartfelt personal reflections, and the latest trends designed to inspire and connect.
 						Each post is crafted with care, aiming to spark curiosity and fuel meaningful
@@ -53,7 +53,7 @@ export default function Home() {
 				{posts && posts.length > 0 && (
 					<>
 						<div className="">
-							<h2 className="  text-2xl font-semibold  !text-center  ">
+							<h2 className="  dark:!text-light-100 text-2xl font-semibold  !text-center  ">
 								Recent Posts
 							</h2>
 							<div className=" flex flex-wrap  my-4 justify-center items-center gap-4">
@@ -62,7 +62,7 @@ export default function Home() {
 								))}
 							</div>
 						</div>
-						<Link to={'/search'} className="text-lg text-gray-100-100 hover:underline  text-center">
+						<Link to={'/search'} className="text-lg  dark:!text-light-100 text-gray-100-100 hover:underline  text-center">
 							View All Posts...
 						</Link>
 					</>

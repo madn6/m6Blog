@@ -5,10 +5,10 @@ export default function ThemeProvider({ children }) {
 	const { theme } = useSelector((state) => state.theme);
 	return (
 		<div className={theme}>
-			<div className="bg-white dark:!text-gray-100  dark:bg-dark-100 min-h-screen">
+			<div className=" dark:!text-gray-100 !text-gray-200 bg-light-100  dark:bg-dark-100 min-h-screen">
 				{children}
 			</div>
-			<style>
+			{/* <style>
 				{`
 					:root {
 						--heading-color: #f6f6f6;
@@ -21,7 +21,7 @@ export default function ThemeProvider({ children }) {
 						color: var(--body-color);
 					}
 				`}
-			</style>
+			</style> */}
 		</div>
 	);
 }

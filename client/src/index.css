@@ -37,6 +37,9 @@ body {
 [data-testid='flowbite-dropdown'] ul{
 	@apply border border-gray-300 rounded-sm;
 }
+[data-testid='flowbite-footer-icon'] svg{
+	@apply hover:text-light-100;
+}
 
 [data-testid='flowbite-dropdown'] span{
 	@apply text-light-100;

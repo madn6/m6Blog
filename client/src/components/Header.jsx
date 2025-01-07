@@ -56,7 +56,7 @@ export default function Header() {
 	return (
 		<Navbar className="custom-navbar  dark:!bg-dark-100">
 			<Link to="/">
-				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl dark:text-light-100 text-dark-100">
+				<span className="font-taruno  font-bold lg:text-3xl md:text-2xl text-xl dark:text-light-100 text-gray-200">
 					Blogx
 				</span>
 			</Link>
@@ -115,17 +115,17 @@ export default function Header() {
 			<div
 				className={`fixed inset-0 z-50 bg-dark-100 transition-transform duration-500 ease-in-out 
             ${open ? 'translate-y-0' : ' -translate-y-full'} 
-            sm:block md:hidden`} // Only applies to small screens (sm)
+            sm:block md:hidden`} 
 			>
 				<div className="flex flex-col h-full items-center justify-center text-5xl space-y-10 text-center">
 					<div
 						className={`block py-2 !p-4 pl-3 rounded-sm pr-4 md:p-0 ${
 							path === '/'
 								? 'text-[#f6f6f6] bg-gray-200 !border-gray-300 !border'
-								: 'text-[#a4a4a4]'
+								: 'text-[#a4a4a4] '
 						} hover:text-[#f6f6f6] hover:bg-gray-200`}
 					>
-						<Link to="/" onClick={() => setOpen(false)}>
+						<Link className="" to="/" onClick={() => setOpen(false)}>
 							Home
 						</Link>
 					</div>
@@ -158,8 +158,8 @@ export default function Header() {
 			<div className="hidden md:flex md:flex-row md:space-x-1 md:text-sm md:font-medium lg:flex lg:space-x-2 lg:text-sm lg:font-medium">
 				<div
 					className={`block py-2 pl-3 rounded-sm pr-4  ${
-						path === '/' ? 'text-[#f6f6f6] bg-gray-200  border-gray-300 border' : 'text-[#a4a4a4]'
-					} hover:text-[#f6f6f6] hover:bg-gray-200`}
+						path === '/' ? 'text-[#f6f6f6]   bg-gray-200  border-gray-300 border' : 'dark:text-[#a4a4a4] text-gray-200'
+					} dark:hover:text-[#f6f6f6] dark:hover:bg-gray-200 hover:bg-gray-200 hover:text-light-100`}
 				>
 					<Link to="/" onClick={() => setOpen(false)}>
 						Home
@@ -169,19 +169,19 @@ export default function Header() {
 					className={`block py-2 pl-3 rounded-sm pr-4 ${
 						path === '/about'
 							? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border'
-							: 'text-[#a4a4a4]'
-					} hover:text-[#f6f6f6] hover:bg-gray-200`}
+							: 'dark:text-[#a4a4a4] text-gray-200 '
+					} dark:hover:text-[#f6f6f6] dark:hover:bg-gray-200 hover:bg-gray-200 hover:text-light-100`}
 				>
 					<Link to="/about" onClick={() => setOpen(false)}>
 						About
 					</Link>
 				</div>
 				<div
-					className={`block py-2 pl-3 rounded-sm pr-4 ${
+					className={`block py-2 pl-3 rounded-sm pr-4  ${
 						path === '/projects'
-							? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border'
-							: 'text-[#a4a4a4]'
-					} hover:text-[#f6f6f6] hover:bg-gray-200`}
+							? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border '
+							: 'dark:text-[#a4a4a4] text-gray-200'
+					} dark:hover:text-[#f6f6f6] dark:hover:bg-gray-200 hover:bg-gray-200 hover:text-light-100`}
 				>
 					<Link to="/projects" onClick={() => setOpen(false)}>
 						Projects
