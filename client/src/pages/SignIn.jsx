@@ -46,7 +46,7 @@ export default function SignIn() {
 	return (
 		<>
 			<div className=" h-screen  ">
-				<div className="  max-w-xs mx-auto px-4  flex flex-col items-center mt-40 justify-center">
+				<div className=" h-full  max-w-xs mx-auto px-4  flex flex-col items-center  justify-center">
 					<div className="w-full ">
 						<Link to="/" className=" mb-4 flex items-center justify-center">
 							<span className="font-taruno dark:text-light-100  font-bold lg:text-3xl md:text-2xl text-xl">

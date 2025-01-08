@@ -83,7 +83,7 @@ export default function FooterComponent() {
 							</Footer.LinkGroup>
 						</div>
 					</div>
-					<FooterDivider className="opacity-20 pb-1 border-gray-100 " />
+					<FooterDivider className="opacity-10 pb-1 !border-gray-100 " />
 					<div className=" flex items-center gap-3 justify-between">
 						<p className="text-gray-100">{formattedDate}</p>
 						<div className="copy text-gray-100">
