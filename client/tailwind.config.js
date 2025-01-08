@@ -17,7 +17,7 @@ export default {
 				'dark-200': '#161616',
 				'dark-300': '#171717',
 				'light-100': '#f6f6f6',
-				white: '#ffffff',
+				'white': '#ffffff',
 				'gray-200': '#232323',
 				'gray-300': '#333333'
 			},

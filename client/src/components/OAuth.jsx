@@ -40,7 +40,7 @@ export default function OAuth() {
 			<Button
 				onClick={handleGoogleClick}
 				type="button"
-				className="focus:ring-0 bg-gradient-to-r from-blue-400 to-green-400"
+				className="focus:ring-0  !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border"
 			>
 				<AiFillGoogleCircle className="mr-2 w-5 h-5 " />
 				Continue With Google

@@ -21,7 +21,6 @@ body {
 	border: 1px solid;
 }
 
-
 .custom-navbar {
 	border-bottom: 1px solid #232323 !important ;
 }
@@ -34,20 +33,19 @@ body {
 	@apply dark:text-white;
 }
 
-[data-testid='flowbite-dropdown'] ul{
+[data-testid='flowbite-dropdown'] ul {
 	@apply border border-gray-300 rounded-sm;
 }
-[data-testid='flowbite-footer-icon'] svg{
+[data-testid='flowbite-footer-icon'] svg {
 	@apply hover:text-light-100;
 }
 
-[data-testid='flowbite-dropdown'] span{
+[data-testid='flowbite-dropdown'] span {
 	@apply text-light-100;
 }
-[data-testid='flowbite-dropdown'] div{
+[data-testid='flowbite-dropdown'] div {
 	@apply first:border-none border border-gray-300;
 }
-
 
 [data-testid='table-row-element'] td {
 	@apply p-4;
@@ -75,6 +73,16 @@ input[type='text']:focus {
 .ql-container p img {
 	width: 650px;
 	margin: auto;
+}
+
+input {
+	outline: none;
+}
+
+input:focus {
+	outline: none;
+	box-shadow: none; /* Removes any shadow applied */
+	border-color: transparent; /* Prevents a border color change */
 }
 
 /* Define Inter Display Font Faces */
