@@ -93,7 +93,7 @@ export default function SignIn() {
 									Sign Up
 								</Link>
 							</div>
-							{errorMessage && <Alert color="failure">{errorMessage}</Alert>}
+							{errorMessage && <Alert className='!p-3' color="failure">{errorMessage}</Alert>}
 						</form>
 					</div>
 				</div>
