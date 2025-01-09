@@ -2,11 +2,14 @@
 
 import { Link } from 'react-router-dom';
 
+
+
 export default function PostCard({ post }) {
 
 	console.log(post);
 	
 	return (
+
 		<div className="overflow-hidden shadow-xl rounded-lg w-full bg-gray-200 border border-gray-300">
 			{/* Image Container */}
 			<div className="relative  h-[180px] w-full">
@@ -23,5 +26,5 @@ export default function PostCard({ post }) {
 				</Link>
 			</div>
 		</div>
-	);
+	)
 }
