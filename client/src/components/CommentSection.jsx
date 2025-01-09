@@ -82,7 +82,7 @@ export default function CommentSection({ postId }) {
 									...comment,
 									likes: data.likes,
 									numberOfLikes: data.likes.length
-							  }
+							}
 							: comment
 					)
 				);
@@ -126,18 +126,18 @@ export default function CommentSection({ postId }) {
 			<div className="  max-w-md  mx-auto w-full p-3">
 				{currentUser ? (
 					<div className="flex items-center gap-1 my-5 text-sm ">
-						<p className="text-gray-400">Signed in as:</p>
+						<p className="text-gray-100">Signed in as:</p>
 						<img
 							className="h-6 w-6 object-cover rounded-full"
 							src={currentUser.profilePicture}
 							alt={currentUser.username}
 						/>
-						<Link className=" text-cyan-600 hover:underline" to={'/dashboard?tab=profile'}>
+						<Link className=" !text-light-100 hover:underline" to={'/dashboard?tab=profile'}>
 							@{currentUser.username}
 						</Link>
 					</div>
 				) : (
-					<div className="text-sm text-teal-500 my-5 flex items-center justify-center gap-2">
+					<div className="text-sm !text-light-100 my-5 flex items-center justify-center gap-2">
 						You must be signed in to comment.
 						<Link className="text-blue-500 underline" to={'/sign-in'}>
 							Sign In
@@ -147,19 +147,19 @@ export default function CommentSection({ postId }) {
 				{currentUser && (
 					<form
 						onSubmit={handleSubmit}
-						className="border max-w-md mx-auto w-full p-3 border-gray-500 rounded-md"
+						className="border max-w-md mx-auto w-full p-3 border-gray-300 bg-gray-200 text-light-100  rounded-md"
 					>
 						<Textarea
 							onChange={handleInputChange}
-							className="h-14 resize-none"
+							className="h-14 resize-none focus:ring-0  placeholder:!text-light-100 !bg-gray-300 !border-opacity-10 !border-gray-100"
 							placeholder="Add a comment..."
 							row="3"
 							maxLength="200"
 							value={comment}
 						/>
 						<div className="flex items-center justify-between mt-4">
-							<p className="dark:text-white text-sm">{200 - comment.length} characters remaining</p>
-							<Button disabled={buttonDisabled} type="submit" className="text-sm">
+							<p className=" text-gray-100 text-sm ">{200 - comment.length} characters remaining</p>
+							<Button disabled={buttonDisabled} type="submit" className="text-sm focus:ring-0  cursorpointe !bg-gray-300 text-light-100   border-gray-100 border-opacity-10 border  rounded-md">
 								Submit
 							</Button>
 						</div>
@@ -171,7 +171,7 @@ export default function CommentSection({ postId }) {
 					</form>
 				)}
 				{postComment.length === 0 ? (
-					<p className="text-sm my-5">No Comments yet!</p>
+					<p className="text-sm my-5 text-center">No Comments yet!</p>
 				) : (
 					<>
 						<div className="text-sm dark:text-gray-400 my-5 flex items-center gap-1">

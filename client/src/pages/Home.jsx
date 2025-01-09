@@ -40,9 +40,9 @@ export default function Home() {
 		<div className="">
 			<div className="  px-2 md:px-6  w-full  mx-auto">
 				<div className="flex  gap-6 lg:mt-0 md:mt-6 mt-6  mb-4   px-2  w-full  mx-auto">
-					<div className="flex flex-col items-start justify-end lg:gap-4 md:gap-2 gap-1">
-						<div className="flex  items-center gap-2 dark:text-light-100">
-							<h1 className=" dark:text-light-100 text-gray-200  font-Meldina font-regular lg:text-6xl md:text-3xl text-2xl">
+					<div className="flex flex-col items-start justify-end lg:gap-4 md:gap-1 gap-1">
+						<div className=" md:flex hidden  items-center gap-1 dark:text-light-100">
+							<h1 className="  dark:text-light-100 text-gray-200   font-semibold lg:text-6xl md:text-3xl text-2xl">
 								Welcome to my Blog
 							</h1>
 							<FaRegPenToSquare className="lg:w-12 lg:h-12 md:w-8 md:h-8 w-6 h-6" />
