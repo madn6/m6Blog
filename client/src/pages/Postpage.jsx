@@ -126,17 +126,10 @@ export default function Postpage() {
 					{post?.title}
 				</h1>
 				<Link to={`/search/?category=${post?.category}`} className="self-center">
-					<button color="gray" className="text-xs italic !bg-gray-300 border-gray-100 border dark:text-light-100 border-opacity-10 p-1 px-2  rounded-3xl">
+					<button color="gray" className="text-xs italic !bg-gray-300 border-gray-100 border text-light-100 border-opacity-10 p-1 px-2  rounded-3xl">
 						{post?.category}
 					</button>
 				</Link>
-				{/* <div className="overflow-hidden rounded-lg mt-10 p-3 w-full mx-auto">
-					<img
-						src={post?.contentImage || post?.image}
-						alt={post?.title || 'Post Image'}
-						className="w-full max-h-[600px] object-cover rounded-lg"
-					/>
-				</div> */}
 				<div className="flex items-center max-w-3xl  mt-12 gap-4 dark:text-white justify-between p-3 mx-auto w-full  text-xs">
 					<span className='dark:!text-light-100'>{post && new Date(post.createdAt).toLocaleDateString('en-GB')}</span>
 					<span className="italic dark:!text-light-100 ">{readingTime}&nbsp;mins read</span>

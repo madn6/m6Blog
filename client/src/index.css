@@ -55,8 +55,16 @@ body {
 	@apply text-blue-600;
 }
 
+.post__content h1,h2,h3 {
+	@apply dark:!text-light-100 !text-gray-200;
+}
+
+.post__content p {
+	@apply dark:!text-gray-100 !text-gray-200;
+}
+
 .post__content img {
-	@apply rounded-lg overflow-hidden shadow-lg   border border-gray-100;
+	@apply rounded-lg overflow-hidden shadow-lg   border !border-gray-300;
 }
 
 /* Dark mode */
