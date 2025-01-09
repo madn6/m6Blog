@@ -1,4 +1,4 @@
-import { Spinner, Button } from 'flowbite-react';
+import { Spinner, } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CommentSection, PostCard } from '../components';
@@ -122,13 +122,13 @@ export default function Postpage() {
 	return (
 		<div>
 			<div className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
-				<h1 className="text-3xl dark:text-white mt-10 p-3 text-center font-semibold max-w-2xl mx-auto lg:text-4xl">
+				<h1 className="text-3xl dark:text-light-100 mt-10 p-3 text-center font-semibold max-w-2xl mx-auto lg:text-4xl">
 					{post?.title}
 				</h1>
 				<Link to={`/search/?category=${post?.category}`} className="self-center">
-					<Button color="gray" className="w-fit  mt-5 px-1 py-0 rounded-3xl">
+					<button color="gray" className="text-xs italic !bg-gray-300 border-gray-100 border dark:text-light-100 border-opacity-10 p-1 px-2  rounded-3xl">
 						{post?.category}
-					</Button>
+					</button>
 				</Link>
 				{/* <div className="overflow-hidden rounded-lg mt-10 p-3 w-full mx-auto">
 					<img
@@ -138,12 +138,12 @@ export default function Postpage() {
 					/>
 				</div> */}
 				<div className="flex items-center max-w-3xl  mt-12 gap-4 dark:text-white justify-between p-3 mx-auto w-full  text-xs">
-					<span>{post && new Date(post.createdAt).toLocaleDateString('en-GB')}</span>
-					<span className="italic">{readingTime}&nbsp;mins read</span>
+					<span className='dark:!text-light-100'>{post && new Date(post.createdAt).toLocaleDateString('en-GB')}</span>
+					<span className="italic dark:!text-light-100 ">{readingTime}&nbsp;mins read</span>
 				</div>
 				<div className="prose dark:prose-invert p-3 max-w-3xl mx-auto w-full">
 					{/* Render the HTML content directly */}
-					<div className="post__content" dangerouslySetInnerHTML={{ __html: cleanedContent }}></div>
+					<div className="post__content dark:!text-gray-100" dangerouslySetInnerHTML={{ __html: cleanedContent }}></div>
 				</div>
 			</div>
 			{post && <CommentSection postId={post._id} />}

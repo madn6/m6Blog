@@ -11,6 +11,8 @@ export default function UpdatePost() {
 	const [file, setFile] = useState(null);
 	const [formData, setFormData] = useState({});
 	const [publishError, setPublishError] = useState(null);
+	const [loading, setLoading] = useState(true);
+
 	console.log(formData);
 
 	const [imageUploadProgress, setImageUploadProgress] = useState(null);
@@ -19,30 +21,36 @@ export default function UpdatePost() {
 	const quillRef = useRef(null);
 	const fileInputRef = useRef(null);
 	const navigate = useNavigate();
-   const { postId } = useParams();
-   
-   const {currentUser} = useSelector((state)=>state.user)
+	const { postId } = useParams();
 
+	const { currentUser } = useSelector((state) => state.user);
 	useEffect(() => {
-		try {
-			const fetchPost = async () => {
-            const res = await fetch(`/api/post/getposts?postId=${postId}`);
-				const data = await res.json();
-				if (!res.ok) {
-               console.log(data.message);
-               setPublishError(data.message)
-					return;
-				}
-            if (res.ok) {
-               setPublishError(null)
-					setFormData(data.posts[0]);
-				}
-			};
-			fetchPost();
-		} catch (err) {
-			console.log(err.message);
+		if (!postId) {
+			console.error('No postId provided');
+			return;
 		}
+		const fetchPost = async () => {
+			try {
+				const res = await fetch(`/api/post/getposts?postId=${postId}`);
+				const data = await res.json();
+				console.log('API Response:', res, data); // Log both the response and data
+				if (res.ok) {
+					setFormData(data.posts[0]);
+					setLoading(false); // Stop the loading state
+				} else {
+					setPublishError(data.message || 'Error fetching post');
+					setLoading(false);
+				}
+			} catch (err) {
+				console.error('Error fetching post:', err.message);
+				setPublishError('Something went wrong while fetching the post.');
+				setLoading(false);
+			}
+		};
+		fetchPost();
 	}, [postId]);
+
+	if (loading) return <div>Loading...</div>;
 
 	// Handle file upload to Cloudinary
 	const handleUploadImage = async () => {
@@ -114,8 +122,16 @@ export default function UpdatePost() {
 		}
 	};
 
+	console.log('this is formdata id', formData._id);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		// Check if postId is valid
+		if (!formData._id) {
+			setPublishError('Post ID is missing');
+			console.error('Post ID is missing');
+			return;
+		}
 		try {
 			const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
 				method: 'PUT',
@@ -145,15 +161,18 @@ export default function UpdatePost() {
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<div className="flex flex-col gap-4 sm:flex-row justify-between">
 					<TextInput
-						onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+						onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
 						className="flex-1"
 						type="text"
 						placeholder="Title"
 						required
-                  id="title"
-                  value={formData.title}
+						id="title"
+						value={formData.title || ''}
 					/>
-					<Select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
+					<Select
+						value={formData.category}
+						onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+					>
 						<option value="uncategorized">Select a category</option>
 						<option value="ai">AI</option>
 						<option value="dogs">Dogs</option>
@@ -163,10 +182,10 @@ export default function UpdatePost() {
 				</div>
 				<div className="flex gap-4 items-center justify-between border-4 border-dotted p-3">
 					<FileInput
-                  ref={fileInputRef}
+						ref={fileInputRef}
 						accept="image/*"
 						onChange={(e) => setFile(e.target.files[0])}
-                  typeof="file"
+						typeof="file"
 					/>
 					<Button
 						onClick={handleUploadImage}
@@ -189,8 +208,8 @@ export default function UpdatePost() {
 					{imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
 				</div>
 				<ReactQuill
-               theme="snow"
-               value={formData.content}
+					theme="snow"
+					value={formData.content}
 					required
 					placeholder="write something comes in your mind..."
 					className="h-72 mb-12 dark:text-white"

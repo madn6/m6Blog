@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-	user-select: none;
+	/* user-select: none; */
 	height: 100vh;
 	@apply font-interDisplay;
 }
@@ -22,7 +22,7 @@ body {
 }
 
 .custom-navbar {
-	border-bottom: 1px solid #232323 !important ;
+	@apply dark:!border-b-gray-200 border-b-gray-200  border-b  border-opacity-50;
 }
 
 .ql-editor::before {
@@ -88,7 +88,17 @@ input:focus {
 nav{
 	@apply !border-b dark:!border-gray-300 border-opacity-5
 }
+.post__content p img{
+	@apply mx-auto
+}
 
+.post__content h1,h2,h3{
+	@apply !m-1 
+}
+
+.post__content p{
+	@apply !mb-4
+}
 /* Define Inter Display Font Faces */
 
 @font-face {

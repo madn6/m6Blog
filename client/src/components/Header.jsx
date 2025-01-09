@@ -81,23 +81,23 @@ export default function Header() {
 				</button>
 				{currentUser ? (
 					<Dropdown
-						className="dark:!bg-dark-300 "
+						className="!bg-dark-300 "
 						arrowIcon={false}
 						inline
 						label={<Avatar alt="Avatar" className="" img={currentUser.profilePicture} rounded />}
 					>
 						<Dropdown.Header className="">
-							<span className="block text-sm">{currentUser.username}</span>
-							<span className="block text-sm font-medium truncate">{currentUser.email}</span>
+							<span className="block text-sm !text-light-100">{currentUser.username}</span>
+							<span className="block text-sm font-medium truncate !text-light-100 ">{currentUser.email}</span>
 						</Dropdown.Header>
 						<Link to="/dashboard?tab=profile" className="hover:!bg-gray-200">
 							<Dropdown.Item className="hover:!bg-gray-200  rounded-sm">
-								<span className="">Profile</span>
+								<span className="!text-light-100">Profile</span>
 							</Dropdown.Item>
 						</Link>
 						<Dropdown.Divider />
-						<Dropdown.Item onClick={handleSignOut} className="hover:!bg-gray-200  rounded-sm">
-							<span className="">Sign out</span>
+						<Dropdown.Item onClick={handleSignOut} className=" hover:!bg-gray-200  rounded-sm">
+							<span className="!text-light-100 ">Sign out</span>
 						</Dropdown.Item>
 					</Dropdown>
 				) : (

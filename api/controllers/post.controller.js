@@ -1,5 +1,6 @@
 import Post from '../models/post.model.js';
 import { errorHandler } from '../utils/error.js';
+import mongoose from 'mongoose';
 
 export const create = async (req, res, next) => {
 	if (!req.user.isAdmin) {
@@ -17,7 +18,7 @@ export const create = async (req, res, next) => {
 	const newPost = new Post({
 		...req.body,
 		slug,
-		userId: req.user.id,
+		userId: req.user.id
 	});
 
 	try {
@@ -85,11 +86,24 @@ export const deletepost = async (req, res, next) => {
 };
 
 export const updatepost = async (req, res, next) => {
-	if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-		return next(400, 'you are not allowed to update the post');
-	}
 	try {
-		const updatePost = await Post.findByIdAndUpdate(
+		// Validate user permissions
+		if (!req.user || !req.user.isAdmin || req.user.id !== req.params.userId) {
+			return res.status(403).json({ message: 'You are not allowed to update the post' });
+		}
+
+		// Validate parameters
+		if (!req.params.userId || !req.params.postId) {
+			return res.status(400).json({ message: 'Invalid parameters' });
+		}
+
+		// Validate postId
+		if (!mongoose.Types.ObjectId.isValid(req.params.postId)) {
+			return res.status(400).json({ message: 'Invalid post ID' });
+		}
+
+		// Update post
+		const updatedPost = await Post.findByIdAndUpdate(
 			req.params.postId,
 			{
 				$set: {
@@ -101,11 +115,15 @@ export const updatepost = async (req, res, next) => {
 			},
 			{ new: true }
 		);
-		if (!updatePost) {
+
+		if (!updatedPost) {
 			return res.status(404).json({ message: 'Post not found' });
 		}
-		res.status(200).json(updatePost);
+
+		// Send success response
+		res.status(200).json(updatedPost);
 	} catch (err) {
+		console.error('Error updating post:', err.message);
 		next(err);
 	}
 };

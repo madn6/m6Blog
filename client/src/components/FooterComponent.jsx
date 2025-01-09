@@ -20,10 +20,10 @@ export default function FooterComponent() {
 					</div>
 					<div className="flex items-center md:justify-center justify-between md:gap-20 my-4">
 						<div className=" ">
-							<Footer.Title title=" About" className="mb-2  !text-light-100 font-semibold" />
+							<Footer.Title title=" About" className="mb-2   !text-light-100 font-semibold" />
 							<Footer.LinkGroup className="flex-col items-start">
 								<Footer.Link
-									className="text-gray-100"
+									className="text-gray-100 p-1"
 									href="https://mathan.pages.dev"
 									target="_blank"
 									rel="noopener noreferrer"
@@ -31,7 +31,7 @@ export default function FooterComponent() {
 									Mathan
 								</Footer.Link>
 								<Footer.Link
-									className="text-gray-100"
+									className="text-gray-100 p-1"
 									href="/about"
 									target="_blank"
 									rel="noopener noreferrer"
@@ -41,10 +41,10 @@ export default function FooterComponent() {
 							</Footer.LinkGroup>
 						</div>
 						<div className="">
-							<Footer.Title title=" Follow us" className="mb-2  !text-light-100 font-semibold" />
+							<Footer.Title title=" Follow us" className="mb-2    !text-light-100 font-semibold" />
 							<Footer.LinkGroup className="flex-col items-start">
 								<Footer.Link
-									className="text-gray-100"
+									className="text-gray-100 p-1"
 									href="https://mathan.pages.dev"
 									target="_blank"
 									rel="noopener noreferrer"
@@ -55,7 +55,7 @@ export default function FooterComponent() {
 									href="#"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="text-gray-100"
+									className="text-gray-100 p-1"
 								>
 									Linked In
 								</Footer.Link>
@@ -65,7 +65,7 @@ export default function FooterComponent() {
 							<Footer.Title title=" Leagul" className="mb-2  !text-light-100 font-semibold" />
 							<Footer.LinkGroup className="flex-col items-start">
 								<Footer.Link
-									className="text-gray-100"
+									className="text-gray-100 p-1"
 									href="#"
 									target="_blank"
 									rel="noopener noreferrer"
@@ -73,7 +73,7 @@ export default function FooterComponent() {
 									Privacy Policy
 								</Footer.Link>
 								<Footer.Link
-									className="text-gray-100"
+									className="text-gray-100 p-1"
 									href="#"
 									target="_blank"
 									rel="noopener noreferrer"
