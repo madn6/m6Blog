@@ -44,7 +44,7 @@ export default function Postpage() {
 		const fetchRecentPosts = async () => {
 			try {
 				setLoading(true);
-				const res = await fetch(`/api/post/getposts?limit=3`);
+				const res = await fetch(`/api/post/getposts?limit=4`);
 				if (!res.ok) {
 					throw new Error(`Error: ${res.status} ${res.statusText}`);
 				}
@@ -116,7 +116,6 @@ export default function Postpage() {
 	};
 
 	const readingTime = post ? getReadingTime(post.content) : 0;
-	console.log('xxxxx',post);
 	
 
 	return (
@@ -140,9 +139,9 @@ export default function Postpage() {
 				</div>
 			</div>
 			{post && <CommentSection postId={post._id} />}
-			<div className="flex flex-col justify-center items-center mb-5">
+			<div className="flex flex-col md:px-6 px-4 justify-center items-center mb-5">
 				<h1 className="text-xl mt-5 dark:text-white font-semibold"> Recent articles</h1>
-				<div className="md:flex flex-wrap items-center justify-center gap-4  mx-4 my-4">
+				<div className="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 my-4">
 					{recentPosts && recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
 				</div>
 			</div>

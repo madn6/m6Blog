@@ -97,7 +97,7 @@ export default function Comments({ comment, onLike, onEdit, onDelete }) {
 						<div className="flex items-start pt-2 text-xs  max-w-fit gap-2">
 							<button
 								className={`text-gray-100 dark:hover:text-light-100 hover:text-dark-200 ${
-									currentUser && comment.likes.includes(currentUser._id) && 'dark:!text-light-100 text-dark-200'
+									currentUser && comment.likes.includes(currentUser._id) && 'dark:!text-light-100 !text-dark-200'
 								}`}
 								type="button"
 								onClick={() => onLike(comment._id)}
