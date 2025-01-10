@@ -123,21 +123,21 @@ export default function CommentSection({ postId }) {
 
 	return (
 		<div>
-			<div className="  max-w-md  mx-auto w-full p-3">
+			<div className="  md:max-w-md max-w-sm  mx-auto w-full p-3">
 				{currentUser ? (
-					<div className="flex items-center gap-1 my-5 text-sm ">
-						<p className="text-gray-100">Signed in as:</p>
+					<div className="flex items-center gap-1 mb-4 text-sm ">
+						<p className="dark:text-gray-100">Signed in as:</p>
 						<img
 							className="h-6 w-6 object-cover rounded-full"
 							src={currentUser.profilePicture}
 							alt={currentUser.username}
 						/>
-						<Link className=" !text-light-100 hover:underline" to={'/dashboard?tab=profile'}>
+						<Link className=" dark:!text-light-100 hover:underline" to={'/dashboard?tab=profile'}>
 							@{currentUser.username}
 						</Link>
 					</div>
 				) : (
-					<div className="text-sm !text-light-100 my-5 flex items-center justify-center gap-2">
+					<div className="text-sm dark:!text-light-100 my-5 flex items-center justify-center gap-2">
 						You must be signed in to comment.
 						<Link className="text-blue-500 underline" to={'/sign-in'}>
 							Sign In
@@ -151,7 +151,7 @@ export default function CommentSection({ postId }) {
 					>
 						<Textarea
 							onChange={handleInputChange}
-							className="h-14 resize-none focus:ring-0  placeholder:!text-light-100 !bg-gray-300 !border-opacity-10 !border-gray-100"
+							className="h-14 resize-none focus:ring-0  placeholder:!text-light-100 !bg-gray-300 !text-light-100 !border-opacity-10 !border-gray-100"
 							placeholder="Add a comment..."
 							row="3"
 							maxLength="200"
@@ -174,10 +174,10 @@ export default function CommentSection({ postId }) {
 					<p className="text-sm my-5 text-center">No Comments yet!</p>
 				) : (
 					<>
-						<div className="text-sm dark:text-gray-400 my-5 flex items-center gap-1">
-							<p className="">{postComment.length > 1 ? 'Comments' : 'Comment'}</p>
-							<div className=" dark:text-white bg-gray-500 px-2  rounded-sm">
-								<p>{postComment.length}</p>
+						<div className="text-sm mt-4 flex items-center gap-1">
+							<p className="dark:text-gray-100">{postComment.length > 1 ? 'Comments' : 'Comment'}</p>
+							<div className=" bg-gray-200 border border-gray-300 px-2  rounded-sm">
+								<p className='text-light-100'>{postComment.length}</p>
 							</div>
 						</div>
 						{postComment.map((comment) => (

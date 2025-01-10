@@ -60,6 +60,9 @@ export const editComment = async (req, res, next) => {
 		if (comment.userId !== req.user.id && !req.user.isAdmin) {
 			return next(403, 'you are no allowed to edit this comment');
 		}
+		if (!req.body.content || req.body.content.trim().length === 0) {
+			return next(new Error('Content cannot be empty', { statusCode: 400 }));
+		}
 		const editedComment = await Comment.findByIdAndUpdate(
 			req.params.commentId,
 			{

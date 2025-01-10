@@ -5,13 +5,16 @@ import { FaThumbsUp } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
 
-export default function Comments({ comment, onLike, onEdit,onDelete }) {
+export default function Comments({ comment, onLike, onEdit, onDelete }) {
 	const [user, setUser] = useState({});
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedContent, setEditedContent] = useState(comment.content);
 
 	const { currentUser } = useSelector((state) => state.user);
-
+	console.log('currentuser: ', currentUser);
+	console.log('comment id:',comment.userId);
+	console.log('comment id:',comment);
+	
 	useEffect(() => {
 		if (!comment?.userId) return;
 		const getUser = async () => {
@@ -54,7 +57,7 @@ export default function Comments({ comment, onLike, onEdit,onDelete }) {
 	};
 
 	return (
-		<div className="dark:text-white flex gap-2 items-center p-4 border-b dark:border-gray-600">
+		<div className="dark:text-light-100 flex gap-2 items-center p-2 border-b !border-opacity-20 dark:border-gray-300">
 			<div className="w-10 h-10 flex-shrink-0">
 				<img className="rounded-full object-cover" src={user.profilePicture} alt={user.username} />
 			</div>
@@ -63,12 +66,12 @@ export default function Comments({ comment, onLike, onEdit,onDelete }) {
 					<span className="font-medium mr-1 text-sm truncate ">
 						{user ? `@${user.username}` : 'anonymous user'}
 					</span>
-					<span className="text-xs text-gray-400">{moment(comment.createdAt).fromNow()}</span>
+					<span className="text-xs text-gray-100 ">{moment(comment.createdAt).fromNow()}</span>
 				</div>
 				{isEditing ? (
 					<>
 						<Textarea
-							className="w-full h-14 resize-none p-2 text-gray-700 bg-gray-200 rounded-md focus:outline-none focus:bg-gray-100"
+							className="w-full h-14 resize-none p-2 !text-light-100 bg-gray-200 rounded-md focus:outline-none focus:bg-gray-100"
 							value={editedContent}
 							onChange={(e) => {
 								setEditedContent(e.target.value);
@@ -90,33 +93,33 @@ export default function Comments({ comment, onLike, onEdit,onDelete }) {
 					</>
 				) : (
 					<>
-						<p className="text-sm text-gray-500">{comment.content}</p>
-						<div className="flex items-center pt-2 text-xs  max-w-fit gap-2">
+						<p className="text-sm dark:text-gray-100 text-gray-300">{comment.content}</p>
+						<div className="flex items-start pt-2 text-xs  max-w-fit gap-2">
 							<button
-								className={`text-gray-400 hover:text-blue-500 ${
-									currentUser && comment.likes.includes(currentUser._id) && '!text-blue-500'
+								className={`text-gray-100 dark:hover:text-light-100 hover:text-dark-200 ${
+									currentUser && comment.likes.includes(currentUser._id) && 'dark:!text-light-100 text-dark-200'
 								}`}
 								type="button"
 								onClick={() => onLike(comment._id)}
 							>
-								<FaThumbsUp className="text-sm" />
+								<FaThumbsUp className="text-sm " />
 							</button>
-							<p className=" text-xs text-gray-400">
+							<p className=" text-xs dark:!text-gray-100 !text-gray-200">
 								{comment.numberOfLikes > 0 &&
 									comment.numberOfLikes + ' ' + (comment.numberOfLikes === 1 ? 'like' : 'likes')}
 							</p>
-							{currentUser && (currentUser.id === comment.userId || currentUser.isAdmin) && (
+							{currentUser && (currentUser._id === comment.userId || currentUser.isAdmin) && (
 								<>
 									<button
 										onClick={handleEdit}
-										className="text-gray-400 hover:text-blue-500"
+										className="text-gray-200 dark:!text-gray-100 dark:hover:!text-blue-500 hover:!text-blue-500"
 										type="button"
 									>
 										Edit
 									</button>
 									<button
-										onClick={()=>onDelete(comment._id)}
-										className="text-gray-400 hover:text-blue-500"
+										onClick={() => onDelete(comment._id)}
+										className="text-gray-200 dark:!text-gray-100 dark:hover:!text-red-500 hover:!text-red-500"
 										type="button"
 									>
 										Delete
