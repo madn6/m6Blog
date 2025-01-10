@@ -38,20 +38,20 @@ export default function Home() {
 
 	return (
 		<div className="">
-			<div className="  px-2 md:px-6  w-full  mx-auto">
-				<div className="flex  gap-6 lg:mt-0 md:mt-6 mt-6  mb-4   px-2  w-full  mx-auto">
+			<div className=" px-2 md:px-6  w-full  mx-auto">
+				<div className="flex  gap-6 lg:mt-0 md:mt-0 mt-6  mb-4   px-2  w-full  mx-auto">
 					<div className="flex flex-col items-start justify-end lg:gap-4 md:gap-1 gap-1">
 						<div className=" md:flex  font-Meldina  items-center gap-1 dark:text-light-100">
 							<h1 className="  dark:text-light-100 text-gray-200   font-light lg:text-5xl md:text-3xl text-2xl">
-							Mathan&apos;s Blog: A Personal Space with Public Conversations...
+								Mathan&apos;s Blog: A Personal Space with Public Conversations...
 							</h1>
 							{/* <FaRegPenToSquare className="lg:w-12 lg:h-12 md:w-8 md:h-8 w-6 h-6" /> */}
 						</div>
 						<p className=" w-full lg:text-xl md:text-lg text-lg">
-							Step into a world where personal insights spark meaningful conversations. Here, you’ll
-							find engaging tech tutorials, heartfelt reflections, and trending ideas crafted to
-							inspire and connect. Join the dialogue, leave your mark, and let’s build a space where
-							every voice matters!
+							Welcome to a space where ideas come to life. Here, you&apos;ll find tech tutorials,
+							personal stories, and the latest trends, all designed to inspire and connect. Join the
+							conversation, share your thoughts, and help us create a community where
+							everyone&apos;s voice is heard!
 						</p>
 					</div>
 					<div className=" items-start hidden md:inline">
@@ -72,7 +72,7 @@ export default function Home() {
 										<h2 className="dark:!text-light-100 text-2xl !p-0 font-medium !text-start">
 											Recent Posts
 										</h2>
-										<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 my-4">
+										<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 my-4">
 											{posts.map((post) => (
 												<PostCard key={post._id} post={post} />
 											))}
