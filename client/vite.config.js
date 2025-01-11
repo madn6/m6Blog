@@ -10,7 +10,6 @@ export default defineConfig({
 				secure: false
 			}
 		},
-		base: '/your-subdirectory/', // Adjust if not using root
 		build: {
 			chunkSizeWarningLimit: 1000,
 			outDir: 'dist' // Ensure this matches your deployment settings

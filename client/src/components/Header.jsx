@@ -88,7 +88,9 @@ export default function Header() {
 					>
 						<Dropdown.Header className="">
 							<span className="block text-sm !text-light-100">{currentUser.username}</span>
-							<span className="block text-sm font-medium truncate !text-light-100 ">{currentUser.email}</span>
+							<span className="block text-sm font-medium truncate !text-light-100 ">
+								{currentUser.email}
+							</span>
 						</Dropdown.Header>
 						<Link to="/dashboard?tab=profile" className="hover:!bg-gray-200">
 							<Dropdown.Item className="hover:!bg-gray-200  rounded-sm">
@@ -101,8 +103,8 @@ export default function Header() {
 						</Dropdown.Item>
 					</Dropdown>
 				) : (
-					<Link to="/sign-in" className="">
-						<button className="bg-gray-200 text-sm border-gray-300 border text-light-100 border-opacity-50  px-2 py-2  rounded-sm">
+					<Link to="/sign-in">
+						<button className="bg-gray-200 text-sm border-gray-300 border text-light-100 border-opacity-50 px-2 py-2 rounded-sm">
 							Sign In
 						</button>
 					</Link>
@@ -115,7 +117,7 @@ export default function Header() {
 			<div
 				className={`fixed inset-0 z-50 bg-dark-100 transition-transform duration-500 ease-in-out 
             ${open ? 'translate-y-0' : ' -translate-y-full'} 
-            sm:block md:hidden`} 
+            sm:block md:hidden`}
 			>
 				<div className="flex flex-col h-full items-center justify-center text-5xl space-y-10 text-center">
 					<div
@@ -158,7 +160,9 @@ export default function Header() {
 			<div className="hidden md:flex md:flex-row md:space-x-1 md:text-sm md:font-medium lg:flex lg:space-x-2 lg:text-sm lg:font-medium">
 				<div
 					className={`block py-2 pl-3 rounded-sm pr-4  ${
-						path === '/' ? 'text-[#f6f6f6]   bg-gray-200  border-gray-300 border' : 'dark:text-[#a4a4a4] text-gray-200'
+						path === '/'
+							? 'text-[#f6f6f6]   bg-gray-200  border-gray-300 border'
+							: 'dark:text-[#a4a4a4] text-gray-200'
 					} dark:hover:text-[#f6f6f6] dark:hover:bg-gray-200 hover:bg-gray-200 hover:text-light-100`}
 				>
 					<Link to="/" onClick={() => setOpen(false)}>
