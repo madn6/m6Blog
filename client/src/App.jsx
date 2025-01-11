@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
 	Home,
-	// About,
 	Dashboard,
 	Projects,
 	SignIn,
