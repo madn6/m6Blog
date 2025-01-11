@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 // import path from 'path';
-// import { fileURLToPath } from 'url'; 
+// import { fileURLToPath } from 'url';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
@@ -67,6 +67,15 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', CommentRoutes);
+
+app.get('/', (req, res) => {
+	res.status(200).json({
+		success: true,
+		message: 'Backend is running successfully',
+		timestamp: new Date().toISOString(),
+		environment: process.env.NODE_ENV || 'development'
+	});
+});
 
 // Error handler
 app.use((err, req, res, next) => {
