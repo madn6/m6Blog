@@ -10,6 +10,9 @@ export default defineConfig({
 				secure: false
 			}
 		},
+		build: {
+			chunkSizeWarningLimit: 1000 // Set limit in KB (default is 500 KB)
+		},
 		host: true, // This allows access from your network
 		port: 5173 // Optional: Specify a custom port
 	},
