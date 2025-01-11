@@ -16,8 +16,8 @@ app.use(cookieParser());
 app.use(
 	cors({
 		origin: [
-			'https://m6blog.onrender.com', // Your production frontend
-			'https://m6blog-backend.onrender.com' // If you need to allow backend-origin communication
+			'https://m6blog.onrender.co', // Your production frontend
+			'https://m6blog-backend.onrender.co' // If you need to allow backend-origin communication
 		],
 		methods: ['GET', 'POST', 'PUT', 'DELETE']
 	})
