@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
@@ -15,41 +15,23 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-// CORS settings
+
+// CORS settings (make sure the frontend domains are correctly set)
 const corsOptions = {
 	origin: [
 		'https://m6blog.onrender.com', // Production frontend URL
 		'http://localhost:5173' // Local development URL
 	],
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true // Enable cookies
+	credentials: true // Enable cookies to be sent
 };
+
+// Apply CORS middleware
 app.use(cors(corsOptions));
 
 dotenv.config();
 
-// Serve static files from React build directory
-app.use(express.static(path.join(__dirname, 'build')));
-
-// API routes
-app.use('/api/user', userRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/post', postRoutes);
-app.use('/api/comment', CommentRoutes);
-
-// React fallback route (must come after all API routes)
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'build', 'index.html'), (err) => {
-		if (err) {
-			res.status(500).send(err);
-		}
-	});
-});
-
-// MongoDB connection
 async function connectToDatabase() {
 	try {
 		const mongoURI = process.env.MONGO_URI;
@@ -61,15 +43,21 @@ async function connectToDatabase() {
 	}
 }
 
-// Start server
 async function startServer() {
 	await connectToDatabase();
 	const port = process.env.PORT || 3000;
 	app.listen(port, () => {
-		console.log(`Server is listening on port ${port}`);
+		console.log(`Server is listening on ${port}`);
 	});
 }
+
 startServer();
+
+// API routes
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/comment', CommentRoutes);
 
 app.get('/', (req, res) => {
 	res.status(200).json({
