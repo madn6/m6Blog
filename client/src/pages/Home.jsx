@@ -12,6 +12,7 @@ export default function Home() {
 	const animationInstance = useRef(null);
 
 	const API_URL = import.meta.env.VITE_API_URL;
+	console.log("API URL:", API_URL);
 	
 	useEffect(() => {
 		const fetchPosts = async () => {
