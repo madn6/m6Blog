@@ -12,17 +12,9 @@ import cors from 'cors';
 
 const app = express();
 
-// Get __dirname for ES Modules
+// Get the directory name (for ES modules)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Serve static files from React build directory
-app.use(express.static(path.join(__dirname, 'build')));
-
-// Handle all non-API routes by serving index.html
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 app.use(express.json());
 app.use(cookieParser());
