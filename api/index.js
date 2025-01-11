@@ -66,7 +66,7 @@ app.get('/', (req, res) => {
 });
 
 if (process.env.NODE_ENV === 'production') {
-	const clientBuildPath = path.join(__dirname, '../client/build');
+	const clientBuildPath = path.join(__dirname, '../client/dist');
 
 	// Serve static files from the React build directory
 	app.use(express.static(clientBuildPath));
