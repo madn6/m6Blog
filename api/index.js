@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
-// import { fileURLToPath } from 'url'; 
+import { fileURLToPath } from 'url'; 
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
@@ -12,17 +12,17 @@ import cors from 'cors';
 
 const app = express();
 
-// // Handle __dirname for ES modules
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+// Handle __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// // Serve static files from the Vite build directory (dist)
-// app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static files from the Vite build directory (dist)
+app.use(express.static(path.join(__dirname, 'dist')));
 
-// // Fallback to index.html for React Router
-// app.get('*', (req, res) => {
-// 	res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-// });
+// Fallback to index.html for React Router
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 app.use(express.json());
 app.use(cookieParser());
@@ -67,14 +67,6 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', CommentRoutes);
-
-// Serve static assets (React app)
-app.use(express.static(path.join(__dirname, 'build')));
-
-// Catch-all route for React Router
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 // Error handler
 app.use((err, req, res, next) => {
