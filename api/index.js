@@ -6,22 +6,22 @@ import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
 import CommentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
+// import cors from 'cors';
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-	cors({
-		origin: [
-			'https://m6blog.onrender.co', // Your production frontend
-			'https://m6blog-backend.onrender.co' // If you need to allow backend-origin communication
-		],
-		methods: ['GET', 'POST', 'PUT', 'DELETE']
-	})
-);
+// app.use(
+// 	cors({
+// 		origin: [
+// 			'https://m6blog.onrender.co', // Your production frontend
+// 			'https://m6blog-backend.onrender.co' // If you need to allow backend-origin communication
+// 		],
+// 		methods: ['GET', 'POST', 'PUT', 'DELETE']
+// 	})
+// );
 
 dotenv.config();
 
