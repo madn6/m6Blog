@@ -19,7 +19,6 @@ app.use(cookieParser());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 // Serve static files from the React build directory
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -31,13 +30,14 @@ app.get('*', (req, res) => {
 // CORS settings (make sure the frontend domains are correctly set)
 const corsOptions = {
 	origin: [
-		'https://m6blog.onrender.com', // Production
-		'http://localhost:5173' // Local development
+		'https://m6blog.onrender.com', // Production frontend URL
+		'http://localhost:5173' // Local development URL
 	],
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true
+	credentials: true // Enable cookies to be sent
 };
 
+// Apply CORS middleware
 app.use(cors(corsOptions));
 
 dotenv.config();
