@@ -20,12 +20,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS settings (make sure the frontend domains are correctly set)
-app.use(
-	cors({
-		origin: ['https://m6blog.onrender.com', 'https://m6blog-backend.onrender.com'],
-		methods: ['GET', 'POST', 'PUT', 'DELETE']
-	})
-);
+const corsOptions = {
+	origin: [
+		'https://m6blog.onrender.com', // Production
+		'http://localhost:5173' // Local development
+	],
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	credentials: true // Optional: Include credentials if necessary (e.g., cookies, Authorization header)
+};
+
+app.use(cors(corsOptions));
 
 dotenv.config();
 

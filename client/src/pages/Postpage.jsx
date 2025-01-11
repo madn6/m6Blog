@@ -66,6 +66,7 @@ export default function Postpage() {
 			}
 		};
 		fetchRecentPosts();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 
