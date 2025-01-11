@@ -65,13 +65,15 @@ app.get('/', (req, res) => {
 	});
 });
 
-// Serve React build folder in production
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.join(__dirname, 'build')));
+	const clientBuildPath = path.join(__dirname, '../client/build');
+
+	// Serve static files from the React build directory
+	app.use(express.static(clientBuildPath));
 
 	// Catch-all route for handling frontend routes (React Router will take over)
 	app.get('*', (req, res) => {
-		res.sendFile(path.join(__dirname, 'build', 'index.html'));
+		res.sendFile(path.join(clientBuildPath, 'index.html'));
 	});
 }
 
