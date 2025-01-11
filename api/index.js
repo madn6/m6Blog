@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import path from 'path';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
@@ -12,8 +13,6 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-
-
 
 // CORS settings (make sure the frontend domains are correctly set)
 const corsOptions = {
@@ -65,6 +64,16 @@ app.get('/', (req, res) => {
 		environment: process.env.NODE_ENV || 'development'
 	});
 });
+
+// Serve React build folder in production
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, 'build')));
+
+	// Catch-all route for handling frontend routes (React Router will take over)
+	app.get('*', (req, res) => {
+		res.sendFile(path.join(__dirname, 'build', 'index.html'));
+	});
+}
 
 // Error handler
 app.use((err, req, res, next) => {
