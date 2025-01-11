@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
@@ -12,12 +12,14 @@ import cors from 'cors';
 
 const app = express();
 
-// // Handle __dirname for ES modules
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
 
-// // Serve static files from the Vite build directory (dist)
-// app.use(express.static(path.join(__dirname, 'dist')));
+
+// Handle __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the Vite build directory (dist)
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // // Fallback to index.html for React Router
 // app.get('*', (req, res) => {
