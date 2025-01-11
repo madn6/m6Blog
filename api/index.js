@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
@@ -15,6 +15,19 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+// Get the directory name for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+// Serve static files from the React build directory
+app.use(express.static(path.join(__dirname, 'build')));
+
+// For all routes that aren't API routes, serve the React index.html
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 // CORS settings (make sure the frontend domains are correctly set)
 const corsOptions = {
 	origin: [
@@ -22,7 +35,7 @@ const corsOptions = {
 		'http://localhost:5173' // Local development
 	],
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true 
+	credentials: true
 };
 
 app.use(cors(corsOptions));
