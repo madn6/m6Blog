@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
 	Home,
+	About,
 	Dashboard,
 	Projects,
 	SignIn,
@@ -17,8 +18,6 @@ import {
 	AdminPrivateRoute,
 	ScrollToTop
 } from './components/index.js';
-
-import About from './pages/index.js';
 
 export default function App() {
 	return (
