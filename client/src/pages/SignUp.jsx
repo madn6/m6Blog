@@ -8,6 +8,8 @@ export default function SignUp() {
 	const [errorMessage, setErrorMessge] = useState(null);
 	const [loading, setLoading] = useState(false);
 
+	const API_URL = import.meta.env.VITE_API_URL;
+
 	const navigate = useNavigate();
 
 	const handleChange = (e) => {
@@ -22,7 +24,7 @@ export default function SignUp() {
 		try {
 			setLoading(true);
 			setErrorMessge(null);
-			const res = await fetch('/api/auth/signup', {
+			const res = await fetch(`${API_URL}/api/auth/signup`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(formData)
@@ -55,7 +57,7 @@ export default function SignUp() {
 						</Link>
 						<form onSubmit={handleSubmit} className="flex flex-col gap-2">
 							<div>
-								<Label value="Username" className='dark:!text-light-100 text-gray-200' />
+								<Label value="Username" className="dark:!text-light-100 text-gray-200" />
 								<input
 									className="block w-full focus:!ring-0 focus:border-gray-300  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
 									type="text"
@@ -65,7 +67,7 @@ export default function SignUp() {
 								/>
 							</div>
 							<div>
-								<Label value="Email" className='dark:!text-light-100 text-gray-200'/>
+								<Label value="Email" className="dark:!text-light-100 text-gray-200" />
 								<input
 									className="block w-full focus:!ring-0 focus:border-gray-300  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
 									autoComplete="true"
@@ -76,7 +78,7 @@ export default function SignUp() {
 								/>
 							</div>
 							<div>
-								<Label value="Password" className='dark:!text-light-100 text-gray-200'/>
+								<Label value="Password" className="dark:!text-light-100 text-gray-200" />
 								<input
 									className="block w-full focus:!ring-0 focus:border-gray-300  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
 									autoComplete="true"
@@ -86,7 +88,11 @@ export default function SignUp() {
 									onChange={handleChange}
 								/>
 							</div>
-							<Button type="submit" className="focus:ring-0 mt-4 !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border" disabled={loading}>
+							<Button
+								type="submit"
+								className="focus:ring-0 mt-4 !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border"
+								disabled={loading}
+							>
 								{loading ? (
 									<>
 										<Spinner size="sm" />

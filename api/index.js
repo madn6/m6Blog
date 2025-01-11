@@ -1,8 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
