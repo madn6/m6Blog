@@ -7,8 +7,6 @@ import postRoutes from './routes/post.route.js';
 import CommentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
 
-
-
 const app = express();
 
 app.use(express.json());
@@ -36,6 +34,10 @@ async function startServer() {
 }
 
 startServer();
+
+app.get('/', (req, res) => {
+	res.send('backend working successfully...');
+});
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
