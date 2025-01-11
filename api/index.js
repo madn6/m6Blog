@@ -65,10 +65,11 @@ app.get('/', (req, res) => {
 	});
 });
 
+// Serve static files from the React build directory
 if (process.env.NODE_ENV === 'production') {
-	const clientBuildPath = path.join(__dirname, '../client/dist');
+	const clientBuildPath = path.join(__dirname, '../client/dist'); // Assuming build folder inside client
 
-	// Serve static files from the React build directory
+	// Serve static assets
 	app.use(express.static(clientBuildPath));
 
 	// Catch-all route for handling frontend routes (React Router will take over)
@@ -76,6 +77,7 @@ if (process.env.NODE_ENV === 'production') {
 		res.sendFile(path.join(clientBuildPath, 'index.html'));
 	});
 }
+
 
 // Error handler
 app.use((err, req, res, next) => {
