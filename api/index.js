@@ -55,7 +55,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', CommentRoutes);
 
-i; // Serve static files for frontend
+// Serve static files for frontend
 const __dirname = path.resolve();
 const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
 
