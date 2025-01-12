@@ -15,7 +15,7 @@ export default function Home() {
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
-				const res = await fetch(`https://m6blog.onrender.com/api/post/getposts`);
+				const res = await fetch(`/api/post/getposts`);
 				if (res.ok) {
 					const data = await res.json();
 					// Process posts to extract the image URL from content
