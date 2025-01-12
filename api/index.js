@@ -60,13 +60,13 @@ const __dirname = path.resolve();
 import path from 'path';
 
 // Serve static files for frontend
-const clientBuildPath = path.join(__dirname, 'client', 'dist');
+const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(clientBuildPath));
 
 // Catch-all route to serve index.html for all non-API requests
 // This will allow frontend routes to work, like /about, /projects, etc.
 app.get('*', (req, res) => {
-	res.sendFile(path.resolve(clientBuildPath, 'index.html'));
+	res.sendFile(path.resolve(clientBuildPath, '..', 'index.html'));
 });
 
 // Health check route
