@@ -60,7 +60,7 @@ app.use('/api/comment', CommentRoutes);
 
 if (process.env.NODE_ENV === 'production') {
 	// Serve frontend files
-	const clientBuildPath = path.join(__dirname, 'client', 'dist');
+	const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
 	app.use(express.static(clientBuildPath));
 
 	// Handle unmatched routes with 'index.html'
