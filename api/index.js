@@ -58,12 +58,16 @@ app.use('/api/comment', CommentRoutes);
 // Serve static files for frontend
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
+import path from 'path';
 
-// Catch-all route to serve the index.html for non-API routes
+// Serve static files from the client build folder (frontend's dist)
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+// Catch-all route to serve index.html for all non-API requests
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
 });
+
 
 // Health check route
 app.get('/', (req, res) => {
