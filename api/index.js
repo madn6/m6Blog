@@ -57,7 +57,7 @@ app.use('/api/post', postRoutes);
 app.use('/api/comment', CommentRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-	const clientBuildPath = path.join(__dirname, '../frontend/dist');
+	const clientBuildPath = path.join(__dirname, '../client/dist');
 
 	// Serve static files from the React build directory
 	app.use(express.static(clientBuildPath));
