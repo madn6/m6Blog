@@ -6,20 +6,16 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/api': {
-				target: 'http://localhost:3000',
+				target: 'http://localhost:3000', // Your backend server
 				secure: false
 			}
 		},
-		build: {
-			chunkSizeWarningLimit: 1000,
-			outDir: 'dist' // Ensure this matches your deployment settings
-		},
-		server: {
-			host: true,
-			port: 5173
-		},
-		host: true, // This allows access from your network
-		port: 5173 // Optional: Specify a custom port
+		host: true, // Allows access from your local network
+		port: 5173 // Default port for Vite
+	},
+	build: {
+		chunkSizeWarningLimit: 1000, // Increase chunk size warning limit
+		outDir: 'dist' // Ensure this matches your deployment settings
 	},
 	plugins: [react()]
 });
