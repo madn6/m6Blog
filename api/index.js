@@ -10,12 +10,16 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 const app = express();
+dotenv.config();
 
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
-const _dirname = path.resolve();
 
-// CORS settings (make sure the frontend domains are correctly set)
+// Resolve the correct directory path
+const __dirname = path.resolve();
+
+// CORS settings
 const corsOptions = {
 	origin: [
 		'https://m6blog.onrender.com', // Production frontend URL
@@ -24,12 +28,9 @@ const corsOptions = {
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
 	credentials: true // Enable cookies to be sent
 };
-
-// Apply CORS middleware
 app.use(cors(corsOptions));
 
-dotenv.config();
-
+// Connect to MongoDB
 async function connectToDatabase() {
 	try {
 		const mongoURI = process.env.MONGO_URI;
@@ -41,14 +42,14 @@ async function connectToDatabase() {
 	}
 }
 
+// Start the server
 async function startServer() {
 	await connectToDatabase();
 	const port = process.env.PORT || 3000;
 	app.listen(port, () => {
-		console.log(`Server is listening on ${port}`);
+		console.log(`Server is listening on port ${port}`);
 	});
 }
-
 startServer();
 
 // API routes
@@ -57,11 +58,19 @@ app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', CommentRoutes);
 
-app.use(express.static(path.join(_dirname, '/client/dist')));
-app.get('*', (_req, res) => {
-	res.sendFile(path.resolve(_dirname, 'client', 'dist', 'index.html'));
-});
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+	// Serve static files from the React build directory
+	const clientBuildPath = path.join(__dirname, 'client', 'dist');
+	app.use(express.static(clientBuildPath));
 
+	// Catch-all route to serve React's index.html for any unmatched routes
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(clientBuildPath, 'index.html'));
+	});
+}
+
+// Health check route
 app.get('/', (_req, res) => {
 	res.status(200).json({
 		success: true,
@@ -73,7 +82,7 @@ app.get('/', (_req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-	const statuscode = err.statusCode || 500;
+	const statusCode = err.statusCode || 500;
 	const message = err.message || 'Internal server error';
-	res.status(statuscode).json({ success: false, statuscode, message });
+	res.status(statusCode).json({ success: false, statusCode, message });
 });
