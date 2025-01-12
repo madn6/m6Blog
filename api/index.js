@@ -57,16 +57,13 @@ app.use('/api/comment', CommentRoutes);
 
 // Serve static files for frontend
 const __dirname = path.resolve();
-const clientBuildPath = path.join(__dirname, 'client', 'dist');
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(clientBuildPath));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
-	// Catch-all route to serve index.html for React Router
-	app.get('*', (req, res) => {
-		res.sendFile(path.resolve(clientBuildPath, 'index.html'));
-	});
-}
+// Catch-all route to serve the index.html for non-API routes
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 // Health check route
 app.get('/', (req, res) => {
