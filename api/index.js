@@ -13,7 +13,6 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-const _dirname = path.resolve();
 
 // CORS settings (make sure the frontend domains are correctly set)
 const corsOptions = {
@@ -57,10 +56,17 @@ app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', CommentRoutes);
 
-app.use(express.static(path.join(_dirname, '/client/dist')));
-app.get('*', (req, res) => {
-	res.sendFile(path.resolve(_dirname, 'client', 'dist', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+	const clientBuildPath = path.join(__dirname, '../frontend/dist');
+
+	// Serve static files from the React build directory
+	app.use(express.static(clientBuildPath));
+
+	// Catch-all route for React Router
+	app.get('*', (req, res) => {
+		res.sendFile(path.join(clientBuildPath, 'index.html'));
+	});
+}
 
 app.get('/', (_req, res) => {
 	res.status(200).json({
