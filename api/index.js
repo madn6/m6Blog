@@ -59,12 +59,11 @@ app.use('/api/post', postRoutes);
 app.use('/api/comment', CommentRoutes);
 
 // Serve static files in production
+// Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-	// Serve static files from the React build directory
-	const clientBuildPath = path.join(__dirname, 'client', 'dist'); // Adjusted to use correct path
+	const clientBuildPath = path.join(__dirname, '..', 'client', 'dist'); 
 	app.use(express.static(clientBuildPath));
 
-	// Catch-all route to serve React's index.html for any unmatched routes
 	app.get('*', (req, res) => {
 		res.sendFile(path.resolve(clientBuildPath, 'index.html'));
 	});
