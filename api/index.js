@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import path from 'path';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
@@ -56,17 +57,11 @@ app.use('/api/comment', CommentRoutes);
 
 // Serve static files for frontend
 const __dirname = path.resolve();
-
-import path from 'path';
-
-// Serve static files for frontend
-const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
-app.use(express.static(clientBuildPath));
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 // Catch-all route to serve index.html for all non-API requests
-// This will allow frontend routes to work, like /about, /projects, etc.
 app.get('*', (req, res) => {
-	res.sendFile(path.resolve(clientBuildPath, '..', 'index.html'));
+	res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
 });
 
 // Health check route
