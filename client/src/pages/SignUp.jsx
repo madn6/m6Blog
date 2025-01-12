@@ -8,8 +8,6 @@ export default function SignUp() {
 	const [errorMessage, setErrorMessge] = useState(null);
 	const [loading, setLoading] = useState(false);
 
-	const API_URL = import.meta.env.VITE_API_URL;
-
 	const navigate = useNavigate();
 
 	const handleChange = (e) => {
@@ -24,7 +22,7 @@ export default function SignUp() {
 		try {
 			setLoading(true);
 			setErrorMessge(null);
-			const res = await fetch(`${API_URL}/api/auth/signup`, {
+			const res = await fetch(`/api/auth/signup`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(formData)
