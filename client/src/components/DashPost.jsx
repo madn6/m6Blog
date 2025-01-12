@@ -64,7 +64,7 @@ export default function DashPost() {
 				if (data.posts.length < 9) {
 					setShowMore(false);
 				}
-			}
+			}fetch
 		} catch (err) {
 			console.log(err);
 		}

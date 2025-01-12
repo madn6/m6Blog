@@ -10,13 +10,11 @@ export default function Postpage() {
 	const [post, setPost] = useState(null);
 	const [recentPosts, setRecentPosts] = useState(null);
 
-	const API_URL = import.meta.env.VITE_API_URL;
-
 	useEffect(() => {
 		const fetchPost = async () => {
 			try {
 				setLoading(true);
-				const res = await fetch(`${API_URL}/api/post/getposts?slug=${postSlug}`);
+				const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
 				if (!res.ok) {
 					setError(true);
 					setLoading(false);
@@ -46,7 +44,7 @@ export default function Postpage() {
 		const fetchRecentPosts = async () => {
 			try {
 				setLoading(true);
-				const res = await fetch(`${API_URL}/api/post/getposts?limit=4`);
+				const res = await fetch(`/api/post/getposts?limit=4`);
 				if (!res.ok) {
 					throw new Error(`Error: ${res.status} ${res.statusText}`);
 				}
