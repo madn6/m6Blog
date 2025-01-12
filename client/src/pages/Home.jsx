@@ -11,13 +11,11 @@ export default function Home() {
 	const lottieRef = useRef(null);
 	const animationInstance = useRef(null);
 
-	const API_URL = import.meta.env.VITE_API_URL;
-	console.log("API URL:", API_URL);
-	
+
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
-				const res = await fetch(`${API_URL}/api/post/getposts`);
+				const res = await fetch(`/api/post/getposts`);
 				if (res.ok) {
 					const data = await res.json();
 					// Process posts to extract the image URL from content
