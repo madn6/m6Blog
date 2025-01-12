@@ -16,9 +16,6 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-// Resolve the correct directory path
-const __dirname = path.resolve();
-
 // CORS settings
 const corsOptions = {
 	origin: [
@@ -58,16 +55,23 @@ app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', CommentRoutes);
 
+i; // Serve static files for frontend
+const __dirname = path.resolve();
+const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
+
 if (process.env.NODE_ENV === 'production') {
-	// Serve frontend files
-	const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
 	app.use(express.static(clientBuildPath));
 
-	// Handle unmatched routes with 'index.html'
+	// Serve the React frontend for all non-API routes
 	app.get('*', (req, res) => {
 		res.sendFile(path.resolve(clientBuildPath, 'index.html'));
 	});
 }
+
+// Health check route
+app.get('/health', (req, res) => {
+	res.status(200).json({ success: true, message: 'Backend is running successfully' });
+});
 
 // Health check route
 app.get('/', (_req, res) => {
