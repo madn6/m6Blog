@@ -64,22 +64,30 @@ const revokeGoogleToken = async (token) => {
 };
 
 export const deleteUser = async (req, res, next) => {
-	if (!req.user || (!req.user.isAdmin && req.user.id !== req.params.userId)) {
-		return next(errorHandler(403, 'You are not allowed to delete this user'));
-	}
-	return next(errorHandler(403, 'You are not allowed to delete this user'));
-
 	try {
-		// Revoke the OAuth token
-		if (req.user.token) {
-			await revokeGoogleToken(req.user.token);
+		// Ensure the user is authorized to delete
+		if (!req.user || (!req.user.isAdmin && req.user.id !== req.params.userId)) {
+			return next(errorHandler(403, 'You are not allowed to delete this user'));
 		}
 
-		// Delete user from the database
-		await User.findByIdAndDelete(req.params.userId);
+		// Revoke the OAuth token, if available
+		if (req.user.token) {
+			try {
+				await revokeGoogleToken(req.user.token);
+			} catch (err) {
+				console.error('Error revoking Google token:', err.message);
+			}
+		}
+
+		// Delete the user from the database
+		const deletedUser = await User.findByIdAndDelete(req.params.userId);
+		if (!deletedUser) {
+			return next(errorHandler(404, 'User not found'));
+		}
 
 		res.status(200).json({ message: 'User has been deleted and token revoked' });
 	} catch (err) {
+		console.error('Error deleting user:', err.message);
 		next(err);
 	}
 };
