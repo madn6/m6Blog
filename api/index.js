@@ -22,31 +22,32 @@ app.use(cookieParser());
 // Dynamically determine the local hostname for development
 const hostname = os.hostname();
 
-// Define allowed origins
-const allowedOrigins = ['https://m6blog.onrender.com'];
+const allowedOrigins = new Set(['https://m6blog.onrender.com']);
 
-// Add localhost origins dynamically for development
+// Add local development origins dynamically
 if (process.env.NODE_ENV === 'development') {
-	const hostname = os.hostname(); // Get local hostname
-	allowedOrigins.push(`http://${hostname}:5173`, 'http://localhost:5173');
+	const hostname = os.hostname();
+	allowedOrigins.add(`http://${hostname}:5173`);
+	allowedOrigins.add('http://localhost:5173');
 }
 
 const corsOptions = {
 	origin: (origin, callback) => {
-		console.log('Request Origin:', origin); // Debug origin
-		// Allow requests from allowed origins or no origin (e.g., mobile apps or Postman)
-		if (!origin || allowedOrigins.includes(origin)) {
-			callback(null, true); // Allow request
+		console.log('Request Origin:', origin); // Log the origin for debugging
+		console.log('Allowed Origins:', Array.from(allowedOrigins)); // Log allowed origins for clarity
+
+		// Allow requests with no origin (e.g., mobile apps, Postman)
+		if (!origin || allowedOrigins.has(origin)) {
+			callback(null, true); // Allow the request
 		} else {
-			callback(new Error('Not allowed by CORS')); // Reject request
+			callback(new Error('Not allowed by CORS')); // Reject the request
 		}
 	},
-	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Restrict to necessary HTTP methods
-	credentials: true, // Allow cookies and credentials
-	optionsSuccessStatus: 204 // For legacy browsers (some expect 204 for preflight)
+	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow only required HTTP methods
+	credentials: true, // Enable cookies and credentials
+	optionsSuccessStatus: 204 // Handle preflight requests gracefully
 };
 
-// Export CORS middleware to be used in the main application
 export const configureCORS = (app) => {
 	app.use(cors(corsOptions));
 };
