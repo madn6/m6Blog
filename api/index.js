@@ -18,12 +18,16 @@ app.use(cookieParser());
 
 // CORS settings
 const corsOptions = {
-	origin: [
-		'https://m6blog.onrender.com', // Production frontend URL
-		'http://localhost:5173' // Local development URL
-	],
+	origin: (origin, callback) => {
+		// Allow any origin for admin routes or specific origins if needed
+		if (!origin || origin === 'https://m6blog.onrender.com' || origin === 'http://localhost:5173') {
+			callback(null, true);
+		} else {
+			callback(new Error('CORS not allowed for this origin'), false);
+		}
+	},
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true // Enable cookies to be sent
+	credentials: true // Allow cookies
 };
 app.use(cors(corsOptions));
 
