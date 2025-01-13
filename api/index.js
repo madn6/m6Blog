@@ -8,6 +8,7 @@ import postRoutes from './routes/post.route.js';
 import CommentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import os from 'os';
 
 const app = express();
 dotenv.config();
@@ -16,8 +17,23 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS settings
-const allowedOrigins = ['https://m6blog.onrender.com', 'http://localhost:5173'];
+
+/* -------------- cors -------------- */
+
+
+
+// Dynamically determine the local hostname for development
+const hostname = os.hostname();
+
+const allowedOrigins = [
+	'https://m6blog.onrender.com',
+	`http://${hostname}:5173` // Local hostname
+];
+
+// Add wildcard origin for development if needed
+if (process.env.NODE_ENV === 'development') {
+	allowedOrigins.push(`http://${hostname}:5173`);
+}
 
 const corsOptions = {
 	origin: (origin, callback) => {
@@ -34,7 +50,16 @@ const corsOptions = {
 	optionsSuccessStatus: 204 // For legacy browsers (some expect 204 for preflight)
 };
 
-app.use(cors(corsOptions));
+// Export CORS middleware to be used in the main application
+export const configureCORS = (app) => {
+	app.use(cors(corsOptions));
+};
+
+
+/* -------------- cors end -------------- */
+
+
+
 
 // Connect to MongoDB
 async function connectToDatabase() {
