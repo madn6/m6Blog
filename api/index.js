@@ -19,7 +19,7 @@ app.use(cookieParser());
 // CORS settings
 const corsOptions = {
 	origin: (origin, callback) => {
-		const allowedOrigins = ['https://m6blog.onrender.com', 'http://localhost:5173'];
+		const allowedOrigins = ['https://m6blog.onrender.com', 'http://localhost:5173',"http://192.168.228.15"];
 
 		// Allow requests from the specified origins or any other domain (with caution)
 		if (!origin || allowedOrigins.includes(origin)) {
