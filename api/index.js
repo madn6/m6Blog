@@ -17,18 +17,22 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS settings
-const allowedOrigins = ['https://yourdomain.com', 'http://localhost:5173'];
+const allowedOrigins = ['https://m6blog.onrender.com', 'http://localhost:5173'];
+
 const corsOptions = {
 	origin: (origin, callback) => {
+		// Allow requests with no origin (e.g., mobile apps or Postman)
 		if (!origin || allowedOrigins.includes(origin)) {
-			callback(null, true);
+			callback(null, true); // Allow request
 		} else {
-			callback(new Error('Not allowed by CORS'));
+			callback(new Error('Not allowed by CORS')); // Reject request
 		}
 	},
-	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true
+	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Restrict to necessary HTTP methods
+	credentials: true, // Allow cookies and credentials
+	optionsSuccessStatus: 204 // For legacy browsers (some expect 204 for preflight)
 };
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 async function connectToDatabase() {
