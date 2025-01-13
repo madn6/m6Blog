@@ -45,7 +45,13 @@ export default function DashUsers() {
 	const handleShowMore = async () => {
 		const startIndex = users.length;
 		try {
-			const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`);
+			const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				credentials: 'include' 
+			});
 			if (res.ok) {
 				const data = await res.json();
 				setUsers((prev) => [...prev, ...data.users]);
@@ -77,8 +83,10 @@ export default function DashUsers() {
 		}
 	};
 
+	console.log('users:', users);
+
 	return (
-		<div className="table-auto lg:scrollbar-none md:scrollbar-none  overflow-x-hidden md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+		<div className="table-auto lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
 			{loading ? (
 				<div className="flex justify-center items-center mt-12">
 					<Spinner color="gray" size="md" />

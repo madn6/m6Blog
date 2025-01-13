@@ -52,7 +52,6 @@ export const updateUser = async (req, res, next) => {
 	}
 };
 
-import axios from 'axios';
 
 const revokeGoogleToken = async (token) => {
 	try {
