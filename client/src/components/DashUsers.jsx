@@ -20,7 +20,13 @@ export default function DashUsers() {
 		if (currentUser?.isAdmin) {
 			const fetchUsers = async () => {
 				try {
-					const res = await fetch(`/api/user/getusers`);
+					const res = await fetch(`/api/user/getusers`, {
+						method: 'GET', 
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						credentials: 'include'
+					});
 					if (res.ok) {
 						const data = await res.json();
 						setUsers(data.users);
