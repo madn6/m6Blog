@@ -19,16 +19,21 @@ app.use(cookieParser());
 // CORS settings
 const corsOptions = {
 	origin: (origin, callback) => {
-		// Allow any origin for admin routes or specific origins if needed
-		if (!origin || origin === 'https://m6blog.onrender.com' || origin === 'http://localhost:5173') {
+		const allowedOrigins = ['https://m6blog.onrender.com', 'http://localhost:5173'];
+
+		// Allow requests from the specified origins or any other domain (with caution)
+		if (!origin || allowedOrigins.includes(origin)) {
 			callback(null, true);
 		} else {
 			callback(new Error('CORS not allowed for this origin'), false);
 		}
 	},
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true // Allow cookies
+	credentials: true // Allow cookies to be sent
 };
+
+app.use(cors(corsOptions));
+
 app.use(cors(corsOptions));
 
 // Connect to MongoDB
