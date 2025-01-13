@@ -22,10 +22,10 @@ export default function DashUsers() {
 				try {
 					const res = await fetch(`/api/user/getusers`, {
 						method: 'GET', 
+						credentials: 'include',
 						headers: {
 							'Content-Type': 'application/json'
 						},
-						credentials: 'include'
 					});
 					if (res.ok) {
 						const data = await res.json();
@@ -69,7 +69,8 @@ export default function DashUsers() {
 	const handleDeleteUser = async () => {
 		try {
 			const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
-				method: 'DELETE'
+				method: 'DELETE',
+				credentials: 'include'
 			});
 			const data = res.json();
 			if (res.ok) {

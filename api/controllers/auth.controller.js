@@ -56,45 +56,48 @@ export const signIn = async (req, res, next) => {
 
 export const google = async (req, res, next) => {
 	const { email, name, googlePhotoUrl } = req.body;
+
 	try {
 		const user = await User.findOne({ email });
+
+		// Generate JWT token
+		const generateToken = (id, isAdmin) =>
+			jwt.sign({ id, isAdmin }, process.env.JWT_SECRET_KEY, {
+				expiresIn: '1h' // Optional: Add token expiration
+			});
+
+		// Cookie options based on environment
+		const isProduction = process.env.NODE_ENV === 'production';
+		const cookieOptions = {
+			httpOnly: true,
+			secure: isProduction, // Enable secure only in production
+			sameSite: isProduction ? 'None' : 'Lax', // None for cross-origin in production
+			maxAge: 3600000 // 1 hour
+		};
+
 		if (user) {
-			// Existing user: Sign JWT token and set cookie
-			const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY);
+			// Existing user
+			const token = generateToken(user._id, user.isAdmin);
 			const { password, ...rest } = user._doc;
-			res
-				.status(200)
-				.cookie('access_token', token, {
-					httpOnly: true,
-					sameSite: 'None', // Allows cookies across devices/IPs
-					maxAge: 3600000 // Set cookie expiration (1 hour, adjust as needed)
-				})
-				.json(rest);
+			return res.status(200).cookie('access_token', token, cookieOptions).json(rest);
 		} else {
-			// New user: Create user and set JWT token
+			// New user
 			const generatedPassword =
 				Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
 			const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+
 			const newUser = new User({
 				username: name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4),
 				email,
 				password: hashedPassword,
 				profilePicture: googlePhotoUrl
 			});
+
 			await newUser.save();
-			const token = jwt.sign(
-				{ id: newUser._id, isAdmin: newUser.isAdmin },
-				process.env.JWT_SECRET_KEY
-			);
+
+			const token = generateToken(newUser._id, newUser.isAdmin);
 			const { password, ...rest } = newUser._doc;
-			res
-				.status(200)
-				.cookie('access_token', token, {
-					httpOnly: true,
-					sameSite: 'None', // Allows cookies across devices/IPs
-					maxAge: 3600000 // Set cookie expiration (1 hour, adjust as needed)
-				})
-				.json(rest);
+			return res.status(200).cookie('access_token', token, cookieOptions).json(rest);
 		}
 	} catch (err) {
 		next(err);
