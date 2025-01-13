@@ -1,9 +1,10 @@
 import { Modal, Table, Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { TiUserDelete } from "react-icons/ti";
+import { TiUserDelete } from 'react-icons/ti';
 import { HiX, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { Spinner } from 'flowbite-react';
 
 export default function DashUsers() {
 	const { currentUser } = useSelector((state) => state.user);
@@ -13,6 +14,7 @@ export default function DashUsers() {
 	const [showMore, setShowMore] = useState(true);
 	const [showModal, setShowModal] = useState(false);
 	const [userIdToDelete, setUserToDelete] = useState('');
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		if (currentUser?.isAdmin) {
@@ -30,9 +32,13 @@ export default function DashUsers() {
 					}
 				} catch (err) {
 					console.error('Error fetching users:', err.message);
+				} finally {
+					setLoading(false); //  loading is false regardless of success or error
 				}
 			};
 			fetchUsers();
+		} else {
+			setLoading(false); // If the user is not admin, stop loading
 		}
 	}, [currentUser]);
 
@@ -61,8 +67,8 @@ export default function DashUsers() {
 			});
 			const data = res.json();
 			if (res.ok) {
-        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
-        setShowModal(false)
+				setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+				setShowModal(false);
 			} else {
 				console.log(data.message);
 			}
@@ -73,7 +79,11 @@ export default function DashUsers() {
 
 	return (
 		<div className="table-auto lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-			{currentUser.isAdmin && users.length > 0 ? (
+			{loading ? (
+				<div className="flex justify-center items-center mt-12">
+					<Spinner color="gray" size="md" />
+				</div>
+			) : currentUser.isAdmin && users.length > 0 ? (
 				<>
 					<Table hoverable className="shadow-md ">
 						<Table.Head className="dark:text-white text-center ">
@@ -117,7 +127,7 @@ export default function DashUsers() {
 													setShowModal(true);
 													setUserToDelete(user._id);
 												}}
-												className="text-red-600   hover:scale-110 cursor-pointer w-5 h-5"
+												className="text-red-600 hover:scale-110 cursor-pointer w-5 h-5"
 											/>
 										</span>
 									</Table.Cell>
@@ -135,8 +145,9 @@ export default function DashUsers() {
 					)}
 				</>
 			) : (
-				<p>You have not users yet!</p>
+				<p>You have no users yet!</p>
 			)}
+
 			<Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
 				<span
 					onClick={() => setShowModal(false)}

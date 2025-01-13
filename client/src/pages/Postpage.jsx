@@ -1,4 +1,4 @@
-import { Spinner, } from 'flowbite-react';
+import { Spinner } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CommentSection, PostCard } from '../components';
@@ -64,9 +64,7 @@ export default function Postpage() {
 			}
 		};
 		fetchRecentPosts();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
 
 	if (loading) {
 		return (
@@ -117,7 +115,6 @@ export default function Postpage() {
 	};
 
 	const readingTime = post ? getReadingTime(post.content) : 0;
-	
 
 	return (
 		<div>
@@ -126,17 +123,25 @@ export default function Postpage() {
 					{post?.title}
 				</h1>
 				<Link to={`/search/?category=${post?.category}`} className="self-center">
-					<button color="gray" className="text-xs italic !bg-gray-300 border-gray-100 border text-light-100 border-opacity-10 p-1 px-2  rounded-3xl">
+					<button
+						color="gray"
+						className="text-xs italic !bg-gray-300 border-gray-100 border text-light-100 border-opacity-10 p-1 px-2  rounded-3xl"
+					>
 						{post?.category}
 					</button>
 				</Link>
 				<div className="flex items-center max-w-3xl  mt-12 gap-4 dark:text-white justify-between p-3 mx-auto w-full  text-xs">
-					<span className='dark:!text-light-100'>{post && new Date(post.createdAt).toLocaleDateString('en-GB')}</span>
+					<span className="dark:!text-light-100">
+						{post && new Date(post.createdAt).toLocaleDateString('en-GB')}
+					</span>
 					<span className="italic dark:!text-light-100 ">{readingTime}&nbsp;mins read</span>
 				</div>
 				<div className="prose dark:prose-invert p-3 max-w-3xl mx-auto w-full">
 					{/* Render the HTML content directly */}
-					<div className="post__content dark:!text-gray-100" dangerouslySetInnerHTML={{ __html: cleanedContent }}></div>
+					<div
+						className="post__content dark:!text-gray-100"
+						dangerouslySetInnerHTML={{ __html: cleanedContent }}
+					></div>
 				</div>
 			</div>
 			{post && <CommentSection postId={post._id} />}
