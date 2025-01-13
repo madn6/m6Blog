@@ -18,33 +18,36 @@ app.use(express.json());
 app.use(cookieParser());
 
 /* -------------- cors -------------- */
-
-// Dynamically determine the local hostname for development
-const hostname = os.hostname();
-
 const allowedOrigins = new Set(['https://m6blog.onrender.com']);
 
-// Add local development origins dynamically
+// Add local development origins
 if (process.env.NODE_ENV === 'development') {
 	const hostname = os.hostname();
+	const localIP = Object.values(os.networkInterfaces())
+		.flat()
+		.find((info) => info?.family === 'IPv4' && !info.internal)?.address;
+
 	allowedOrigins.add(`http://${hostname}:5173`);
 	allowedOrigins.add('http://localhost:5173');
+	if (localIP) {
+		allowedOrigins.add(`http://${localIP}:5173`);
+	}
 }
 
 const corsOptions = {
 	origin: (origin, callback) => {
-		console.log('Request Origin:', origin); // Log the origin for debugging
-		console.log('Allowed Origins:', Array.from(allowedOrigins)); // Log allowed origins for clarity
+		console.log('Request Origin:', origin); // Debug the origin
+		console.log('Allowed Origins:', Array.from(allowedOrigins)); // Debug allowed origins
 
 		// Allow requests with no origin (e.g., mobile apps, Postman)
 		if (!origin || allowedOrigins.has(origin)) {
-			callback(null, true); // Allow the request
+			callback(null, true);
 		} else {
-			callback(new Error('Not allowed by CORS')); // Reject the request
+			callback(new Error(`Not allowed by CORS: ${origin}`));
 		}
 	},
-	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow only required HTTP methods
-	credentials: true, // Enable cookies and credentials
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	credentials: true,
 	optionsSuccessStatus: 204 // Handle preflight requests gracefully
 };
 
