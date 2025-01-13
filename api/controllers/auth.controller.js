@@ -71,8 +71,7 @@ export const google = async (req, res, next) => {
 		const cookieOptions = {
 			httpOnly: true,
 			secure: isProduction, // Enable secure only in production
-			sameSite: isProduction ? 'None' : 'Lax', // None for cross-origin in production
-			maxAge: 3600000 // 1 hour
+			sameSite: isProduction ? 'None' : 'Lax', // None for cross-origin in 
 		};
 
 		if (user) {
