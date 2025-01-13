@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS settings
-const allowedOrigins = ['https://m6blog.onrender.com',];
+const allowedOrigins = ['https://m6blog.onrender.com','http://localhost:5173'];
 
 const corsOptions = {
 	origin: (origin, callback) => {
