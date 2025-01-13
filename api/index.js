@@ -17,13 +17,18 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS settings
+const allowedOrigins = ['https://yourdomain.com', 'http://localhost:5173'];
 const corsOptions = {
-	origin: true, // Allow requests from any origin
+	origin: (origin, callback) => {
+		if (!origin || allowedOrigins.includes(origin)) {
+			callback(null, true);
+		} else {
+			callback(new Error('Not allowed by CORS'));
+		}
+	},
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true // Allow cookies to be sent
+	credentials: true
 };
-
-app.use(cors(corsOptions));
 
 // Connect to MongoDB
 async function connectToDatabase() {
