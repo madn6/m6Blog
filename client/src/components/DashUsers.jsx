@@ -45,13 +45,7 @@ export default function DashUsers() {
 	const handleShowMore = async () => {
 		const startIndex = users.length;
 		try {
-			const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				credentials: 'include' 
-			});
+			const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`);
 			if (res.ok) {
 				const data = await res.json();
 				setUsers((prev) => [...prev, ...data.users]);
