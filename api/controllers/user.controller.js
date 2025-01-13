@@ -52,7 +52,6 @@ export const updateUser = async (req, res, next) => {
 	}
 };
 
-
 const revokeGoogleToken = async (token) => {
 	try {
 		const response = await axios.post(`https://oauth2.googleapis.com/revoke?token=${token}`, null, {
@@ -65,9 +64,10 @@ const revokeGoogleToken = async (token) => {
 };
 
 export const deleteUser = async (req, res, next) => {
-	if (!req.user.isAdmin && req.user.id !== req.params.userId) {
+	if (!req.user || (!req.user.isAdmin && req.user.id !== req.params.userId)) {
 		return next(errorHandler(403, 'You are not allowed to delete this user'));
 	}
+	return next(errorHandler(403, 'You are not allowed to delete this user'));
 
 	try {
 		// Revoke the OAuth token
