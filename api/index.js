@@ -17,22 +17,18 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-
 /* -------------- cors -------------- */
-
-
 
 // Dynamically determine the local hostname for development
 const hostname = os.hostname();
 
-const allowedOrigins = [
-	'https://m6blog.onrender.com',
-	`http://${hostname}:5173` // Local hostname
-];
+// Define allowed origins
+const allowedOrigins = ['https://m6blog.onrender.com'];
 
-// Add wildcard origin for development if needed
+// Add localhost origins dynamically for development
 if (process.env.NODE_ENV === 'development') {
-	allowedOrigins.push(`http://${hostname}:5173`);
+	const hostname = os.hostname(); // Get local hostname
+	allowedOrigins.push(`http://${hostname}:5173`, 'http://localhost:5173');
 }
 
 const corsOptions = {
@@ -55,11 +51,7 @@ export const configureCORS = (app) => {
 	app.use(cors(corsOptions));
 };
 
-
 /* -------------- cors end -------------- */
-
-
-
 
 // Connect to MongoDB
 async function connectToDatabase() {
