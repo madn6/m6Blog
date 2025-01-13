@@ -21,18 +21,18 @@ app.use(cookieParser());
 const allowedOrigins = new Set(['https://m6blog.onrender.com']);
 
 // Add local development origins
-if (process.env.NODE_ENV === 'development') {
-	const hostname = os.hostname();
-	const localIP = Object.values(os.networkInterfaces())
-		.flat()
-		.find((info) => info?.family === 'IPv4' && !info.internal)?.address;
+// if (process.env.NODE_ENV === 'development') {
+// 	const hostname = os.hostname();
+// 	const localIP = Object.values(os.networkInterfaces())
+// 		.flat()
+// 		.find((info) => info?.family === 'IPv4' && !info.internal)?.address;
 
-	allowedOrigins.add(`http://${hostname}:5173`);
-	allowedOrigins.add('http://localhost:5173');
-	if (localIP) {
-		allowedOrigins.add(`http://${localIP}:5173`);
-	}
-}
+// 	allowedOrigins.add(`http://${hostname}:5173`);
+// 	allowedOrigins.add('http://localhost:5173');
+// 	if (localIP) {
+// 		allowedOrigins.add(`http://${localIP}:5173`);
+// 	}
+// }
 
 const corsOptions = {
 	origin: (origin, callback) => {
