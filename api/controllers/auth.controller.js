@@ -91,7 +91,6 @@ export const google = async (req, res, next) => {
 				.status(200)
 				.cookie('access_token', token, {
 					httpOnly: true,
-					secure: process.env.NODE_ENV === 'production', // Ensure secure cookies in production
 					sameSite: 'None', // Allows cookies across devices/IPs
 					maxAge: 3600000 // Set cookie expiration (1 hour, adjust as needed)
 				})
