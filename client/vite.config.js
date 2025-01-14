@@ -6,8 +6,8 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/api': {
-				target: 'http://localhost:3000', // Your backend server
-				secure: false
+				target: 'http://localhost:3000', // Backend server
+				secure: false,
 			}
 		},
 		host: true, // Allows access from your local network

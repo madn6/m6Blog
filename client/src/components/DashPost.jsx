@@ -23,8 +23,10 @@ export default function DashPost() {
 					console.log('Fetching posts for userId:', currentUser._id); // Log userId for debugging
 					const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`, {
 						method: 'GET',
-						credentials: 'include', // Ensures cookies are sent
-						headers: { 'Content-Type': 'application/json' }
+						credentials: 'include',
+						headers: {
+							'Content-Type': 'application/json'
+						}
 					});
 					if (res.ok) {
 						const data = await res.json();

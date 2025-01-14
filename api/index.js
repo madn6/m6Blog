@@ -18,40 +18,43 @@ app.use(express.json());
 app.use(cookieParser());
 
 /* -------------- cors -------------- */
-const allowedOrigins = new Set(['https://m6blog.onrender.com']);
 
-// Add local development origins
+const allowedOrigins = new Set(['https://m6blog.onrender.com']); // Production domain
 
+// Add local development origins dynamically
 if (process.env.NODE_ENV === 'development') {
 	const hostname = os.hostname();
 	const localIP = Object.values(os.networkInterfaces())
 		.flat()
 		.find((info) => info?.family === 'IPv4' && !info.internal)?.address;
 
-	allowedOrigins.add(`http://${hostname}:5173`);
-	allowedOrigins.add('http://localhost:5173');
+	// Localhost and IP for development
+	allowedOrigins.add(`http://${hostname}:5173`); // Localhost for dev server, only works on your local machine
+	allowedOrigins.add('http://localhost:5173'); // Localhost for dev server
+
 	if (localIP) {
-		allowedOrigins.add(`http://${localIP}:5173`);
+		allowedOrigins.add(`http://${localIP}:5173`); // Local IP for mobile devices
 	}
 }
 
 const corsOptions = {
 	origin: (origin, callback) => {
-		console.log('Request Origin:', origin); // Debug the origin
-		console.log('Allowed Origins:', Array.from(allowedOrigins)); // Debug allowed origins
+		console.log('Request Origin:', origin); // Log the origin for debugging
+		console.log('Allowed Origins:', Array.from(allowedOrigins)); // Log allowed origins for clarity
 
-		// Allow requests with no origin (e.g., mobile apps, Postman)
+		// Allow requests with no origin (e.g., Postman or mobile apps)
 		if (!origin || allowedOrigins.has(origin)) {
-			callback(null, true);
+			callback(null, true); // Allow the request
 		} else {
-			callback(new Error(`Not allowed by CORS: ${origin}`));
+			callback(new Error('Not allowed by CORS')); // Reject the request
 		}
 	},
-	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true,
+	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow only required HTTP methods
+	credentials: true, // Enable cookies and credentials
 	optionsSuccessStatus: 204 // Handle preflight requests gracefully
 };
 
+// Apply CORS middleware
 export const configureCORS = (app) => {
 	app.use(cors(corsOptions));
 };
