@@ -2,13 +2,14 @@ import { Modal, Table, Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {  AiFillEdit } from 'react-icons/ai';
-import { RiDeleteBin6Fill } from "react-icons/ri";
+import { AiFillEdit } from 'react-icons/ai';
+import { RiDeleteBin6Fill } from 'react-icons/ri';
 
 import { HiX, HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function DashPost() {
 	const { currentUser } = useSelector((state) => state.user);
+	console.log('currnet user', currentUser);
 
 	const [userPosts, setUserPosts] = useState([]);
 	const [showMore, setShowMore] = useState(true);
@@ -19,13 +20,18 @@ export default function DashPost() {
 		if (currentUser?.isAdmin) {
 			const fetchPosts = async () => {
 				try {
-					const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+					console.log('Fetching posts for userId:', currentUser._id); // Log userId for debugging
+					const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`, {
+						method: 'GET',
+						credentials: 'include', // Ensures cookies are sent
+						headers: { 'Content-Type': 'application/json' }
+					});
 					if (res.ok) {
 						const data = await res.json();
-						// Process posts to extract the image URL from content
+						console.log('Fetched posts:', data.posts); // Log fetched posts
 						const processedPosts = data.posts.map((post) => {
 							const imgTagMatch = post.content.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
-							const contentImage = imgTagMatch ? imgTagMatch[1] : post.image; // Use extracted image or fallback to post.image
+							const contentImage = imgTagMatch ? imgTagMatch[1] : post.image;
 							return { ...post, contentImage };
 						});
 						setUserPosts(processedPosts);
@@ -42,8 +48,8 @@ export default function DashPost() {
 			fetchPosts();
 		}
 	}, [currentUser]);
+
 	console.log(userPosts);
-	
 
 	const handleShowMore = async () => {
 		const startIndex = userPosts.length;
@@ -64,7 +70,8 @@ export default function DashPost() {
 				if (data.posts.length < 9) {
 					setShowMore(false);
 				}
-			}fetch
+			}
+			fetch;
 		} catch (err) {
 			console.log(err);
 		}

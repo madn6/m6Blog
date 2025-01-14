@@ -21,6 +21,7 @@ app.use(cookieParser());
 const allowedOrigins = new Set(['https://m6blog.onrender.com']);
 
 // Add local development origins
+
 if (process.env.NODE_ENV === 'development') {
 	const hostname = os.hostname();
 	const localIP = Object.values(os.networkInterfaces())

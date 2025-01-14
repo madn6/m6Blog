@@ -5,6 +5,7 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export const signUp = async (req, res, next) => {
+	// Cookie options based on environment
 	const { username, email, password } = req.body;
 
 	if (!username || !email || !password || username === '' || email === '' || password === '') {
@@ -43,12 +44,14 @@ export const signIn = async (req, res, next) => {
 		if (!validPassword) {
 			return next(errorHandler(404, 'Invalid password'));
 		}
+
 		const token = jwt.sign(
 			{ id: validUser._id, isAdmin: validUser.isAdmin },
 			process.env.JWT_SECRET_KEY
 		);
+
 		const { password: pass, ...rest } = validUser._doc;
-		res.status(200).cookie('access_token', token, { httpOnly: true }).json(rest);
+		res.status(200).cookie('access_token', token,).json(rest);
 	} catch (err) {
 		next(err);
 	}
@@ -71,7 +74,7 @@ export const google = async (req, res, next) => {
 		const cookieOptions = {
 			httpOnly: true,
 			secure: isProduction, // Enable secure only in production
-			sameSite: isProduction ? 'None' : 'Lax', // None for cross-origin in 
+			sameSite: isProduction ? 'None' : 'Lax' // None for cross-origin in
 		};
 
 		if (user) {
