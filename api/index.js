@@ -22,20 +22,22 @@ app.use(cookieParser());
 const allowedOrigins = new Set(['https://m6blog.onrender.com']); // Production domain
 
 // Add local development origins dynamically
-// if (process.env.NODE_ENV === 'development') {
-// 	const hostname = os.hostname();
-// 	const localIP = Object.values(os.networkInterfaces())
-// 		.flat()
-// 		.find((info) => info?.family === 'IPv4' && !info.internal)?.address;
 
-// 	// Localhost and IP for development
-// 	allowedOrigins.add(`http://${hostname}:5173`); // Localhost for dev server, only works on your local machine
-// 	allowedOrigins.add('http://localhost:5173'); // Localhost for dev server
 
-// 	if (localIP) {
-// 		allowedOrigins.add(`http://${localIP}:5173`); // Local IP for mobile devices
-// 	}
-// }
+if (process.env.NODE_ENV === 'development') {
+	const hostname = os.hostname();
+	const localIP = Object.values(os.networkInterfaces())
+		.flat()
+		.find((info) => info?.family === 'IPv4' && !info.internal)?.address;
+
+	// Localhost and IP for development
+	allowedOrigins.add(`http://${hostname}:5173`); // Localhost for dev server, only works on your local machine
+	allowedOrigins.add('http://localhost:5173'); // Localhost for dev server
+
+	if (localIP) {
+		allowedOrigins.add(`http://${localIP}:5173`); // Local IP for mobile devices
+	}
+}
 
 const corsOptions = {
 	origin: (origin, callback) => {
