@@ -19,10 +19,7 @@ app.use(cookieParser());
 
 /* -------------- cors -------------- */
 
-const allowedOrigins = new Set(['https://m6blog.onrender.com']); // Production domain
-
-// Add local development origins dynamically
-
+const allowedOrigins = new Set(['https://m6blog.onrender.com']);
 
 if (process.env.NODE_ENV === 'development') {
 	const hostname = os.hostname();
@@ -30,33 +27,30 @@ if (process.env.NODE_ENV === 'development') {
 		.flat()
 		.find((info) => info?.family === 'IPv4' && !info.internal)?.address;
 
-	// Localhost and IP for development
-	allowedOrigins.add(`http://${hostname}:5173`); // Localhost for dev server, only works on your local machine
-	allowedOrigins.add('http://localhost:5173'); // Localhost for dev server
+	allowedOrigins.add(`http://${hostname}:5173`);
+	allowedOrigins.add('http://localhost:5173');
 
 	if (localIP) {
-		allowedOrigins.add(`http://${localIP}:5173`); // Local IP for mobile devices
+		allowedOrigins.add(`http://${localIP}:5173`);
 	}
 }
 
+console.log('Allowed Origins:', Array.from(allowedOrigins));
+
 const corsOptions = {
 	origin: (origin, callback) => {
-		console.log('Request Origin:', origin); // Log the origin for debugging
-		console.log('Allowed Origins:', Array.from(allowedOrigins)); // Log allowed origins for clarity
-
-		// Allow requests with no origin (e.g., Postman or mobile apps)
+		console.log('Request Origin:', origin); // Debugging
 		if (!origin || allowedOrigins.has(origin)) {
-			callback(null, true); // Allow the request
+			callback(null, true);
 		} else {
-			callback(new Error('Not allowed by CORS')); // Reject the request
+			callback(new Error('Not allowed by CORS'));
 		}
 	},
-	methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow only required HTTP methods
-	credentials: true, // Enable cookies and credentials
-	optionsSuccessStatus: 204 // Handle preflight requests gracefully
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	credentials: true,
+	optionsSuccessStatus: 204
 };
 
-// Apply CORS middleware
 export const configureCORS = (app) => {
 	app.use(cors(corsOptions));
 };
