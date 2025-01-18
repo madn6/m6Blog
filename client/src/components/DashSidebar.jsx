@@ -1,4 +1,4 @@
-import { Sidebar } from 'flowbite-react';
+// import { Sidebar } from 'flowbite-react';
 import {
 	HiAnnotation,
 	HiArrowRight,
@@ -46,81 +46,112 @@ export default function DashSidebar() {
 	};
 
 	return (
-		<Sidebar className="w-full md:w-56 ">
-			<Sidebar.Items>
-				<Sidebar.ItemGroup className="flex flex-col  gap-1">
-					<Link to="/dashboard?tab=profile">
-						<Sidebar.Item
-							className="dark:!text-light-100"
-							active={tab === 'profile'}
-							icon={HiUser}
-							label={currentUser.isAdmin ? 'Admin' : 'User'}
-							labelColor={'dark'}
-							as="div"
+		<div className="w-full h-full md:w-56 mt-2 border-r border-gray-200">
+			<div className="">
+				<div className="flex flex-col gap-2 p-2">
+					<div className="">
+						<Link
+							to="/dashboard?tab=profile"
+							className={`flex items-center  justify-between p-2 rounded ${
+								tab === 'profile' ? 'bg-gray-200 text-light-100  dark:bg-gray-200 ' : ''
+							} hover:bg-gray-200 hover:text-light-100 dark:text-light-100 text-gray-200  dark:hover:bg-gray-200`}
 						>
-							Profile
-						</Sidebar.Item>
-					</Link>
+							<div className="flex p-1   items-center gap-2">
+								<HiUser className={`w-6 h-6  ${tab === 'profile' ? 'text-light-100 ' : ''}`} />
+								<div>Profile</div>
+							</div>
+							<span
+								className={`${
+									tab === 'profile'
+										? 'text-light-100 bg-dark-100   p-1 text-xs px-2 rounded-lg'
+										: 'bg-gray-200 text-light-100  '
+								} p-1 text-xs px-2 rounded-lg`}
+							>
+								{currentUser.isAdmin ? 'Admin' : 'User'}
+							</span>
+						</Link>
+					</div>
 					{currentUser.isAdmin && (
 						<Link
 							to="/dashboard?tab=posts"
-							className=""
+							className={`flex items-center gap-2 p-2 rounded ${
+								tab === 'posts'
+									? 'bg-gray-200 text-light-100 dark:bg-gray-200 dark:text-light-100'
+									: ''
+							} hover:bg-gray-200 hover:text-light-100 dark:hover:bg-gray-200   dark:hover:text-light-100`}
 						>
-							<Sidebar.Item
-								active={tab === 'posts'}
-								icon={HiDocumentText}
-								as="div"
-								className="dark:!text-light-100 "
-							>
-								Posts
-							</Sidebar.Item>
+							<div className={`p-1 rounded ${tab === 'posts' ? '' : ''}`}>
+								<HiDocumentText
+									className={`w-6 h-6 ${tab === 'posts' ? 'text-light-100' : 'dark:text-gray-100'}`}
+								/>
+							</div>
+							<div>Posts</div>
 						</Link>
 					)}
 					{currentUser.isAdmin && (
-						<Link to="/dashboard?tab=users">
-							<Sidebar.Item
-								active={tab === 'users'}
-								icon={HiOutlineUserGroup}
-								as="div"
-								className="dark:!text-light-100"
-							>
-								Users
-							</Sidebar.Item>
+						<Link
+							to="/dashboard?tab=users"
+							className={`flex items-center gap-2 p-2 rounded ${
+								tab === 'users'
+									? 'bg-gray-200 text-light-100 dark:bg-gray-200 dark:text-light-100'
+									: ''
+							} hover:bg-gray-200 hover:text-light-100 dark:hover:bg-gray-200 dark:hover:text-light-100`}
+						>
+							<div className={`p-1 rounded ${tab === 'users' ? '' : ''}`}>
+								<HiOutlineUserGroup
+									className={`w-6 h-6 ${tab === 'users' ? 'text-light-100' : 'dark:text-gray-100'}`}
+								/>
+							</div>
+							<div>Users</div>
+						</Link>
+					)}
+
+					{currentUser.isAdmin && (
+						<Link
+							to="/dashboard?tab=comments"
+							className={`flex items-center gap-2 p-2 rounded ${
+								tab === 'comments'
+									? 'bg-gray-200 text-light-100 dark:bg-gray-200 dark:text-light-100'
+									: ''
+							} hover:bg-gray-200 hover:text-light-100 dark:hover:bg-gray-200 dark:hover:text-light-100`}
+						>
+							<div className={`p-1 rounded  ${tab === 'comments' ? '' : ''}`}>
+								<HiAnnotation
+									className={` w-6 h-6 ${tab === 'comments' ? 'text-light-100' : 'dark:text-gray-100'}`}
+								/>
+							</div>
+							<div>Comments</div>
 						</Link>
 					)}
 					{currentUser.isAdmin && (
-						<Link to="/dashboard?tab=comments">
-							<Sidebar.Item
-								active={tab === 'comments'}
-								icon={HiAnnotation}
-								as="div"
-								className="dark:!text-light-100"
-							>
-								Comments
-							</Sidebar.Item>
+						<Link
+							to="/dashboard?tab=dash"
+							className={`flex items-center gap-2 p-2 rounded ${
+								tab === 'dash' || !tab
+									? 'bg-gray-200 text-light-100 dark:bg-gray-200 dark:text-light-100'
+									: ''
+							} hover:bg-gray-200 hover:text-light-100 dark:hover:bg-gray-200 dark:hover:text-light-100`}
+						>
+							<div className={`p-1 rounded ${tab === 'dash' || !tab ? '' : ''}`}>
+								<HiChartPie
+									className={`w-6 h-6 ${tab === 'dash' || !tab ? 'text-light-100' : 'dark:text-gray-100'}`}
+								/>
+							</div>
+							<div>Dashboard</div>
 						</Link>
 					)}
-					{currentUser.isAdmin && (
-						<Link to="/dashboard?tab=dash">
-							<Sidebar.Item
-								as="div"
-								active={tab === 'dash' || !tab}
-								icon={HiChartPie}
-								className="dark:!text-light-100"
-							>
-								Dashboard
-							</Sidebar.Item>
-						</Link>
-					)}
-					<Sidebar.Item
-						icon={HiArrowRight}
-						className="cursor-pointer dark:!text-light-100"
+
+					<div
+						className="flex items-center gap-2 p-2 rounded hover:text-light-100  cursor-pointer dark:text-light-100 hover:bg-gray-200 dark:hover:bg-gray-200"
 						onClick={handleSignOut}
 					>
+						<div className="p-1 rounded">
+							<HiArrowRight className="dark:text-gray-100 w-6 h-6" />
+						</div>
 						Sign Out
-					</Sidebar.Item>
-				</Sidebar.ItemGroup>
-			</Sidebar.Items>
-		</Sidebar>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 }
