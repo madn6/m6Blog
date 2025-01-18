@@ -52,6 +52,10 @@ body {
 	@apply hover:!text-[#f6f6f6] hover:!bg-gray-200;
 }
 
+[data-testid='flowbite-sidebar-item-group'] li div :active{
+	@apply !bg-gray-200;
+}
+
 [data-testid="flowbite-sidebar-label"]  {
 	@apply !bg-gray-200;
 }
