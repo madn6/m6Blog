@@ -40,6 +40,14 @@ body {
 	@apply hover:text-light-100;
 }
 
+[aria-label="Sidebar"] div{
+	@apply dark:!bg-dark-100 
+}
+
+[aria-label="Sidebar"] {
+	@apply dark:!bg-dark-100 !border-r  !border-red-600 !border-opacity-10
+}
+
 [data-testid='flowbite-dropdown'] span {
 	@apply text-light-100;
 }
