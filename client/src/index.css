@@ -40,12 +40,35 @@ body {
 	@apply hover:text-light-100;
 }
 
-[aria-label="Sidebar"] div{
-	@apply dark:!bg-dark-100 
+[aria-label='Sidebar'] div {
+	@apply dark:!bg-dark-100;
 }
 
-[aria-label="Sidebar"] {
-	@apply dark:!bg-dark-100 !border-r  !border-red-600 !border-opacity-10
+[data-testid='flowbite-sidebar-item-group'] a li div {
+	@apply hover:!text-[#f6f6f6] hover:!bg-gray-200;
+}
+
+[data-testid='flowbite-sidebar-item-group'] li a {
+	@apply hover:!text-[#f6f6f6] hover:!bg-gray-200;
+}
+
+[data-testid="flowbite-sidebar-label"]  {
+	@apply !bg-gray-200;
+}
+[data-testid="flowbite-sidebar-label"] span {
+	@apply dark:text-light-100;
+}
+
+[data-testid='flowbite-sidebar-item-group'] a li div {
+	@apply hover:!text-[#f6f6f6] hover:!bg-gray-200;
+}
+
+[aria-label='Sidebar'] {
+	@apply !border-r dark:!border-gray-200 !border-opacity-10;
+}
+
+[aria-label='Sidebar'] svg {
+	@apply dark:!text-gray-100;
 }
 
 [data-testid='flowbite-dropdown'] span {

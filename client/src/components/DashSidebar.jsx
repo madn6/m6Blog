@@ -1,5 +1,12 @@
 import { Sidebar } from 'flowbite-react';
-import { HiAnnotation, HiArrowRight, HiChartPie, HiDocumentText, HiOutlineUserGroup, HiUser } from 'react-icons/hi';
+import {
+	HiAnnotation,
+	HiArrowRight,
+	HiChartPie,
+	HiDocumentText,
+	HiOutlineUserGroup,
+	HiUser
+} from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/users/userSlice';
@@ -44,9 +51,10 @@ export default function DashSidebar() {
 				<Sidebar.ItemGroup className="flex flex-col  gap-1">
 					<Link to="/dashboard?tab=profile">
 						<Sidebar.Item
+							className="dark:!text-light-100"
 							active={tab === 'profile'}
 							icon={HiUser}
-							label={currentUser.isAdmin ? 'Admin'  :'User'}
+							label={currentUser.isAdmin ? 'Admin' : 'User'}
 							labelColor={'dark'}
 							as="div"
 						>
@@ -54,34 +62,61 @@ export default function DashSidebar() {
 						</Sidebar.Item>
 					</Link>
 					{currentUser.isAdmin && (
-						<Link to="/dashboard?tab=posts">
-							<Sidebar.Item active={tab === 'posts'} icon={HiDocumentText} as="div">
+						<Link
+							to="/dashboard?tab=posts"
+							className=""
+						>
+							<Sidebar.Item
+								active={tab === 'posts'}
+								icon={HiDocumentText}
+								as="div"
+								className="dark:!text-light-100 "
+							>
 								Posts
 							</Sidebar.Item>
 						</Link>
 					)}
 					{currentUser.isAdmin && (
 						<Link to="/dashboard?tab=users">
-							<Sidebar.Item active={tab === 'users'} icon={HiOutlineUserGroup} as="div">
+							<Sidebar.Item
+								active={tab === 'users'}
+								icon={HiOutlineUserGroup}
+								as="div"
+								className="dark:!text-light-100"
+							>
 								Users
 							</Sidebar.Item>
 						</Link>
 					)}
 					{currentUser.isAdmin && (
 						<Link to="/dashboard?tab=comments">
-							<Sidebar.Item active={tab === 'comments'} icon={HiAnnotation} as="div">
+							<Sidebar.Item
+								active={tab === 'comments'}
+								icon={HiAnnotation}
+								as="div"
+								className="dark:!text-light-100"
+							>
 								Comments
 							</Sidebar.Item>
 						</Link>
 					)}
 					{currentUser.isAdmin && (
 						<Link to="/dashboard?tab=dash">
-							<Sidebar.Item as='div' active={tab === 'dash' || !tab} icon={HiChartPie}>
+							<Sidebar.Item
+								as="div"
+								active={tab === 'dash' || !tab}
+								icon={HiChartPie}
+								className="dark:!text-light-100"
+							>
 								Dashboard
 							</Sidebar.Item>
 						</Link>
 					)}
-					<Sidebar.Item icon={HiArrowRight} className="cursor-pointer" onClick={handleSignOut}>
+					<Sidebar.Item
+						icon={HiArrowRight}
+						className="cursor-pointer dark:!text-light-100"
+						onClick={handleSignOut}
+					>
 						Sign Out
 					</Sidebar.Item>
 				</Sidebar.ItemGroup>

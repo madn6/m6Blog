@@ -63,18 +63,16 @@ export const google = async (req, res, next) => {
 	try {
 		const user = await User.findOne({ email });
 
-		// Generate JWT token
+		// Generate JWT token without expiration
 		const generateToken = (id, isAdmin) =>
-			jwt.sign({ id, isAdmin }, process.env.JWT_SECRET_KEY, {
-				expiresIn: '1h' // Optional: Add token expiration
-			});
+			jwt.sign({ id, isAdmin }, process.env.JWT_SECRET_KEY);
 
 		// Cookie options based on environment
 		const isProduction = process.env.NODE_ENV === 'production';
 		const cookieOptions = {
 			httpOnly: true,
 			secure: isProduction, // Enable secure only in production
-			sameSite: isProduction ? 'None' : 'Lax' // None for cross-origin in
+			sameSite: isProduction ? 'None' : 'Lax' // None for cross-origin in production
 		};
 
 		if (user) {
@@ -105,3 +103,4 @@ export const google = async (req, res, next) => {
 		next(err);
 	}
 };
+
