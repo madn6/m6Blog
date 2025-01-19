@@ -87,7 +87,7 @@ export default function DashUsers() {
 	console.log('users:', users);
 
 	return (
-		<div className="table-auto lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+		<div className="table-auto my-3 lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
 			{loading ? (
 				<div className="flex justify-center items-center mt-12">
 					<Spinner color="gray" size="md" />
@@ -105,7 +105,7 @@ export default function DashUsers() {
 						</Table.Head>
 						{users.map((user, i) => (
 							<Table.Body key={i} className="divide-y ">
-								<Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800   ">
+								<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30  hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200  ">
 									<Table.Cell className="text-center">
 										{new Date(user.createdAt).toLocaleDateString('en-GB')}
 									</Table.Cell>

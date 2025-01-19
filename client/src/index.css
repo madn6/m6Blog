@@ -16,6 +16,11 @@ body {
 	--flowbite-input-placeholder: #a4a4a4;
 }
 
+
+[data-testid="table-element"]{
+	@apply border border-gray-100 border-opacity-70 dark:border-0 overflow-hidden rounded-lg shadow-md
+}
+
 .ql-editor {
 	font-size: 1rem;
 	border: 1px solid;
