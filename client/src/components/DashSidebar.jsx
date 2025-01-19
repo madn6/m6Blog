@@ -45,7 +45,7 @@ export default function DashSidebar() {
 	};
 
 	return (
-		<div className="w-full h-full md:w-56 md:border-r border-gray-200 border-b">
+		<div className="w-full h-full md:w-56 md:border-r border-gray-200 dark:border-opacity-100 border-opacity-50 md:border-b-0 border-b">
 			<div className="">
 				<div className="flex flex-col  gap-2 p-2">
 					<div className="">

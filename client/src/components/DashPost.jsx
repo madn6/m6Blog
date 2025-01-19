@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AiFillEdit } from 'react-icons/ai';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
-
+import { Spinner } from 'flowbite-react';
 import { HiX, HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function DashPost() {
@@ -14,6 +14,7 @@ export default function DashPost() {
 	const [userPosts, setUserPosts] = useState([]);
 	const [showMore, setShowMore] = useState(true);
 	const [showModal, setShowModal] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [postIdToDelete, setPostIdToDelete] = useState('');
 
 	useEffect(() => {
@@ -45,6 +46,8 @@ export default function DashPost() {
 					}
 				} catch (err) {
 					console.error('Error fetching posts:', err.message);
+				} finally {
+					setLoading(false);
 				}
 			};
 			fetchPosts();
@@ -97,110 +100,126 @@ export default function DashPost() {
 	};
 
 	return (
-		<div className="table-auto  min-h-screen lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-			{currentUser.isAdmin && userPosts.length > 0 ? (
-				<>
-					<Table hoverable className="shadow-md">
-						<Table.Head className=" text-center ">
-							<Table.HeadCell>Date updated</Table.HeadCell>
-							<Table.HeadCell>Post image</Table.HeadCell>
-							<Table.HeadCell>Post Title</Table.HeadCell>
-							<Table.HeadCell>Category</Table.HeadCell>
-							<Table.HeadCell>Delete</Table.HeadCell>
-							<Table.HeadCell>
-								<span>Edit</span>
-							</Table.HeadCell>
-						</Table.Head>
-						{userPosts.map((post, i) => (
-							<Table.Body key={i} className="divide-y  ">
-								<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30  hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200 ">
-									<Table.Cell className="text-center">
-										{new Date(post.updatedAt).toLocaleDateString('en-GB')}
-									</Table.Cell>
-									<Table.Cell>
-										<Link to={`/post/${post.slug}`} className="flex items-center justify-center ">
-											<img
-												src={post.contentImage}
-												alt={post.title}
-												className="w-20 h-10 bg-gray-500 object-cover  rounded-lg"
-											/>
-										</Link>
-									</Table.Cell>
-									<Table.Cell className="text-center">
-										<Link to={`/post/${post.slug}`}>{post.title}</Link>
-									</Table.Cell>
-									<Table.Cell className="text-center">{post.category}</Table.Cell>
-									<Table.Cell>
-										<span className="flex items-center justify-center">
-											<RiDeleteBin6Fill
-												onClick={() => {
-													setShowModal(true);
-													setPostIdToDelete(post._id);
-												}}
-												className="dark:text-light-100  text-gray-200   hover:scale-110 cursor-pointer w-4 h-4"
-											/>
-										</span>
-									</Table.Cell>
-									<Table.Cell>
-										<Link
-											className="dark:text-light-100  text-gray-200 flex items-center justify-center "
-											to={`/update-post/${post._id}`}
-										>
-											<AiFillEdit className="hover:scale-110 cursor-pointer w-4 h-4" />
-										</Link>
-									</Table.Cell>
-								</Table.Row>
-							</Table.Body>
-						))}
-					</Table>
-					{showMore && (
-						<button
-							onClick={handleShowMore}
-							className="w-full dark:text-gray-100 text-gray-200 self-center text-sm py-7"
-						>
-							Show more...
-						</button>
-					)}
-				</>
+		<div className="table-auto my-3  min-h-screen lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-gray-100 scrollbar-rounded-md scrollbar-thumb-gray-200 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-200">
+			{loading ? (
+				<div className="flex justify-center items-center mt-12">
+					<Spinner color="gray" size="md" />
+				</div>
 			) : (
-				<p>You have not post yet!</p>
+				<>
+					{currentUser.isAdmin && userPosts.length > 0 ? (
+						<>
+							<Table hoverable className="shadow-md">
+								<Table.Head className=" text-center ">
+									<Table.HeadCell>Date updated</Table.HeadCell>
+									<Table.HeadCell>Post image</Table.HeadCell>
+									<Table.HeadCell>Post Title</Table.HeadCell>
+									<Table.HeadCell>Category</Table.HeadCell>
+									<Table.HeadCell>Delete</Table.HeadCell>
+									<Table.HeadCell>
+										<span>Edit</span>
+									</Table.HeadCell>
+								</Table.Head>
+								{userPosts.map((post, i) => (
+									<Table.Body key={i} className="divide-y  ">
+										<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30  hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200 ">
+											<Table.Cell className="text-center">
+												{new Date(post.updatedAt).toLocaleDateString('en-GB')}
+											</Table.Cell>
+											<Table.Cell>
+												<Link
+													to={`/post/${post.slug}`}
+													className="flex items-center justify-center"
+												>
+													<img
+														src={post.contentImage}
+														alt={post.title}
+														className="w-20 h-10 object-cover rounded-md min-w-[5rem] min-h-[2.5rem]"
+													/>
+												</Link>
+											</Table.Cell>
+											<Table.Cell className="text-center ">
+												<Link
+													to={`/post/${post.slug}`}
+													className=" line-clamp-2 md:whitespace-normal "
+												>
+													{post.title}
+												</Link>
+											</Table.Cell>
+											<Table.Cell className="text-center">{post.category}</Table.Cell>
+											<Table.Cell>
+												<span className="flex items-center justify-center">
+													<RiDeleteBin6Fill
+														onClick={() => {
+															setShowModal(true);
+															setPostIdToDelete(post._id);
+														}}
+														className="dark:text-light-100  text-gray-200   hover:scale-110 cursor-pointer w-4 h-4"
+													/>
+												</span>
+											</Table.Cell>
+											<Table.Cell>
+												<Link
+													className="dark:text-light-100  text-gray-200 flex items-center justify-center "
+													to={`/update-post/${post._id}`}
+												>
+													<AiFillEdit className="hover:scale-110 cursor-pointer w-4 h-4" />
+												</Link>
+											</Table.Cell>
+										</Table.Row>
+									</Table.Body>
+								))}
+							</Table>
+							{showMore && (
+								<button
+									onClick={handleShowMore}
+									className="w-full dark:text-gray-100 text-gray-200 self-center text-sm py-4"
+								>
+									Show more...
+								</button>
+							)}
+						</>
+					) : (
+						<p>You have not post yet!</p>
+					)}
+					<Modal
+						className="bg-black  bg-opacity-50 overflow-hidden"
+						show={showModal}
+						onClose={() => setShowModal(false)}
+						popup
+						size="md"
+					>
+						<span
+							onClick={() => setShowModal(false)}
+							className="flex bg-gray-200  rounded-tl-md rounded-tr-md border-gray-100 border-opacity-10 border border-b-0   items-center justify-end p-2 cursor-pointer"
+						>
+							<HiX className="hover:scale-110 h-5 w-5 text-gray-100 transition-all duration-150" />
+						</span>
+						<Modal.Body className="!bg-gray-200 border-gray-100 border-opacity-10  rounded-bl-md rounded-br-md  border border-t-0">
+							<div className="text-center">
+								<HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-500 " />
+								<h3 className="mb-5  font-normal !text-gray-100 ">
+									Are you sure you want to delete your account?
+								</h3>
+								<div className="flex mt-3 justify-center  gap-4">
+									<button
+										className="text-red-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-3  rounded-lg"
+										onClick={handleDeletePost}
+									>
+										{"Yes, I'm sure"}
+									</button>
+									<button
+										className="text-green-400 text-xs focus:ring-0 outline-none border border-opacity-30 border-green-600 bg-green-600 bg-opacity-20 p-3  rounded-lg"
+										onClick={() => setShowModal(false)}
+									>
+										No, cancel
+									</button>
+								</div>
+							</div>
+						</Modal.Body>
+					</Modal>
+				</>
 			)}
-			<Modal
-				className="bg-black  bg-opacity-50 overflow-hidden"
-				show={showModal}
-				onClose={() => setShowModal(false)}
-				popup
-				size="md"
-			>
-				<span
-					onClick={() => setShowModal(false)}
-					className="flex bg-gray-200  rounded-tl-md rounded-tr-md border-gray-100 border-opacity-10 border border-b-0   items-center justify-end p-2 cursor-pointer"
-				>
-					<HiX className="hover:scale-110 h-5 w-5 text-gray-100 transition-all duration-150" />
-				</span>
-				<Modal.Body className="!bg-gray-200 border-gray-100 border-opacity-10  rounded-bl-md rounded-br-md  border border-t-0">
-					<div className="text-center">
-						<HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-500 " />
-						<h3 className="mb-5  font-normal !text-gray-100 ">
-							Are you sure you want to delete your account?
-						</h3>
-						<div className="flex mt-3 justify-center  gap-4">
-							<button
-								className="text-red-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-3  rounded-lg"
-								onClick={handleDeletePost}
-							>
-								{"Yes, I'm sure"}
-							</button>
-							<button
-								className="text-green-400 text-xs focus:ring-0 outline-none border border-opacity-30 border-green-600 bg-green-600 bg-opacity-20 p-3  rounded-lg"
-								onClick={() => setShowModal(false)}
-							>
-								No, cancel
-							</button>
-						</div>
-					</div>
-				</Modal.Body>
-			</Modal>
 		</div>
 	);
 }
