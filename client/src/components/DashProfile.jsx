@@ -1,4 +1,4 @@
-import { TextInput, Button, Modal, Alert } from 'flowbite-react';
+import { Modal, Alert } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getAuth, updateProfile, deleteUser } from 'firebase/auth';
@@ -231,74 +231,96 @@ export default function DashProfile() {
 					<img
 						alt="user"
 						src={imageFileUrl || currentUser.profilePicture}
-						className="rounded-full w-full h-full object-cover border-8 border-[lightgray]"
+						className="rounded-full w-full h-full object-cover border-8 dark:border-[lightgray] border-gray-300"
 					/>
 				</div>
-				<TextInput
+				<input
 					type="text"
+					className="block   w-full focus:!ring-0 focus:border-gray-300  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
 					id="username"
 					placeholder="username"
 					defaultValue={currentUser.username}
 					onChange={handleChange}
 				/>
-				<TextInput
+				<input
 					type="email"
+					className="block w-full focus:!ring-0 focus:border-gray-300  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
 					id="email"
 					placeholder="email"
 					defaultValue={currentUser.email}
 					onChange={handleChange}
 				/>
-				<TextInput
+				<input
 					type="password"
+					className="block w-full focus:!ring-0 focus:border-gray-300  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
 					id="password"
 					placeholder="password"
 					autoComplete="false"
 					onChange={handleChange}
 				/>
-				<Button
+				<button
 					type="submit"
 					disabled={loading} // Disable button only during form submission
-					className={`mt-4 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+					className={`p-3 text-sm rounded-lg focus:ring-0 !bg-gray-300 text-light-100 hover:underline  border-gray-100 border-opacity-10 border ${
+						loading ? 'opacity-50 cursor-not-allowed' : ''
+					}`}
 				>
-					{loading ? 'Submitting...' : 'Update'} {/* Dynamic button text */}
-				</Button>
+					{loading ? 'Submitting...' : 'Update'}
+				</button>
 				{currentUser.isAdmin && (
 					<Link to={'/create-post'}>
-						<Button type="button" className="w-full">
+						<button
+							type="button"
+							className="w-full p-3 text-sm rounded-lg hover:underline focus:ring-0 !bg-gray-300 text-light-100  border-gray-100 border-opacity-10 border "
+						>
 							Create a Post
-						</Button>
+						</button>
 					</Link>
 				)}
 			</form>
 			<div className="text-red-500 text-sm font-regular cursor-pointer flex justify-between mt-5">
 				<span onClick={() => setShowModal(true)}>Delete Account</span>
-				<span onClick={handleSignOut}>Sign Out</span>
+				<span onClick={handleSignOut} className="text-blue-600">
+					Sign Out
+				</span>
 			</div>
 			{error && (
 				<Alert color="failure" className="mt-5">
 					{error}
 				</Alert>
 			)}
-			<Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+			<Modal
+				className="bg-black  bg-opacity-50 overflow-hidden"
+				show={showModal}
+				onClose={() => setShowModal(false)}
+				popup
+				size="md"
+			>
 				<span
 					onClick={() => setShowModal(false)}
-					className="flex  items-center justify-end p-2 cursor-pointer"
+					className="flex bg-gray-200  rounded-tl-md rounded-tr-md border-gray-100 border-opacity-10 border border-b-0   items-center justify-end p-2 cursor-pointer"
 				>
-					<HiX className="hover:scale-110 h-5 w-5 transition-all duration-150" />
+					<HiX className="hover:scale-110 h-5 w-5 text-gray-100 transition-all duration-150" />
 				</span>
-				<Modal.Body>
+				<Modal.Body className="!bg-gray-200 border-gray-100 border-opacity-10  rounded-bl-md rounded-br-md  border border-t-0">
 					<div className="text-center">
-						<HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-						<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+						<HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-500 " />
+						<h3 className="mb-5  font-normal !text-gray-100 ">
 							Are you sure you want to delete your account?
 						</h3>
-						<div className="flex justify-center  gap-4">
-							<Button color="failure" onClick={handleDeleteUser}>
+						<div className="flex mt-3 justify-center  gap-4">
+							<button
+								className="text-red-400 text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-3  rounded-lg"
+								onClick={handleDeleteUser}
+							>
 								{"Yes, I'm sure"}
-							</Button>
-							<Button color="gray" onClick={() => setShowModal(false)}>
+							</button>
+							<button
+								className="text-green-400 text-xs border border-opacity-30 border-green-600 bg-green-600 bg-opacity-20 p-3  rounded-lg"
+								onClick={() => setShowModal(false)}
+							>
 								No, cancel
-							</Button>
+							</button>
 						</div>
 					</div>
 				</Modal.Body>
