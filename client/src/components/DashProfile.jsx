@@ -214,7 +214,7 @@ export default function DashProfile() {
 	};
 
 	return (
-		<div className="max-w-sm mx-auto p-3 w-full">
+		<div className="max-w-sm mx-auto min-h-screen p-3 w-full">
 			<h1 className="my-7 text-center font-semibold text-3xl  dark:text-white">Profile</h1>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<input
@@ -258,25 +258,27 @@ export default function DashProfile() {
 					autoComplete="false"
 					onChange={handleChange}
 				/>
-				<button
-					type="submit"
-					disabled={loading} // Disable button only during form submission
-					className={`p-3 text-sm rounded-lg focus:ring-0 !bg-gray-300 text-light-100 hover:underline  border-gray-100 border-opacity-10 border ${
-						loading ? 'opacity-50 cursor-not-allowed' : ''
-					}`}
-				>
-					{loading ? 'Submitting...' : 'Update'}
-				</button>
-				{currentUser.isAdmin && (
-					<Link to={'/create-post'}>
-						<button
-							type="button"
-							className="w-full p-3 text-sm rounded-lg hover:underline focus:ring-0 !bg-gray-300 text-light-100  border-gray-100 border-opacity-10 border "
-						>
-							Create a Post
-						</button>
-					</Link>
-				)}
+				<div className="flex flex-col gap-2 ">
+					<button
+						type="submit"
+						disabled={loading} // Disable button only during form submission
+						className={`p-3 text-sm rounded-lg focus:ring-0 !bg-gray-300 text-light-100 hover:underline  border-gray-100 border-opacity-10 border ${
+							loading ? 'opacity-50 cursor-not-allowed' : ''
+						}`}
+					>
+						{loading ? 'Submitting...' : 'Update'}
+					</button>
+					{currentUser.isAdmin && (
+						<Link to={'/create-post'}>
+							<button
+								type="button"
+								className="w-full p-3 text-sm rounded-lg hover:underline focus:ring-0 !bg-gray-300 text-light-100  border-gray-100 border-opacity-10 border "
+							>
+								Create a Post
+							</button>
+						</Link>
+					)}
+				</div>
 			</form>
 			<div className="text-red-500 text-sm font-regular cursor-pointer flex justify-between mt-5">
 				<span onClick={() => setShowModal(true)}>Delete Account</span>
@@ -310,13 +312,13 @@ export default function DashProfile() {
 						</h3>
 						<div className="flex mt-3 justify-center  gap-4">
 							<button
-								className="text-red-400 text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-3  rounded-lg"
+								className="text-red-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-3  rounded-lg"
 								onClick={handleDeleteUser}
 							>
 								{"Yes, I'm sure"}
 							</button>
 							<button
-								className="text-green-400 text-xs border border-opacity-30 border-green-600 bg-green-600 bg-opacity-20 p-3  rounded-lg"
+								className="text-green-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-green-600 bg-green-600 bg-opacity-20 p-3  rounded-lg"
 								onClick={() => setShowModal(false)}
 							>
 								No, cancel

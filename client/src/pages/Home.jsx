@@ -80,7 +80,7 @@ export default function Home() {
 	}, []);
 
 	return (
-		<div className="">
+		<div className="min-h-screen">
 			<div className=" px-2 md:px-6  w-full  mx-auto">
 				<div className="flex  gap-6 lg:mt-0 md:mt-6 mt-6  mb-4   px-2  w-full  mx-auto">
 					<div className="flex flex-col items-end justify-end lg:gap-4 md:gap-1 gap-1">

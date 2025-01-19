@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 body {
-	/* user-select: none; */
-	height: 100vh;
+	user-select: none;
+	min-height: 100vh;
 	@apply font-interDisplay;
 }
 
@@ -28,7 +28,6 @@ body {
 .ql-editor::before {
 	color: gray red !important; /* Light placeholder color */
 }
-
 
 [data-testid='flowbite-dropdown'] ul {
 	@apply border border-gray-300 rounded-sm;
@@ -85,6 +84,11 @@ h3 {
 
 [aria-haspopup='menu'] svg {
 	@apply !ml-1;
+}
+
+
+tr th{
+	@apply dark:!bg-gray-300 !bg-gray-200 dark:!text-gray-100 text-light-100; 
 }
 
 input[type='text']:focus {
