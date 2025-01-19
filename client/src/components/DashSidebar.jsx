@@ -46,15 +46,17 @@ export default function DashSidebar() {
 	};
 
 	return (
-		<div className="w-full h-full md:w-56 mt-2 border-r border-gray-200">
+		<div className="w-full h-full md:w-56 md:border-r border-gray-200 border-b">
 			<div className="">
-				<div className="flex flex-col gap-2 p-2">
+				<div className="flex flex-col  gap-2 p-2">
 					<div className="">
 						<Link
 							to="/dashboard?tab=profile"
 							className={`flex items-center  justify-between p-2 rounded ${
-								tab === 'profile' ? 'bg-gray-200 text-light-100  dark:bg-gray-200 ' : ''
-							} hover:bg-gray-200 hover:text-light-100 dark:text-light-100 text-gray-200  dark:hover:bg-gray-200`}
+								tab === 'profile'
+									? 'bg-gray-200 text-light-100 dark:bg-gray-200 dark:text-light-100 '
+									: ''
+							} hover:bg-gray-200 hover:text-light-100 dark:hover:bg-gray-200   dark:hover:text-light-100`}
 						>
 							<div className="flex p-1   items-center gap-2">
 								<HiUser className={`w-6 h-6  ${tab === 'profile' ? 'text-light-100 ' : ''}`} />
@@ -63,8 +65,8 @@ export default function DashSidebar() {
 							<span
 								className={`${
 									tab === 'profile'
-										? 'text-light-100 bg-dark-100   p-1 text-xs px-2 rounded-lg'
-										: 'bg-gray-200 text-light-100  '
+										? 'text-light-100 bg-dark-100   p-1 text-xs px-2 rounded-md'
+										: 'bg-gray-200 text-light-100 rounded-md '
 								} p-1 text-xs px-2 rounded-lg`}
 							>
 								{currentUser.isAdmin ? 'Admin' : 'User'}
@@ -117,7 +119,9 @@ export default function DashSidebar() {
 						>
 							<div className={`p-1 rounded  ${tab === 'comments' ? '' : ''}`}>
 								<HiAnnotation
-									className={` w-6 h-6 ${tab === 'comments' ? 'text-light-100' : 'dark:text-gray-100'}`}
+									className={` w-6 h-6 ${
+										tab === 'comments' ? 'text-light-100' : 'dark:text-gray-100'
+									}`}
 								/>
 							</div>
 							<div>Comments</div>
@@ -134,7 +138,9 @@ export default function DashSidebar() {
 						>
 							<div className={`p-1 rounded ${tab === 'dash' || !tab ? '' : ''}`}>
 								<HiChartPie
-									className={`w-6 h-6 ${tab === 'dash' || !tab ? 'text-light-100' : 'dark:text-gray-100'}`}
+									className={`w-6 h-6 ${
+										tab === 'dash' || !tab ? 'text-light-100' : 'dark:text-gray-100'
+									}`}
 								/>
 							</div>
 							<div>Dashboard</div>

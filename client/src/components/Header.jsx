@@ -82,7 +82,7 @@ export default function Header() {
 				{currentUser ? (
 					<Dropdown
 						className="!bg-dark-300 "
-						arrowIcon={false}
+						arrowIcon={true}
 						inline
 						label={<Avatar alt="Avatar" className="" img={currentUser.profilePicture} rounded />}
 					>
