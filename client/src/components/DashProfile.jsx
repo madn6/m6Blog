@@ -280,9 +280,9 @@ export default function DashProfile() {
 					)}
 				</div>
 			</form>
-			<div className="text-red-500 text-sm font-regular cursor-pointer flex justify-between mt-5">
-				<span onClick={() => setShowModal(true)}>Delete Account</span>
-				<span onClick={handleSignOut} className="text-blue-600">
+			<div className="dark:text-light-100   text-gray-200  text-sm font-regular cursor-pointer flex justify-between mt-5">
+				<span onClick={() => setShowModal(true)} className='hover:underline'>Delete Account</span>
+				<span onClick={handleSignOut} className="dark:text-light-100 hover:underline  text-gray-200  cursor-pointer">
 					Sign Out
 				</span>
 			</div>

@@ -21,7 +21,7 @@ export default function DashPost() {
 		if (currentUser?.isAdmin) {
 			const fetchPosts = async () => {
 				try {
-					console.log('Fetching posts for userId:', currentUser._id); // Log userId for debugging
+					console.log('Fetching posts for userId:', currentUser._id);
 					const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`, {
 						method: 'GET',
 						credentials: 'include',
@@ -100,7 +100,7 @@ export default function DashPost() {
 	};
 
 	return (
-		<div className="table-auto my-3  min-h-screen lg:scrollbar-none md:scrollbar-none  overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-gray-100 scrollbar-rounded-md scrollbar-thumb-gray-200 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-200">
+		<div className="table-auto my-3 min-h-screen overflow-x-auto md:mx-auto p-3 scrollbar-hide">
 			{loading ? (
 				<div className="flex justify-center items-center mt-12">
 					<Spinner color="gray" size="md" />
@@ -122,7 +122,7 @@ export default function DashPost() {
 								</Table.Head>
 								{userPosts.map((post, i) => (
 									<Table.Body key={i} className="divide-y  ">
-										<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30  hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200 ">
+										<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200">
 											<Table.Cell className="text-center">
 												{new Date(post.updatedAt).toLocaleDateString('en-GB')}
 											</Table.Cell>
