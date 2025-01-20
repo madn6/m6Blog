@@ -123,7 +123,7 @@ export default function Home() {
 									</div>
 									<Link
 										to={'/search'}
-										className="text-lg dark:!text-light-100 text-gray-100-100 hover:underline text-center"
+										className=" dark:!text-light-100 my-4 text-gray-100-100 hover:underline text-center"
 									>
 										View All Posts...
 									</Link>
