@@ -103,7 +103,7 @@ export default function DashComments() {
 												{new Date(comment.updatedAt).toLocaleDateString('en-GB')}
 											</Table.Cell>
 											<Table.Cell>
-												<div className="text-start ">{comment.content}</div>
+												<div className="text-start min-w-[200px]">{comment.content}</div>
 											</Table.Cell>
 											<Table.Cell className=" text-center ">{comment.numberOfLikes}</Table.Cell>
 											<Table.Cell className=" text-center ">{comment.postId}</Table.Cell>
