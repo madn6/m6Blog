@@ -100,7 +100,7 @@ export default function DashPost() {
 	};
 
 	return (
-		<div className="table-auto my-3 min-h-screen overflow-x-auto md:mx-auto p-3 scrollbar-hide">
+		<div className="table-auto  my-3 min-h-screen overflow-x-auto md:mx-auto p-3 scrollbar-hide">
 			{loading ? (
 				<div className="flex justify-center items-center mt-12">
 					<Spinner color="gray" size="md" />
@@ -109,7 +109,7 @@ export default function DashPost() {
 				<>
 					{currentUser.isAdmin && userPosts.length > 0 ? (
 						<>
-							<Table hoverable className="shadow-md">
+							<Table hoverable className="shadow-md  ">
 								<Table.Head className=" text-center ">
 									<Table.HeadCell>Date updated</Table.HeadCell>
 									<Table.HeadCell>Post image</Table.HeadCell>
@@ -121,7 +121,7 @@ export default function DashPost() {
 									</Table.HeadCell>
 								</Table.Head>
 								{userPosts.map((post, i) => (
-									<Table.Body key={i} className="divide-y  ">
+									<Table.Body key={i} className="divide-y ">
 										<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200">
 											<Table.Cell className="text-center">
 												{new Date(post.updatedAt).toLocaleDateString('en-GB')}

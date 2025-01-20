@@ -1,4 +1,4 @@
-import { Button, Table } from 'flowbite-react';
+import { Table } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { HiAnnotation, HiArrowNarrowUp, HiDocumentText, HiOutlineUserGroup } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
@@ -58,7 +58,7 @@ export default function DashComponent() {
 				setPosts(processedPosts);
 				setTotalPosts(data.totalPosts || 0); // Ensure fallback if undefined
 				setLastMonthPosts(data.lastMonthPost || 0); // Ensure fallback if undefined
-            
+
 				console.log('Posts fetched successfully:', processedPosts);
 			} catch (error) {
 				console.error('Error fetching posts:', error.message);
@@ -86,108 +86,110 @@ export default function DashComponent() {
 		fetchComments();
 	}, [currentUser]); // Ensure currentUser updates are handled correctly
 
-
 	return (
-		<div className="p-3 md:mx-auto ">
+		<div className="p-3 md:mx-auto  min-h-screen">
 			<div className="flex-wrap flex gap-4 justify-center">
-				<div className="dark:text-white  flex flex-col p-3 dark:bg-slate-800 gap-1  md:w-72 w-full rounded-lg shadow-md">
-					<div className="flex flex-col-reverse gap-2 items-center justify-between">
+				<div className=" border border-gray-300 dark:border-opacity-50 border-opacity-20 flex flex-col p-3 gap-1  md:w-72 w-full rounded-lg shadow-md dark:bg-gray-200 dark:!text-gray-100 text-gray-200">
+					<div className="flex flex-col-reverse gap-2 items-center justify-between ">
 						<div className="">
-							<h3 className="text-gray-500 text-md uppercase font-semibold">Total Users</h3>
-							<p className="text-2xl text-center">{totalUsers}</p>
+							<h3 className="dark:text-light-100 text-md uppercase font-semibold">Total Users</h3>
+							<p className="text-2xl text-center dark:text-light-100">{totalUsers}</p>
 						</div>
 						<span>
-							<HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+							<HiOutlineUserGroup className="bg-gray-300 text-white rounded-full text-5xl p-3 shadow-lg" />
 						</span>
 					</div>
-
 					<div className="flex gap-2 text-sm self-center">
-						<span className="text-green-500 flex items-center">
+						<span className="dark:text-light-100 flex items-center">
 							<HiArrowNarrowUp />
 							{lastMonthUsers}
 						</span>
-						<div className="text-gray-500">Last month</div>
+						<div className="dark:text-gray-100">Last month</div>
 					</div>
 				</div>
 
-				<div className="dark:text-white  flex flex-col p-3 dark:bg-slate-800 gap-1  md:w-72 w-full rounded-lg shadow-md">
+				<div className="border border-gray-300 dark:border-opacity-50 border-opacity-20 flex flex-col p-3 gap-1  md:w-72 w-full rounded-lg shadow-md dark:bg-gray-200 dark:!text-gray-100 text-gray-200">
 					<div className="flex flex-col-reverse gap-2 items-center justify-between">
 						<div className="">
-							<h3 className="text-gray-500 text-md uppercase font-semibold">Total Comments</h3>
-							<p className="text-2xl text-center">{totalComments}</p>
+							<h3 className="dark:text-light-100 text-md uppercase font-semibold">
+								Total Comments
+							</h3>
+							<p className="text-2xl text-center dark:text-light-100">{totalComments}</p>
 						</div>
 						<span>
-							<HiAnnotation className="bg-indigo-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+							<HiAnnotation className="bg-gray-300 text-white rounded-full text-5xl p-3 shadow-lg" />
 						</span>
 					</div>
-
 					<div className="flex gap-2 text-sm self-center">
-						<span className="text-green-500 flex items-center">
+						<span className="dark:text-light-100 flex items-center">
 							<HiArrowNarrowUp />
 							{lastMonthComments}
 						</span>
-						<div className="text-gray-500">Last month</div>
+						<div className="dark:text-gray-100">Last month</div>
 					</div>
 				</div>
 
-				<div className="dark:text-white  flex flex-col p-3 dark:bg-slate-800 gap-1  md:w-72 w-full rounded-lg shadow-md">
+				<div className="border border-gray-300 dark:border-opacity-50 border-opacity-20 flex flex-col p-3 gap-1  md:w-72 w-full rounded-lg shadow-md dark:bg-gray-200 dark:!text-gray-100 text-gray-200">
 					<div className="flex flex-col-reverse gap-2 items-center justify-between">
 						<div className="">
-							<h3 className="text-gray-500 text-md uppercase font-semibold">Total Posts</h3>
-							<p className="text-2xl text-center">{totalPosts}</p>
+							<h3 className="dark:text-light-100 text-md uppercase font-semibold">Total Posts</h3>
+							<p className="text-2xl text-center dark:text-light-100">{totalPosts}</p>
 						</div>
 						<span>
-							<HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+							<HiDocumentText className="bg-gray-300 text-white rounded-full text-5xl p-3 shadow-lg" />
 						</span>
 					</div>
-
 					<div className="flex gap-2 text-sm self-center">
-						<span className="text-green-500 flex items-center">
+						<span className=" dark:text-light-100 flex items-center">
 							<HiArrowNarrowUp />
 							{lastMonthPosts}
 						</span>
-						<div className="text-gray-500">Last month</div>
+						<div className="dark:text-gray-100">Last month</div>
 					</div>
 				</div>
 			</div>
 			{/* bottom */}
-			<div className="flex flex-wrap gap-4 py-3 mx-auto  justify-center">
-				<div className="flex flex-col w-full md:w-auto shadow-md mt-2 rounded-lg dark:bg-slate-800">
-					<div className="flex justify-between p-3 text-sm font-medium">
-						<h1 className=" dark:text-white text-center p-2">Recent Users</h1>
-						<Button>
+			<div className="flex flex-wrap gap-4 py-3 mx-auto justify-center">
+				<div className="flex flex-col w-full md:w-auto dark:shadow-none shadow-md mt-2 rounded-lg  border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
+					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none ">
+						<h1 className="text-center p-2">Recent Users</h1>
+						<button className="!bg-gray-300 p-1 px-3 rounded-lg text-light-100 hover:underline  border-gray-100 border-opacity-10 border ">
 							<Link to={'/dashboard?tab=users'}>See all</Link>
-						</Button>
+						</button>
 					</div>
 					<Table>
 						<Table.Head className="">
 							<Table.HeadCell className="!rounded-none">User image</Table.HeadCell>
-							<Table.HeadCell className="!rounded-none ">Username</Table.HeadCell>
+							<Table.HeadCell className="!rounded-none  flex items-center justify-center">
+								Username
+							</Table.HeadCell>
 						</Table.Head>
 						{users &&
 							users.map((user) => (
 								<Table.Body key={user._id} className="divide-y">
-									<Table.Row className="bg-white dark:border-gray-700 dark:bg-slate-800">
-										<Table.Cell>
-											<img
-												src={user.profilePicture}
-												alt="user"
-												className="w-10 h-10 object-cover rounded-full bg-gray-500"
-											/>
+									<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200 ">
+										<Table.Cell className="">
+											<div className="flex items-center justify-center">
+												<img
+													src={user.profilePicture}
+													alt="user"
+													className="w-10 h-10 object-cover  rounded-full bg-gray-500"
+												/>
+											</div>
 										</Table.Cell>
-										<Table.Cell className='text-start'>{user.username}</Table.Cell>
+										<Table.Cell className="text-center">{user.username}</Table.Cell>
 									</Table.Row>
 								</Table.Body>
 							))}
 					</Table>
 				</div>
 
-				<div className="flex flex-col  w-full md:w-auto shadow-md mt-2 rounded-lg dark:bg-slate-800">
-					<div className="flex justify-between p-3 text-sm font-medium">
-						<h1 className=" dark:text-white text-center p-2">Recent Comments</h1>
-						<Button>
+				<div className="flex flex-col w-full md:w-auto dark:shadow-none shadow-md !mt-2 rounded-lg  border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
+					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none ">
+						<h1 className=" text-center p-2">Recent Comments</h1>
+						<button className="!bg-gray-300 p-1 px-3 rounded-lg text-light-100 hover:underline  border-gray-100 border-opacity-10 border ">
 							<Link to={'/dashboard?tab=comments'}>See all</Link>
-						</Button>
+						</button>
 					</div>
 					<Table>
 						<Table.Head className="">
@@ -196,8 +198,8 @@ export default function DashComponent() {
 						</Table.Head>
 						{comments &&
 							comments.map((comment) => (
-								<Table.Body key={comment._id} className="divide-y">
-									<Table.Row className="bg-white dark:border-gray-700 dark:bg-slate-800">
+								<Table.Body key={comment._id} className="divide-y ">
+									<Table.Row className="  dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200">
 										<Table.Cell className="w-96">
 											<p className="line-clamp-2">{comment.content}</p>
 										</Table.Cell>
@@ -208,12 +210,12 @@ export default function DashComponent() {
 					</Table>
 				</div>
 
-				<div className="flex flex-col w-full md:w-auto shadow-md mt-2 rounded-lg dark:bg-slate-800">
-					<div className="flex justify-between p-3 text-sm font-medium">
-						<h1 className=" dark:text-white text-center p-2">Recent Posts</h1>
-						<Button>
-							<Link to={'/dashboard?tab=users'}>See all</Link>
-						</Button>
+				<div className="flex flex-col w-full md:w-auto shadow-md mt-2 rounded-lg border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
+					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none">
+						<h1 className=" text-center p-2">Recent Posts</h1>
+						<button className="!bg-gray-300 p-1 px-3 rounded-lg text-light-100 hover:underline  border-gray-100 border-opacity-10 border">
+							<Link to={'/dashboard?tab=posts'}>See all</Link>
+						</button>
 					</div>
 					<Table>
 						<Table.Head className="">
@@ -224,7 +226,7 @@ export default function DashComponent() {
 						{posts &&
 							posts.map((post) => (
 								<Table.Body key={post._id} className="divide-y">
-									<Table.Row className="bg-white dark:border-gray-700 dark:bg-slate-800">
+									<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200">
 										<Table.Cell>
 											<img
 												src={post.contentImage}
