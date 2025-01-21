@@ -116,7 +116,7 @@ export default function CreatePost() {
 	};
 
 	return (
-		<div className="min-h-screen p-3 max-w-3xl mx-auto">
+		<div className="min-h-screen p-3 my-3 max-w-3xl mx-auto">
 			<h1 className="text-center text-3xl my-7 font-semibold dark:text-white">Create Post</h1>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<div className="flex flex-col gap-4 sm:flex-row justify-between">
@@ -197,7 +197,7 @@ export default function CreatePost() {
 					theme="snow"
 					required
 					placeholder="write something comes in your mind..."
-					className="h-72 mb-12 dark:text-white"
+					className="h-72 mb-12 dark:text-light-100"
 					onChange={(value) => setFormData({ ...formData, content: value })}
 					ref={quillRef}
 				/>
