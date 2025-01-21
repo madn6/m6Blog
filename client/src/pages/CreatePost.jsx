@@ -113,6 +113,7 @@ export default function CreatePost() {
 			console.log(err);
 			setPublishError('something went wrong!');
 		}
+		
 	};
 
 	return (
