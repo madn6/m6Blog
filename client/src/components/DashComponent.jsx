@@ -87,7 +87,7 @@ export default function DashComponent() {
 	}, [currentUser]); // Ensure currentUser updates are handled correctly
 
 	return (
-		<div className="p-3 md:mx-auto  min-h-screen">
+		<div className="p-3 my-3 md:mx-auto  min-h-screen">
 			<div className="flex-wrap flex gap-4 justify-center">
 				<div className=" border border-gray-300 dark:border-opacity-50 border-opacity-20 flex flex-col p-3 gap-1  md:w-72 w-full rounded-lg shadow-md dark:bg-gray-200 dark:!text-gray-100 text-gray-200">
 					<div className="flex flex-col-reverse gap-2 items-center justify-between ">

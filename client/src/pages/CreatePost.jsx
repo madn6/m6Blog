@@ -113,7 +113,6 @@ export default function CreatePost() {
 			console.log(err);
 			setPublishError('something went wrong!');
 		}
-		
 	};
 
 	return (
@@ -127,7 +126,7 @@ export default function CreatePost() {
 						id="title"
 						placeholder="title"
 						type="text"
-						className="flex-1 focus:!ring-0   placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
+						className="flex-1 focus:!ring-0  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-2 text-sm rounded-lg text-light-100"
 					/>
 					<Select
 						className=""
@@ -144,31 +143,55 @@ export default function CreatePost() {
 				</div>
 				<div className="flex gap-4 items-center justify-between border-2 border-gray-300 rounded-lg  p-3">
 					<FileInput
-						className=''
+						className=""
 						ref={fileInputRef}
 						accept="image/*"
 						onChange={(e) => setFile(e.target.files[0])}
 						typeof="file"
 					/>
-					<Button
+					<button
 						onClick={handleUploadImage}
 						type="button"
-						size="sm"
-						outline
 						disabled={imageUploadProgress}
+						className="!bg-gray-300 text-light-100  p-2 px-3 text-sm rounded-lg  border-gray-100 border-opacity-10 border"
 					>
 						{imageUploadProgress ? (
-							<div className="w-16 h-16">
+							<div className="relative w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
 								<CircularProgressbar
 									value={imageUploadProgress}
-									text={`${imageUploadProgress || 0}`}
-								></CircularProgressbar>
+									text={`${imageUploadProgress || 0}%`}
+									styles={{
+										path: {
+											stroke: `#a4a4a4` // Green for the progress path
+										},
+										trail: {
+											stroke: '#232323' // Lighter gray for the background trail
+										},
+										text: {
+											fill: 'currentColor', // Use Tailwind's `currentColor` to control via parent text class
+											fontSize: '20px', // Adjust font size
+											fontWeight: 'bold' // Make text bold
+										}
+									}}
+								/>
+								<style jsx>{`
+									:global(.circular-progressbar .CircularProgressbar-text) {
+										@apply text-gray-200 dark:text-gray-100;
+									}
+								`}</style>
 							</div>
 						) : (
 							'Upload image'
 						)}
-					</Button>
-					{imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
+					</button>
+					{imageUploadError && (
+						<Alert
+							color="failure"
+							className=" !text-red-400 focus:ring-0 !outline-none text-xs border !border-opacity-30 !border-red-600 !bg-red-600 !bg-opacity-20 p-3  rounded-lg"
+						>
+							{imageUploadError}
+						</Alert>
+					)}
 				</div>
 				<ReactQuill
 					theme="snow"
