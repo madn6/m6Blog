@@ -16,6 +16,14 @@ body {
 	--flowbite-input-placeholder: #a4a4a4;
 }
 
+form input{
+	@apply file:!bg-gray-300 !bg-gray-200 !border-gray-300 !border !text-light-100
+}
+
+select{
+	@apply focus:!ring-0  placeholder:text-gray-100  !bg-gray-200 !border-gray-300 border !placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg !text-light-100
+}
+
 [data-testid='table-element'] table {
 	@apply  rounded-lg;
 }

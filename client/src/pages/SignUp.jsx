@@ -58,7 +58,7 @@ export default function SignUp() {
 							<div>
 								<Label value="Username" className="dark:!text-light-100 text-gray-200" />
 								<input
-									className="block w-full focus:!ring-0 focus:border-gray-300  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
+									className="block w-full focus:!ring-0 focus:border-gray-300  placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg !text-light-100"
 									type="text"
 									placeholder="Enter your username"
 									id="username"

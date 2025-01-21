@@ -1,10 +1,10 @@
-import { FileInput, Select, TextInput, Button, Alert } from 'flowbite-react';
+import { FileInput, Select, Button, Alert } from 'flowbite-react';
 import { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import {useNavigate}from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 export default function CreatePost() {
 	const [file, setFile] = useState(null);
@@ -17,7 +17,7 @@ export default function CreatePost() {
 
 	const quillRef = useRef(null);
 	const fileInputRef = useRef(null);
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	// Handle file upload to Cloudinary
 	const handleUploadImage = async () => {
@@ -107,7 +107,7 @@ export default function CreatePost() {
 			}
 			if (res.ok) {
 				setPublishError(null);
-				navigate(`/post/${data.slug}`)
+				navigate(`/post/${data.slug}`);
 			}
 		} catch (err) {
 			console.log(err);
@@ -120,15 +120,18 @@ export default function CreatePost() {
 			<h1 className="text-center text-3xl my-7 font-semibold dark:text-white">Create Post</h1>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<div className="flex flex-col gap-4 sm:flex-row justify-between">
-					<TextInput
+					<input
 						onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-						className="flex-1"
-						type="text"
-						placeholder="Title"
 						required
 						id="title"
+						placeholder="title"
+						type="text"
+						className="flex-1 focus:!ring-0   placeholder:text-gray-100  bg-gray-200 border-gray-300 border placeholder-gray-300 focus:!outline-none  p-3 text-sm rounded-lg text-light-100"
 					/>
-					<Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
+					<Select
+						className=""
+						onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+					>
 						<option value="uncatogorized">Select a category</option>
 						<option value="ai">AI</option>
 						<option value="dogs">Dogs</option>
@@ -138,8 +141,9 @@ export default function CreatePost() {
 						<option value="cinema">Cinema</option>
 					</Select>
 				</div>
-				<div className="flex gap-4 items-center justify-between border-4 border-dotted p-3">
+				<div className="flex gap-4 items-center justify-between border-2 border-gray-300 rounded-lg  p-3">
 					<FileInput
+						className=''
 						ref={fileInputRef}
 						accept="image/*"
 						onChange={(e) => setFile(e.target.files[0])}
