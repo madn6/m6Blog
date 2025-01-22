@@ -82,7 +82,7 @@ export default function CommentSection({ postId }) {
 									...comment,
 									likes: data.likes,
 									numberOfLikes: data.likes.length
-							}
+							  }
 							: comment
 					)
 				);
@@ -103,7 +103,7 @@ export default function CommentSection({ postId }) {
 	};
 
 	const handleDelete = async (commentId) => {
-		setShowModal(false)
+		setShowModal(false);
 		try {
 			if (!currentUser) {
 				navigate('/sign-in');
@@ -159,7 +159,11 @@ export default function CommentSection({ postId }) {
 						/>
 						<div className="flex items-center justify-between mt-4">
 							<p className=" text-gray-100 text-sm ">{200 - comment.length} characters remaining</p>
-							<Button disabled={buttonDisabled} type="submit" className="text-sm focus:ring-0  cursorpointe !bg-gray-300 text-light-100   border-gray-100 border-opacity-10 border  rounded-md">
+							<Button
+								disabled={buttonDisabled}
+								type="submit"
+								className="text-sm focus:ring-0  cursorpointe !bg-gray-300 text-light-100   border-gray-100 border-opacity-10 border  rounded-md"
+							>
 								Submit
 							</Button>
 						</div>
@@ -175,9 +179,11 @@ export default function CommentSection({ postId }) {
 				) : (
 					<>
 						<div className="text-sm mt-4 flex items-center gap-1">
-							<p className="dark:text-gray-100">{postComment.length > 1 ? 'Comments' : 'Comment'}</p>
+							<p className="dark:text-gray-100">
+								{postComment.length > 1 ? 'Comments' : 'Comment'}
+							</p>
 							<div className=" bg-gray-200 border border-gray-300 px-2  rounded-sm">
-								<p className='text-light-100'>{postComment.length}</p>
+								<p className="text-light-100">{postComment.length}</p>
 							</div>
 						</div>
 						{postComment.map((comment) => (
@@ -195,26 +201,38 @@ export default function CommentSection({ postId }) {
 					</>
 				)}
 			</div>
-			<Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+			<Modal
+				className="bg-black bg-opacity-50 overflow-hidden"
+				show={showModal}
+				onClose={() => setShowModal(false)}
+				popup
+				size="md"
+			>
 				<span
 					onClick={() => setShowModal(false)}
-					className="flex  items-center justify-end p-2 cursor-pointer"
+					className="flex bg-gray-200 rounded-tl-md rounded-tr-md border-gray-100 border-opacity-10 border border-b-0 items-center justify-end p-2 cursor-pointer"
 				>
-					<HiX className="hover:scale-110 h-5 w-5 transition-all duration-150" />
+					<HiX className="hover:scale-110 h-5 w-5 text-gray-100 transition-all duration-150" />
 				</span>
-				<Modal.Body>
+				<Modal.Body className="!bg-gray-200 border-gray-100 border-opacity-10 rounded-bl-md rounded-br-md border border-t-0">
 					<div className="text-center">
-						<HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-						<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+						<HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-500" />
+						<h3 className="mb-5 font-normal !text-gray-100">
 							Are you sure you want to delete this comment?
 						</h3>
-						<div className="flex justify-center  gap-4">
-							<Button color="failure" onClick={() => handleDelete(commentToDelete)}>
+						<div className="flex mt-3 justify-center gap-4">
+							<button
+								className="text-red-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-3 rounded-lg"
+								onClick={() => handleDelete(commentToDelete)}
+							>
 								{"Yes, I'm sure"}
-							</Button>
-							<Button color="gray" onClick={() => setShowModal(false)}>
+							</button>
+							<button
+								className="text-green-400 text-xs focus:ring-0 outline-none border border-opacity-30 border-green-600 bg-green-600 bg-opacity-20 p-3 rounded-lg"
+								onClick={() => setShowModal(false)}
+							>
 								No, cancel
-							</Button>
+							</button>
 						</div>
 					</div>
 				</Modal.Body>

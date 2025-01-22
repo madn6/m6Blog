@@ -121,7 +121,9 @@ export const getUsers = async (req, res, next) => {
 
 		const totalUsers = await User.countDocuments();
 		const now = new Date();
-		const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+		const oneMonthAgo = new Date();
+		oneMonthAgo.setMonth(now.getMonth() - 1);
+
 		const lastMonthUsers = await User.countDocuments({
 			createdAt: { $gte: oneMonthAgo }
 		});
@@ -135,6 +137,7 @@ export const getUsers = async (req, res, next) => {
 		next(err);
 	}
 };
+
 
 export const getUser = async (req, res, next) => {
 	try {

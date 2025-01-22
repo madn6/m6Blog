@@ -100,7 +100,7 @@ export default function DashComponent() {
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
-						<span className="dark:text-light-100 flex items-center">
+						<span className="text-green-500 flex items-center">
 							<HiArrowNarrowUp />
 							{lastMonthUsers}
 						</span>
@@ -121,7 +121,7 @@ export default function DashComponent() {
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
-						<span className="dark:text-light-100 flex items-center">
+						<span className="text-green-500 flex items-center">
 							<HiArrowNarrowUp />
 							{lastMonthComments}
 						</span>
@@ -140,7 +140,7 @@ export default function DashComponent() {
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
-						<span className=" dark:text-light-100 flex items-center">
+						<span className=" text-green-500 flex items-center">
 							<HiArrowNarrowUp />
 							{lastMonthPosts}
 						</span>
@@ -152,7 +152,7 @@ export default function DashComponent() {
 			<div className="flex flex-wrap gap-4 py-3 mx-auto justify-center">
 				<div className="flex flex-col w-full md:w-auto dark:shadow-none shadow-md mt-2 rounded-lg  border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
 					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none ">
-						<h1 className="text-center p-2">Recent Users</h1>
+						<h1 className="text-center dark:text-light-100 p-2">Recent Users</h1>
 						<button className="!bg-gray-300 p-1 px-3 rounded-lg text-light-100 hover:underline  border-gray-100 border-opacity-10 border ">
 							<Link to={'/dashboard?tab=users'}>See all</Link>
 						</button>
@@ -169,7 +169,7 @@ export default function DashComponent() {
 								<Table.Body key={user._id} className="divide-y">
 									<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200 ">
 										<Table.Cell className="">
-											<div className="flex items-center justify-center">
+											<div className="flex items-center justify-start md:justify-center">
 												<img
 													src={user.profilePicture}
 													alt="user"
@@ -177,7 +177,7 @@ export default function DashComponent() {
 												/>
 											</div>
 										</Table.Cell>
-										<Table.Cell className="text-center">{user.username}</Table.Cell>
+										<Table.Cell className="text-center dark:text-light-100">{user.username}</Table.Cell>
 									</Table.Row>
 								</Table.Body>
 							))}
@@ -186,7 +186,7 @@ export default function DashComponent() {
 
 				<div className="flex flex-col w-full md:w-auto dark:shadow-none shadow-md !mt-2 rounded-lg  border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
 					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none ">
-						<h1 className=" text-center p-2">Recent Comments</h1>
+						<h1 className=" text-center p-2 dark:text-light-100">Recent Comments</h1>
 						<button className="!bg-gray-300 p-1 px-3 rounded-lg text-light-100 hover:underline  border-gray-100 border-opacity-10 border ">
 							<Link to={'/dashboard?tab=comments'}>See all</Link>
 						</button>
@@ -201,7 +201,7 @@ export default function DashComponent() {
 								<Table.Body key={comment._id} className="divide-y ">
 									<Table.Row className="  dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200">
 										<Table.Cell className="w-96">
-											<p className="line-clamp-2">{comment.content}</p>
+											<p className=" !line-clamp-2 md:!whitespace-normal dark:text-light-100">{comment.content}</p>
 										</Table.Cell>
 										<Table.Cell className="text-center">{comment.numberOfLikes}</Table.Cell>
 									</Table.Row>
@@ -212,7 +212,7 @@ export default function DashComponent() {
 
 				<div className="flex flex-col w-full md:w-auto shadow-md mt-2 rounded-lg border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
 					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none">
-						<h1 className=" text-center p-2">Recent Posts</h1>
+						<h1 className=" text-center p-2 dark:text-light-100">Recent Posts</h1>
 						<button className="!bg-gray-300 p-1 px-3 rounded-lg text-light-100 hover:underline  border-gray-100 border-opacity-10 border">
 							<Link to={'/dashboard?tab=posts'}>See all</Link>
 						</button>
@@ -231,11 +231,11 @@ export default function DashComponent() {
 											<img
 												src={post.contentImage}
 												alt="post"
-												className="w-20 h-12 object-cover rounded-lg bg-gray-500"
+												className="w-20 h-12 min-w-[5rem] min-h-[2.5rem] object-cover rounded-lg bg-gray-500"
 											/>
 										</Table.Cell>
-										<Table.Cell className="w-96 text-center">{post.title}</Table.Cell>
-										<Table.Cell className="w-5 text-center">{post.category}</Table.Cell>
+										<Table.Cell className="text-center dark:text-light-100  line-clamp-2 md:whitespace-normal  ">{post.title}</Table.Cell>
+										<Table.Cell className="text-center">{post.category}</Table.Cell>
 									</Table.Row>
 								</Table.Body>
 							))}
