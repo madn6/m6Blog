@@ -69,7 +69,7 @@ export default function Postpage() {
 	if (loading) {
 		return (
 			<div className="flex justify-center items-center min-h-screen">
-				<Spinner />
+				<Spinner size="md" color='gray'/>
 			</div>
 		);
 	}

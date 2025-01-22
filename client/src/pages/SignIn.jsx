@@ -80,7 +80,7 @@ export default function SignIn() {
 							<Button type="submit" className="focus:ring-0 mt-4 !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border" disabled={loading}>
 								{loading ? (
 									<>
-										<Spinner size="sm" />
+										<Spinner size="md" color='gray' />
 										<span className="pl-3">Loading...</span>
 									</>
 								) : (

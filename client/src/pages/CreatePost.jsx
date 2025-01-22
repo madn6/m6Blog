@@ -197,12 +197,25 @@ export default function CreatePost() {
 					theme="snow"
 					required
 					placeholder="write something comes in your mind..."
-					className="h-72 mb-12 dark:text-light-100"
+					className="h-72 mb-12 "
 					onChange={(value) => setFormData({ ...formData, content: value })}
 					ref={quillRef}
 				/>
-				<Button type="submit">Publish</Button>
-				{publishError && <Alert color="failure"> {publishError}</Alert>}
+				<Button
+					type="submit"
+					className="focus:ring-0 mt-4 !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border"
+				>
+					Publish
+				</Button>
+				{publishError && (
+					<Alert
+						color="failure"
+						className=" !text-red-400 focus:ring-0 !outline-none text-xs border !border-opacity-30 !border-red-600 !bg-red-600 !bg-opacity-20 p-3  rounded-lg"
+					>
+						{' '}
+						{publishError}
+					</Alert>
+				)}
 			</form>
 		</div>
 	);
