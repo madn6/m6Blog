@@ -203,7 +203,7 @@ export default function CreatePost() {
 				/>
 				<Button
 					type="submit"
-					className="focus:ring-0 mt-4 !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border"
+					className="focus:ring-0  !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border"
 				>
 					Publish
 				</Button>
