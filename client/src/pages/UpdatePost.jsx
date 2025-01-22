@@ -156,7 +156,7 @@ export default function UpdatePost() {
 	};
 
 	return (
-		<div className="min-h-screen p-3 max-w-3xl mx-auto">
+		<div className="min-h-screen p-3 my-3 max-w-3xl mx-auto">
 			<h1 className="text-center text-3xl my-7 font-semibold dark:text-white">Update Post</h1>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<div className="flex flex-col gap-4 sm:flex-row justify-between">
@@ -180,32 +180,56 @@ export default function UpdatePost() {
 						<option value="gpu">Gpu</option>
 					</Select>
 				</div>
-				<div className="flex gap-4 items-center justify-between border-4 border-dotted p-3">
+				<div className="flex gap-4 items-center justify-between border-2 border-gray-300 rounded-lg  p-3">
 					<FileInput
 						ref={fileInputRef}
 						accept="image/*"
 						onChange={(e) => setFile(e.target.files[0])}
 						typeof="file"
 					/>
-					<Button
+					<button
 						onClick={handleUploadImage}
 						type="button"
-						size="sm"
-						outline
 						disabled={imageUploadProgress}
+						className="!bg-gray-300 text-light-100  p-2 px-3 text-sm rounded-lg  border-gray-100 border-opacity-10 border"
 					>
 						{imageUploadProgress ? (
-							<div className="w-16 h-16">
+							<div className="relative w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
 								<CircularProgressbar
 									value={imageUploadProgress}
-									text={`${imageUploadProgress || 0}`}
-								></CircularProgressbar>
+									text={`${imageUploadProgress || 0}%`}
+									styles={{
+										path: {
+											stroke: `#a4a4a4` // Green for the progress path
+										},
+										trail: {
+											stroke: '#232323' // Lighter gray for the background trail
+										},
+										text: {
+											fill: 'currentColor', // Use Tailwind's `currentColor` to control via parent text class
+											fontSize: '20px', // Adjust font size
+											fontWeight: 'bold' // Make text bold
+										}
+									}}
+								/>
+								<style jsx>{`
+									:global(.circular-progressbar .CircularProgressbar-text) {
+										@apply text-gray-200 dark:text-gray-100;
+									}
+								`}</style>
 							</div>
 						) : (
 							'Upload image'
 						)}
-					</Button>
-					{imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
+					</button>
+					{imageUploadError && (
+						<Alert
+							color="failure"
+							className='className=" dark:!text-red-400 text-red-500 focus:ring-0 !outline-none text-xs border !border-opacity-30 !border-red-600 !bg-red-600 !bg-opacity-20 p-3  rounded-lg"'
+						>
+							{imageUploadError}
+						</Alert>
+					)}
 				</div>
 				<ReactQuill
 					theme="snow"
@@ -216,7 +240,12 @@ export default function UpdatePost() {
 					onChange={(value) => setFormData({ ...formData, content: value })}
 					ref={quillRef}
 				/>
-				<Button type="submit">Update</Button>
+				<Button
+					type="submit"
+					className="focus:ring-0  !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border"
+				>
+					Update
+				</Button>
 				{publishError && <Alert color="failure"> {publishError}</Alert>}
 			</form>
 		</div>

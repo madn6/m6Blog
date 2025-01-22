@@ -187,7 +187,7 @@ export default function CreatePost() {
 					{imageUploadError && (
 						<Alert
 							color="failure"
-							className=" !text-red-400 focus:ring-0 !outline-none text-xs border !border-opacity-30 !border-red-600 !bg-red-600 !bg-opacity-20 p-3  rounded-lg"
+							className=" dark:!text-red-400 text-red-500 focus:ring-0 !outline-none text-xs border !border-opacity-30 !border-red-600 !bg-red-600 !bg-opacity-20 p-3  rounded-lg"
 						>
 							{imageUploadError}
 						</Alert>

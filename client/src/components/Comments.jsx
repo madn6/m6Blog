@@ -71,19 +71,19 @@ export default function Comments({ comment, onLike, onEdit, onDelete }) {
 				{isEditing ? (
 					<>
 						<Textarea
-							className="w-full h-14 resize-none p-2 !text-light-100 bg-gray-200 rounded-md focus:outline-none focus:bg-gray-100"
+							className="w-full h-14 resize-none focus:ring-0  placeholder:!text-light-100 !bg-gray-300 !text-light-100 !border-opacity-10 !border-gray-100"
 							value={editedContent}
 							onChange={(e) => {
 								setEditedContent(e.target.value);
 							}}
 						/>
 						<div className="flex items-center justify-end gap-2 mt-2">
-							<Button onClick={handleSave} className="p-0 rounded-md" type="button" size="sm">
+							<Button onClick={handleSave} className="p-0 text-sm focus:ring-0  cursorpointe !bg-gray-300 text-light-100   border-gray-100 border-opacity-10 border  rounded-md" type="button" size="sm">
 								save
 							</Button>
 							<Button
 								onClick={() => setIsEditing(false)}
-								className="p-0 rounded-md"
+								className="p-0 text-sm focus:ring-0  cursorpointe !bg-gray-300 text-light-100   border-gray-100 border-opacity-10 border  rounded-md"
 								type="button "
 								size="sm"
 							>

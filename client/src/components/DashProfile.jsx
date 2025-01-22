@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getAuth, updateProfile, deleteUser } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
+import { IoMdAddCircle } from "react-icons/io";
+
 import {
 	updateStart,
 	updateSuccess,
@@ -270,19 +272,27 @@ export default function DashProfile() {
 					</button>
 					{currentUser.isAdmin && (
 						<Link to={'/create-post'}>
-							<button
-								type="button"
-								className="w-full p-3 text-sm rounded-lg hover:underline focus:ring-0 !bg-gray-300 text-light-100  border-gray-100 border-opacity-10 border "
-							>
-								Create a Post
-							</button>
+							<div className="flex gap-2 items-center justify-center w-full p-3 text-sm rounded-lg hover:underline focus:ring-0 !bg-gray-300 text-light-100  border-gray-100 border-opacity-10 border">
+								<button
+									type="button"
+									className=" "
+								>
+									Create a Post
+								</button>
+								<IoMdAddCircle className='w-5 h-5 text-green-100'/>
+								</div>
 						</Link>
 					)}
 				</div>
 			</form>
-			<div className="dark:text-light-100   text-gray-200  text-sm font-regular cursor-pointer flex justify-between mt-5">
-				<span onClick={() => setShowModal(true)} className='hover:underline'>Delete Account</span>
-				<span onClick={handleSignOut} className="dark:text-light-100 hover:underline  text-gray-200  cursor-pointer">
+			<div className="text-red-500  text-sm font-regular cursor-pointer flex justify-between mt-5">
+				<span onClick={() => setShowModal(true)} className="hover:underline">
+					Delete Account
+				</span>
+				<span
+					onClick={handleSignOut}
+					className="text-blue-500 hover:underline    cursor-pointer"
+				>
 					Sign Out
 				</span>
 			</div>
