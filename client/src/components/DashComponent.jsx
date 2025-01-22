@@ -95,8 +95,8 @@ export default function DashComponent() {
 							<h3 className="dark:text-light-100 text-md uppercase font-semibold">Total Users</h3>
 							<p className="text-2xl text-center dark:text-light-100">{totalUsers}</p>
 						</div>
-						<span>
-							<HiOutlineUserGroup className="bg-gray-300 text-white rounded-full text-5xl p-3 shadow-lg" />
+						<span className='text-cyan-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-cyan-600 bg-cyan-600 bg-opacity-20  rounded-full !shadow-lg'>
+							<HiOutlineUserGroup className="text-cyan-200 rounded-full text-5xl p-3 " />
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
@@ -116,8 +116,8 @@ export default function DashComponent() {
 							</h3>
 							<p className="text-2xl text-center dark:text-light-100">{totalComments}</p>
 						</div>
-						<span>
-							<HiAnnotation className="bg-gray-300 text-white rounded-full text-5xl p-3 shadow-lg" />
+						<span className='text-orange-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-orange-600 bg-orange-600 bg-opacity-20  rounded-full !shadow-lg'>
+							<HiAnnotation className="text-orange-200 rounded-full text-5xl p-3 " />
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
@@ -135,8 +135,8 @@ export default function DashComponent() {
 							<h3 className="dark:text-light-100 text-md uppercase font-semibold">Total Posts</h3>
 							<p className="text-2xl text-center dark:text-light-100">{totalPosts}</p>
 						</div>
-						<span>
-							<HiDocumentText className="bg-gray-300 text-white rounded-full text-5xl p-3 shadow-lg" />
+						<span className='text-pink-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-pink-600 bg-pink-600 bg-opacity-20  rounded-full !shadow-lg'>
+							<HiDocumentText className="text-pink-200 rounded-full text-5xl p-3 " />
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
@@ -177,7 +177,9 @@ export default function DashComponent() {
 												/>
 											</div>
 										</Table.Cell>
-										<Table.Cell className="text-center dark:text-light-100">{user.username}</Table.Cell>
+										<Table.Cell className="text-center dark:text-light-100">
+											{user.username}
+										</Table.Cell>
 									</Table.Row>
 								</Table.Body>
 							))}
@@ -201,7 +203,9 @@ export default function DashComponent() {
 								<Table.Body key={comment._id} className="divide-y ">
 									<Table.Row className="  dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200">
 										<Table.Cell className="w-96">
-											<p className=" !line-clamp-2 md:!whitespace-normal dark:text-light-100">{comment.content}</p>
+											<p className=" !line-clamp-2 md:!whitespace-normal dark:text-light-100">
+												{comment.content}
+											</p>
 										</Table.Cell>
 										<Table.Cell className="text-center">{comment.numberOfLikes}</Table.Cell>
 									</Table.Row>
@@ -234,7 +238,9 @@ export default function DashComponent() {
 												className="w-20 h-12 min-w-[5rem] min-h-[2.5rem] object-cover rounded-lg bg-gray-500"
 											/>
 										</Table.Cell>
-										<Table.Cell className="text-center dark:text-light-100  line-clamp-2 md:whitespace-normal  ">{post.title}</Table.Cell>
+										<Table.Cell className="text-center dark:text-light-100  line-clamp-2 md:whitespace-normal ">
+											{post.title}
+										</Table.Cell>
 										<Table.Cell className="text-center">{post.category}</Table.Cell>
 									</Table.Row>
 								</Table.Body>

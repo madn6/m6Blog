@@ -5,7 +5,6 @@ import { HiX, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Spinner } from 'flowbite-react';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 
-
 export default function DashComments() {
 	const { currentUser } = useSelector((state) => state.user);
 	console.log(currentUser);
@@ -103,20 +102,24 @@ export default function DashComments() {
 												{new Date(comment.updatedAt).toLocaleDateString('en-GB')}
 											</Table.Cell>
 											<Table.Cell>
-												<div className="text-start min-w-[200px]">{comment.content}</div>
+												<div className="text-start dark:text-light-100  min-w-[200px]">
+													{comment.content}
+												</div>
 											</Table.Cell>
 											<Table.Cell className=" text-center ">{comment.numberOfLikes}</Table.Cell>
 											<Table.Cell className=" text-center ">{comment.postId}</Table.Cell>
 											<Table.Cell className=" text-center">{comment.userId}</Table.Cell>
 											<Table.Cell>
 												<span className="flex items-center justify-center">
-													<RiDeleteBin6Fill
-														onClick={() => {
-															setShowModal(true);
-															setCommentToDelete(comment._id);
-														}}
-														className="dark:text-light-100  text-gray-200   hover:scale-110 cursor-pointer w-4 h-4"
-													/>
+													<span className='text-red-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-2  rounded-md'>
+														<RiDeleteBin6Fill
+															onClick={() => {
+																setShowModal(true);
+																setCommentToDelete(comment._id);
+															}}
+															className="text-red-400   hover:scale-110 cursor-pointer w-4 h-4"
+														/>
+													</span>
 												</span>
 											</Table.Cell>
 										</Table.Row>

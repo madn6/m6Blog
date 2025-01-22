@@ -118,26 +118,38 @@ export default function DashUsers() {
 											/>
 										</div>
 									</Table.Cell>
-									<Table.Cell className="text-center ">{user.username}</Table.Cell>
+									<Table.Cell className="text-center dark:text-light-100">
+										{user.username}
+									</Table.Cell>
 									<Table.Cell className="text-center ">{user.email}</Table.Cell>
 									<Table.Cell className="text-center">
 										<div className="flex items-center justify-center ">
 											{user.isAdmin ? (
-												<FaCheck className="dark:text-light-100  text-gray-200   hover:scale-110 cursor-pointer w-4 h-4" />
+												<>
+													<span className=''>
+														<FaCheck className="text-green-500    w-4 h-4" />
+													</span>
+												</>
 											) : (
-												<FaTimes className="dark:text-light-100  text-gray-200   hover:scale-110 cursor-pointer w-4 h-4" />
+												<>
+													<span className="">
+														<FaTimes className="text-red-500  w-4 h-4" />
+													</span>
+												</>
 											)}
 										</div>
 									</Table.Cell>
 									<Table.Cell>
-										<span className="flex items-center justify-center">
+										<span className="flex items-center justify-center" >
+											<span className='text-red-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-2  rounded-md'>
 											<TiUserDelete
 												onClick={() => {
 													setShowModal(true);
 													setUserToDelete(user._id);
 												}}
-												className="dark:text-light-100  text-gray-200   hover:scale-110 cursor-pointer w-5 h-5"
+												className="text-red-400  hover:scale-110 cursor-pointer w-5 h-5"
 											/>
+											</span>
 										</span>
 									</Table.Cell>
 								</Table.Row>

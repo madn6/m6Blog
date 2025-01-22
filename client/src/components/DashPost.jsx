@@ -141,7 +141,7 @@ export default function DashPost() {
 											<Table.Cell className="text-center ">
 												<Link
 													to={`/post/${post.slug}`}
-													className=" line-clamp-2 md:whitespace-normal "
+													className=" line-clamp-2 md:whitespace-normal dark:text-light-100"
 												>
 													{post.title}
 												</Link>
@@ -149,21 +149,25 @@ export default function DashPost() {
 											<Table.Cell className="text-center">{post.category}</Table.Cell>
 											<Table.Cell>
 												<span className="flex items-center justify-center">
-													<RiDeleteBin6Fill
-														onClick={() => {
-															setShowModal(true);
-															setPostIdToDelete(post._id);
-														}}
-														className="dark:text-light-100  text-gray-200   hover:scale-110 cursor-pointer w-4 h-4"
-													/>
+													<span className="text-red-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-red-600 bg-red-600 bg-opacity-20 p-2  rounded-md">
+														<RiDeleteBin6Fill
+															onClick={() => {
+																setShowModal(true);
+																setPostIdToDelete(post._id);
+															}}
+															className="text-red-400 hover:scale-110 cursor-pointer w-4 h-4"
+														/>
+													</span>
 												</span>
 											</Table.Cell>
 											<Table.Cell>
 												<Link
-													className="dark:text-light-100  text-gray-200 flex items-center justify-center "
+													className=" flex items-center justify-center "
 													to={`/update-post/${post._id}`}
 												>
-													<AiFillEdit className="hover:scale-110 cursor-pointer w-4 h-4" />
+													<span className='text-green-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-green-600 bg-green-600 bg-opacity-20 p-2  rounded-md'>
+														<AiFillEdit className="hover:scale-110 text-green-400 cursor-pointer w-4 h-4" />
+													</span>
 												</Link>
 											</Table.Cell>
 										</Table.Row>
