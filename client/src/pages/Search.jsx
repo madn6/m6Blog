@@ -42,16 +42,25 @@ export default function Search() {
 					sort: sortFromUrl,
 					category: categoryFromUrl
 				}).toString();
-				console.log('Fetch query:', query); // Log the query string
+
 				const res = await fetch(`/api/post/getposts?${query}`);
 				if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
 				const data = await res.json();
-				const processedPosts = data.posts.map((post) => {
+
+				// Sort posts manually if the backend response doesn't guarantee the order
+				let processedPosts = data.posts.map((post) => {
 					const imgTagMatch = post.content.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
 					const contentImage = imgTagMatch ? imgTagMatch[1] : post.image;
 					return { ...post, contentImage };
 				});
+
+				// Sort based on the 'sortFromUrl' value
+				if (sortFromUrl === 'asc') {
+					processedPosts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // Oldest first
+				} else {
+					processedPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Latest first
+				}
 
 				setPosts(processedPosts);
 				setShowMore(processedPosts.length === 9);
@@ -146,11 +155,13 @@ export default function Search() {
 					<div className="flex flex-col items-center gap-2">
 						<label className="dark:text-white whitespace-nowrap font-regular">Category</label>
 						<Select value={sidebarData.category} id="category" onChange={handleChange}>
-							<option value="uncategorized">uncategorized</option>
-							<option value="ai">Ai</option>
+							<option value="uncatogorized">Select a category</option>
+							<option value="ai">AI</option>
 							<option value="dogs">Dogs</option>
 							<option value="mobile">Mobile</option>
-							<option value="gpu">Gpu</option>
+							<option value="food">Food</option>
+							<option value="gaming">Gaming</option>
+							<option value="cinema">Cinema</option>
 						</Select>
 					</div>
 					<Button type="submit">Apply Filters</Button>
@@ -160,7 +171,7 @@ export default function Search() {
 				<h1 className="text-3xl dark:text-white font-semibold sm:border-b border-gray-500 p-3 mt-5">
 					Posts results
 				</h1>
-				<div className="p-7 flex flex-wrap justify-center gap-4">
+				<div className="p-7 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 my-4">
 					{loading && <p className="text-xl text-gray-500">Loading...</p>}
 					{!loading && posts.length === 0 && (
 						<p className="text-xl text-gray-500">No posts found.</p>
