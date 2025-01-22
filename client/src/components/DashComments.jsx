@@ -117,7 +117,7 @@ export default function DashComments() {
 																setShowModal(true);
 																setCommentToDelete(comment._id);
 															}}
-															className="text-red-400   hover:scale-110 cursor-pointer w-4 h-4"
+															className="dark:text-red-400 text-red-500    hover:scale-110 cursor-pointer w-4 h-4"
 														/>
 													</span>
 												</span>

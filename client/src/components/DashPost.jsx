@@ -155,7 +155,7 @@ export default function DashPost() {
 																setShowModal(true);
 																setPostIdToDelete(post._id);
 															}}
-															className="text-red-400 hover:scale-110 cursor-pointer w-4 h-4"
+															className="dark:text-red-400 text-red-500 hover:scale-110 cursor-pointer w-4 h-4"
 														/>
 													</span>
 												</span>
@@ -166,7 +166,7 @@ export default function DashPost() {
 													to={`/update-post/${post._id}`}
 												>
 													<span className='text-green-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-green-600 bg-green-600 bg-opacity-20 p-2  rounded-md'>
-														<AiFillEdit className="hover:scale-110 text-green-400 cursor-pointer w-4 h-4" />
+														<AiFillEdit className="hover:scale-110 dark:text-green-400 text-green-500 cursor-pointer w-4 h-4" />
 													</span>
 												</Link>
 											</Table.Cell>

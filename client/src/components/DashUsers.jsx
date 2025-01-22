@@ -147,7 +147,7 @@ export default function DashUsers() {
 													setShowModal(true);
 													setUserToDelete(user._id);
 												}}
-												className="text-red-400  hover:scale-110 cursor-pointer w-5 h-5"
+												className="dark:text-red-400 text-red-500  hover:scale-110 cursor-pointer w-5 h-5"
 											/>
 											</span>
 										</span>

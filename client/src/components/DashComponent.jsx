@@ -96,7 +96,7 @@ export default function DashComponent() {
 							<p className="text-2xl text-center dark:text-light-100">{totalUsers}</p>
 						</div>
 						<span className='text-cyan-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-cyan-600 bg-cyan-600 bg-opacity-20  rounded-full !shadow-lg'>
-							<HiOutlineUserGroup className="text-cyan-200 rounded-full text-5xl p-3 " />
+							<HiOutlineUserGroup className="dark:text-cyan-200 text-cyan-500 rounded-full text-5xl p-3 " />
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
@@ -117,7 +117,7 @@ export default function DashComponent() {
 							<p className="text-2xl text-center dark:text-light-100">{totalComments}</p>
 						</div>
 						<span className='text-orange-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-orange-600 bg-orange-600 bg-opacity-20  rounded-full !shadow-lg'>
-							<HiAnnotation className="text-orange-200 rounded-full text-5xl p-3 " />
+							<HiAnnotation className="dark:text-orange-200 text-orange-500  rounded-full text-5xl p-3 " />
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
@@ -136,7 +136,7 @@ export default function DashComponent() {
 							<p className="text-2xl text-center dark:text-light-100">{totalPosts}</p>
 						</div>
 						<span className='text-pink-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-pink-600 bg-pink-600 bg-opacity-20  rounded-full !shadow-lg'>
-							<HiDocumentText className="text-pink-200 rounded-full text-5xl p-3 " />
+							<HiDocumentText className="dark:text-pink-200 text-pink-500 rounded-full text-5xl p-3 " />
 						</span>
 					</div>
 					<div className="flex gap-2 text-sm self-center">
