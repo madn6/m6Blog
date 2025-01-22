@@ -66,7 +66,7 @@ export default function Header() {
 						type="text"
 						value={searchTerm}
 						placeholder="Search..."
-						className=" w-full p-2 hidden md:inline bg-gray-200   text-[#a4a4a4] placeholder-[#a4a4a4] rounded-md border-none focus:ring-0 focus:outline-none"
+						className=" w-full p-2 hidden md:inline bg-gray-200   text-[#a4a4a4] placeholder-[#a4a4a4] rounded-md  focus:ring-0 focus:outline-none"
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 					<AiOutlineSearch className="absolute  hidden md:inline right-3 text-[#a4a4a4]" />

@@ -132,12 +132,13 @@ export default function Search() {
 	};
 
 	return (
-		<div className="flex flex-col md:flex-row">
-			<div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-					<div className="flex flex-col items-center gap-2">
-						<label className="dark:text-white whitespace-nowrap font-semibold">Search Term</label>
-						<TextInput
+		<div className="flex flex-col min-h-screen md:flex-row">
+			<div className="p-4 border-b md:border-r md:min-h-screen dark:border-gray-200 border-gray-200 border-opacity-50">
+				<form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center justify-center ">
+					<div className="flex flex-col items-start gap-1 w-44">
+						<label className="dark:text-light-100 whitespace-nowrap ">Search Term</label>
+						<input
+							className='w-full bg-gray-200   text-[#a4a4a4] placeholder-[#a4a4a4] rounded-md focus:ring-0 focus:outline-none'
 							onChange={handleChange}
 							value={sidebarData.SearchTerm || ''} // Make sure value is bound correctly
 							placeholder="Search..."
@@ -145,16 +146,16 @@ export default function Search() {
 							type="text"
 						/>
 					</div>
-					<div className="flex flex-col items-center gap-2">
-						<label className="dark:text-white whitespace-nowrap font-regular">Sort</label>
-						<Select value={sidebarData.sort} id="sort" onChange={handleChange}>
+					<div className="flex flex-col items-start  gap-1 w-44  ">
+						<label className="dark:text-light-100 whitespace-nowrap font-regular">Sort</label>
+						<Select value={sidebarData.sort} id="sort" onChange={handleChange} className='w-full'>
 							<option value="desc">Latest</option>
 							<option value="asc">Oldest</option>
 						</Select>
 					</div>
-					<div className="flex flex-col items-center gap-2">
-						<label className="dark:text-white whitespace-nowrap font-regular">Category</label>
-						<Select value={sidebarData.category} id="category" onChange={handleChange}>
+					<div className="flex flex-col items-start gap-1 w-44">
+						<label className="dark:text-light-100 whitespace-nowrap font-regular">Category</label>
+						<Select value={sidebarData.category} id="category" onChange={handleChange} className='w-full'>
 							<option value="uncatogorized">Select a category</option>
 							<option value="ai">AI</option>
 							<option value="dogs">Dogs</option>
@@ -164,14 +165,14 @@ export default function Search() {
 							<option value="cinema">Cinema</option>
 						</Select>
 					</div>
-					<Button type="submit">Apply Filters</Button>
+					<Button type="submit" className='focus:ring-0 w-44  !bg-gray-300 text-light-100 hover:underline border-gray-100 border-opacity-10 border'>Apply Filters</Button>
 				</form>
 			</div>
 			<div className="w-full">
-				<h1 className="text-3xl dark:text-white font-semibold sm:border-b border-gray-500 p-3 mt-5">
+				<h1 className="text-3xl dark:text-light-100 font-semibold sm:border-b dark:border-gray-200 border-gray-200 border-opacity-50 p-4">
 					Posts results
 				</h1>
-				<div className="p-7 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 my-4">
+				<div className="md:p-7 px-4 pb-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
 					{loading && <p className="text-xl text-gray-500">Loading...</p>}
 					{!loading && posts.length === 0 && (
 						<p className="text-xl text-gray-500">No posts found.</p>
