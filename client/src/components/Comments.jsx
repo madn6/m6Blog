@@ -57,7 +57,7 @@ export default function Comments({ comment, onLike, onEdit, onDelete }) {
 	};
 
 	return (
-		<div className="dark:text-light-100 flex gap-2 items-center p-2 border-b !border-opacity-20 dark:border-gray-300">
+		<div className="dark:text-light-100 flex gap-2 items-center p-2 border-b dark:!border-opacity-30 !border-opacity-10 border-gray-200 dark:border-gray-300">
 			<div className="w-10 h-10 flex-shrink-0">
 				<img className="rounded-full object-cover" src={user.profilePicture} alt={user.username} />
 			</div>

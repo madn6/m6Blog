@@ -101,8 +101,8 @@ export default function Home() {
 						<div className="" ref={lottieRef}></div>
 					</div>
 				</div>
-				<div className="border-t border-2 dark:border-gray-300 opacity-10 mx-[3%] lg:max-w-6xl md:max-w-4xl my-6"></div>
-				<div className="px-2 flex flex-col">
+				{/* <div className="border-t border-2 dark:!border-opacity-30 !border-opacity-10 border-gray-200 dark:border-gray-300 mx-[3%] lg:max-w-6xl md:max-w-4xl my-6"></div> */}
+				<div className="px-2 mt-12 flex flex-col">
 					{loading ? (
 						<div className="flex justify-center items-center mt-12">
 							<Spinner color="gray" size="md" />

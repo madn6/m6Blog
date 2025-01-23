@@ -67,7 +67,7 @@ export default function DashComponent() {
 
 		const fetchComments = async () => {
 			try {
-				const res = await fetch('/api/comment/getcomments?limit=5');
+				const res = await fetch('/api/comment/getcomments?limit=5&sort=desc');
 				if (!res.ok) {
 					console.error(`Comments Fetch Error: ${res.status}`);
 					return;
@@ -95,7 +95,7 @@ export default function DashComponent() {
 							<h3 className="dark:text-light-100 text-md uppercase font-semibold">Total Users</h3>
 							<p className="text-2xl text-center dark:text-light-100">{totalUsers}</p>
 						</div>
-						<span className='text-cyan-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-cyan-600 bg-cyan-600 bg-opacity-20  rounded-full !shadow-lg'>
+						<span className="text-cyan-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-cyan-600 bg-cyan-600 bg-opacity-20  rounded-full !shadow-lg">
 							<HiOutlineUserGroup className="dark:text-cyan-200 text-cyan-500 rounded-full text-5xl p-3 " />
 						</span>
 					</div>
@@ -116,7 +116,7 @@ export default function DashComponent() {
 							</h3>
 							<p className="text-2xl text-center dark:text-light-100">{totalComments}</p>
 						</div>
-						<span className='text-orange-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-orange-600 bg-orange-600 bg-opacity-20  rounded-full !shadow-lg'>
+						<span className="text-orange-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-orange-600 bg-orange-600 bg-opacity-20  rounded-full !shadow-lg">
 							<HiAnnotation className="dark:text-orange-200 text-orange-500  rounded-full text-5xl p-3 " />
 						</span>
 					</div>
@@ -135,7 +135,7 @@ export default function DashComponent() {
 							<h3 className="dark:text-light-100 text-md uppercase font-semibold">Total Posts</h3>
 							<p className="text-2xl text-center dark:text-light-100">{totalPosts}</p>
 						</div>
-						<span className='text-pink-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-pink-600 bg-pink-600 bg-opacity-20  rounded-full !shadow-lg'>
+						<span className="text-pink-400 focus:ring-0 outline-none text-xs border border-opacity-30 border-pink-600 bg-pink-600 bg-opacity-20  rounded-full !shadow-lg">
 							<HiDocumentText className="dark:text-pink-200 text-pink-500 rounded-full text-5xl p-3 " />
 						</span>
 					</div>
@@ -148,28 +148,29 @@ export default function DashComponent() {
 					</div>
 				</div>
 			</div>
+
 			{/* bottom */}
-			<div className="flex flex-wrap gap-4 py-3 mx-auto justify-center">
-				<div className="flex flex-col w-full md:w-auto dark:shadow-none shadow-md mt-2 rounded-lg  border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
+			<div className="flex flex-wrap gap-4 py-3  mx-auto justify-center">
+				<div className="flex flex-col w-full  md:w-auto dark:shadow-none shadow-md mt-2 rounded-lg  border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
 					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none ">
 						<h1 className="text-center dark:text-light-100 p-2">Recent Users</h1>
 						<button className="!bg-gray-300 p-1 px-3 rounded-lg text-light-100 hover:underline  border-gray-100 border-opacity-10 border ">
 							<Link to={'/dashboard?tab=users'}>See all</Link>
 						</button>
 					</div>
-					<Table>
+					<Table className=''>
 						<Table.Head className="">
-							<Table.HeadCell className="!rounded-none">User image</Table.HeadCell>
+							<Table.HeadCell className="!rounded-none text-center">User image</Table.HeadCell>
 							<Table.HeadCell className="!rounded-none  flex items-center justify-center">
 								Username
 							</Table.HeadCell>
 						</Table.Head>
 						{users &&
 							users.map((user) => (
-								<Table.Body key={user._id} className="divide-y">
+								<Table.Body key={user._id} className="divide-y ">
 									<Table.Row className=" dark:bg-gray-200 dark:hover:!bg-gray-300 dark:hover:!bg-opacity-30   hover:!bg-gray-300 hover:!bg-opacity-10 dark:!text-gray-100 text-gray-200 ">
 										<Table.Cell className="">
-											<div className="flex items-center justify-start md:justify-center">
+											<div className="flex items-center justify-center">
 												<img
 													src={user.profilePicture}
 													alt="user"
@@ -186,8 +187,8 @@ export default function DashComponent() {
 					</Table>
 				</div>
 
-				<div className="flex flex-col w-full md:w-auto dark:shadow-none shadow-md !mt-2 rounded-lg  border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
-					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none ">
+				<div className="flex flex-col w-full md:w-auto shadow-md dark:bg-gray-200 mt-2 rounded-lg border border-gray-300 dark:border-none dark:border-opacity-0 border-opacity-20">
+					<div className="flex justify-between p-3 text-sm font-medium dark:bg-gray-200 rounded-lg rounded-b-none">
 						<h1 className=" text-center p-2 dark:text-light-100">Recent Comments</h1>
 						<button className="!bg-gray-300 p-1 px-3 rounded-lg text-light-100 hover:underline  border-gray-100 border-opacity-10 border ">
 							<Link to={'/dashboard?tab=comments'}>See all</Link>
