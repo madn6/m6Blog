@@ -1,33 +1,17 @@
+import { useSelector } from 'react-redux';
+
 export default function About() {
+	const theme = useSelector((state) => state.theme.theme); // Access current theme from Redux
+
 	return (
-		<div className="min-h-screen flex items-center justify-center">
-			<div className="max-w-2xl  mx-auto text-center p-3">
-				<div className="dark:text-white">
-					<h1 className="text-3xl font font-semibold text-center my-7 ">About Mathan&apos;s blog</h1>
-					<div className="text-md text-gray-500 flex flex-col group-6">
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique porro voluptas
-							voluptates dolore aliquid nisi voluptatibus assumenda inventore odit itaque, aperiam
-							recusandae maxime, modi omnis praesentium. Quod voluptate culpa similique blanditiis
-							a, accusamus laudantium distinctio tenetur nisi tempora doloremque ab dolor est veniam
-							officia odio totam cum modi sit ad!
-						</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique porro voluptas
-							voluptates dolore aliquid nisi voluptatibus assumenda inventore odit itaque, aperiam
-							recusandae maxime, modi omnis praesentium. Quod voluptate culpa similique blanditiis
-							a, accusamus laudantium distinctio tenetur nisi tempora doloremque ab dolor est veniam
-							officia odio totam cum modi sit ad!
-						</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique porro voluptas
-							voluptates dolore aliquid nisi voluptatibus assumenda inventore odit itaque, aperiam
-							recusandae maxime, modi omnis praesentium. Quod voluptate culpa similique blanditiis
-							a, accusamus laudantium distinctio tenetur nisi tempora doloremque ab dolor est veniam
-							officia odio totam cum modi sit ad!
-						</p>
-					</div>
-				</div>
+		<div className="min-h-screen md:p-6 p-4">
+			<div className="text-center font-medium dark:text-light-100 lg:text-5xl md:text-3xl text-xl">About this Blog</div>
+			<div className="flex items-center justify-center">
+				<img
+					className="lg:max-w-[900px] md:max-w-[600px] max-w-[400px]"
+					src={theme === 'light' ? '/images/logic-chart.webp' : '/images/logic-chart1.webp'}
+					alt="Logic chart"
+				/>
 			</div>
 		</div>
 	);
