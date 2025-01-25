@@ -142,7 +142,7 @@ export default function Header() {
 							About
 						</Link>
 					</div>
-					<div
+					{/* <div
 						className={`block py-2 pl-3 rounded-sm pr-4 md:p-0 ${
 							path === '/projects'
 								? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border'
@@ -152,7 +152,7 @@ export default function Header() {
 						<Link to="/projects" onClick={() => setOpen(false)}>
 							Projects
 						</Link>
-					</div>
+					</div> */}
 				</div>
 			</div>
 
@@ -180,7 +180,7 @@ export default function Header() {
 						About
 					</Link>
 				</div>
-				<div
+				{/* <div
 					className={`block py-2 pl-3 rounded-sm pr-4  ${
 						path === '/projects'
 							? 'text-[#f6f6f6] bg-gray-200 border-gray-300 border '
@@ -190,7 +190,7 @@ export default function Header() {
 					<Link to="/projects" onClick={() => setOpen(false)}>
 						Projects
 					</Link>
-				</div>
+				</div> */}
 			</div>
 		</Navbar>
 	);

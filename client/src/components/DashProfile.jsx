@@ -279,7 +279,7 @@ export default function DashProfile() {
 								>
 									Create a Post
 								</button>
-								<IoMdAddCircle className='w-5 h-5 text-green-100'/>
+								<IoMdAddCircle className='w-5 h-5 text-light-100'/>
 								</div>
 						</Link>
 					)}
